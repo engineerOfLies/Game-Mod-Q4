@@ -425,7 +425,7 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 			}
 
 
-	
+			gameLocal.Printf("something\n");
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
 				Attack ( true, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );

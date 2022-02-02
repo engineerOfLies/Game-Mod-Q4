@@ -2830,8 +2830,9 @@ void rvWeapon::Hitscan( const idDict& dict, const idVec3& muzzleOrigin, const id
 #endif
 			//RAVEN END
 		}
-		dir.Normalize();
 
+		//------
+		dir.Normalize();
 		gameLocal.HitScan( dict, muzzleOrigin, dir, fxOrigin, owner, false, 1.0f, NULL, areas );
 
 		if ( gameLocal.isServer ) {
