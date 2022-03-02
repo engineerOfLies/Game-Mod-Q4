@@ -725,6 +725,125 @@ void Cmd_Kill_f( const idCmdArgs &args ) {
 	}
 }
 
+//MY CODE
+//MY Cmd_test_f CODE
+void Cmd_test_f(const idCmdArgs& args) {
+	common->Printf("Test Command Works \n");
+}
+
+//Need a command to start the game
+//This will bring up the buy menu and start the first phase - the buy phase
+//This also sets all conditions backt to their starting values
+void Cmd_start_f(const idCmdArgs& args) {
+	common->Printf("Game Started \n");
+	//do all the initial variable setup
+	//bound to the same key is blah blah
+	common->Printf("Once ready to move on press KEYBIND to enter the buy phase \n");
+}
+
+//Command to go into the first phase - the buy phase
+void Cmd_phaseOne_f(const idCmdArgs& args) {
+	common->Printf("Buy Phase Begeins \n");
+	common->Printf("Buy your units, you start with 10 Gold \n");
+	common->Printf("Each Unit is 1 Gold \n");
+	common->Printf("Once ready to move on press KEYBIND to enter the placement phase \n");
+}
+
+//Command to go into the second phase - the placement phase
+void Cmd_phaseTwo_f(const idCmdArgs& args) {
+	common->Printf("Buy Phase Over \n");
+	common->Printf("Place Your Units \n");
+}
+
+//list to keep track of all player spawned shit
+idEntity* spawnedEnts[10];
+int currentlySpawned = 0;
+
+//spawns marine woohoo
+//literally a copy pasted spawn function but with a limit
+//also adds the entity id to the list of spawned entities.
+int Marine_Ammo = 5;
+void spawnMarine(const idCmdArgs& args) {
+#ifndef _MPBETA
+	const char* key, * value;
+	int			i;
+	float		yaw;
+	idVec3		org;
+	idPlayer* player;
+	idDict		dict;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk(false)) {
+		return;
+	}
+
+	if (args.Argc() & 1) {	// must always have an even number of arguments
+		gameLocal.Printf("usage: spawn classname [key/value pairs]\n");
+		return;
+	}
+	//MY CODE
+	//The method of using inventory ammo breaks
+	if ((Marine_Ammo < 1) && (currentlySpawned > 9)) {
+		return;
+	}
+	if (Marine_Ammo < 1) {
+		return;
+	}
+	Marine_Ammo = Marine_Ammo - 1;
+	currentlySpawned = currentlySpawned + 1;
+	gameLocal.Printf("Current Marine Ammo:  '%d'\n", Marine_Ammo);
+	gameLocal.Printf("Current Entities Spawned:  '%d'\n", Marine_Ammo);
+	//END MY CODE
+	yaw = player->viewAngles.yaw;
+
+	value = args.Argv(1);
+
+	dict.Set("classname", value);
+	dict.Set("angle", va("%f", yaw + 180));
+
+	org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+	dict.Set("origin", org.ToString());
+
+	for (i = 2; i < args.Argc() - 1; i += 2) {
+
+		key = args.Argv(i);
+		value = args.Argv(i + 1);
+
+		dict.Set(key, value);
+	}
+
+	// RAVEN BEGIN
+	// kfuller: want to know the name of the entity I spawned
+	idEntity* newEnt = NULL;
+	gameLocal.SpawnEntityDef(dict, &newEnt);
+
+	if (newEnt) {
+		gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+		gameLocal.Printf("entity number '%d'\n", newEnt->entityNumber);
+		//my code
+		spawnedEnts[currentlySpawned - 1] = newEnt;
+		for (i = 0; i < currentlySpawned; i++) {
+			gameLocal.Printf("All entities:  '%s'\n", spawnedEnts[i]->name.c_str());
+		}
+		//end my code
+	}
+	// RAVEN END
+#endif // !_MPBETA
+}
+
+//Will remove the most recently PLAYER spawned entity
+void Cmd_removeSpawn(const idCmdArgs& args) {
+	idEntity* ent = spawnedEnts[currentlySpawned-1];
+	if (!ent) {
+		gameLocal.Printf("entity not found\n");
+		return;
+	}
+	delete ent;
+	currentlySpawned = currentlySpawned - 1;
+}
+//END MY CODE
+
+
 // RAVEN BEGIN
 // bdube: jump points
 /*
@@ -1110,6 +1229,7 @@ void Cmd_Trigger_f( const idCmdArgs &args ) {
 Cmd_Spawn_f
 ===================
 */
+
 void Cmd_Spawn_f( const idCmdArgs &args ) {
 #ifndef _MPBETA
 	const char *key, *value;
@@ -1131,7 +1251,8 @@ void Cmd_Spawn_f( const idCmdArgs &args ) {
 
 	yaw = player->viewAngles.yaw;
 
-	value = args.Argv( 1 );
+	value = args.Argv(1);
+
 	dict.Set( "classname", value );
 	dict.Set( "angle", va( "%f", yaw + 180 ) );
 
@@ -3072,12 +3193,30 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "notarget",				Cmd_Notarget_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"disables the player as a target" );
 	cmdSystem->AddCommand( "noclip",				Cmd_Noclip_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"disables collision detection for the player" );
 	cmdSystem->AddCommand( "kill",					Cmd_Kill_f,					CMD_FL_GAME,				"kills the player" );
+	//MY CODE
+	//my test
+	cmdSystem->AddCommand( "test",					Cmd_test_f,					CMD_FL_GAME,				"writes test to console" );
+	
+	//phases
+	cmdSystem->AddCommand( "startMod",				Cmd_start_f,				CMD_FL_GAME,				"starts the mod game" );
+	cmdSystem->AddCommand( "startPhaseOne",			Cmd_phaseOne_f,				CMD_FL_GAME,				"starts the buy phase" );
+	cmdSystem->AddCommand( "startPhaseTwo",			Cmd_phaseTwo_f,				CMD_FL_GAME,				"starts the placement phase" );
+	
+	//Spawning Entities
+	cmdSystem->AddCommand("spawnMarine", spawnMarine, CMD_FL_GAME | CMD_FL_CHEAT, "spawns a marine", idCmdSystem::ArgCompletion_Decl<DECL_ENTITYDEF>);
+
+	//Removing Entitites
+	cmdSystem->AddCommand("removeRecent", Cmd_removeSpawn, CMD_FL_GAME | CMD_FL_CHEAT, "spawns a marine");
+
+	//END MY CODE
 	cmdSystem->AddCommand( "where",					Cmd_GetViewpos_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"prints the current view position" );
 	cmdSystem->AddCommand( "getviewpos",			Cmd_GetViewpos_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"prints the current view position" );
 	cmdSystem->AddCommand( "setviewpos",			Cmd_SetViewpos_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"sets the current view position" );
 	cmdSystem->AddCommand( "teleport",				Cmd_Teleport_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"teleports the player to an entity location", idGameLocal::ArgCompletion_EntityName );
 	cmdSystem->AddCommand( "trigger",				Cmd_Trigger_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"triggers an entity", idGameLocal::ArgCompletion_EntityName );
 	cmdSystem->AddCommand( "spawn",					Cmd_Spawn_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"spawns a game entity", idCmdSystem::ArgCompletion_Decl<DECL_ENTITYDEF> );
+
+	
 	cmdSystem->AddCommand( "damage",				Cmd_Damage_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"apply damage to an entity", idGameLocal::ArgCompletion_EntityName );
 	cmdSystem->AddCommand( "remove",				Cmd_Remove_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"removes an entity", idGameLocal::ArgCompletion_EntityName );
 	cmdSystem->AddCommand( "killMonsters",			Cmd_KillMonsters_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"removes all monsters" );

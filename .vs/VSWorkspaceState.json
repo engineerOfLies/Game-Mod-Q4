@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\game"
+    "\\game",
+    "\\game\\gamesys",
+    "\\game\\weapon"
   ],
-  "SelectedNode": "\\game\\Game_local.cpp",
   "PreviewInSolutionExplorer": false
 }
