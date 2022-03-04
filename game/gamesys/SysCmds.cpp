@@ -725,11 +725,44 @@ void Cmd_Kill_f( const idCmdArgs &args ) {
 	}
 }
 
-//MY CODE
-//MY Cmd_test_f CODE
-void Cmd_test_f(const idCmdArgs& args) {
-	common->Printf("Test Command Works \n");
+//MY CODE MY CODE
+void Cmd_help_f(const idCmdArgs& args) {
+	common->Printf("Help Menu \n");
+	common->Printf("Welcome to my game mod for IT266 \n");
+	common->Printf("The Game works as follows \n\n");
+	common->Printf("Each round You will buy and place units that will then be used to attack AI units.\n");
+	common->Printf("Whatever side has units alive at the end of the round will be the winner \n\n");
+	common->Printf("There are 3 phases. Buy Phase, Placement Phase, and Game Phase \n");
+	common->Printf("During the buy phase you will spend gold in order to buy and upgrade your units\n");
+	common->Printf("You start with 5 gold and each round you will be given 5 gold \n");
+	common->Printf("Units cost 1 gold a piece and cost 3 gold to upgrade \n");
+	common->Printf("You can buy units by using the buy menu (pressing b when the game starts) \n");
+	common->Printf("Once you have finished buying everything press KEY to go to the placement phase \n\n");
+	common->Printf("During the placement phase you will place the units you've purchased\n");
+	common->Printf("Using the I key you can place Marines \n");
+	common->Printf("Using the O key you can place Marine Techs \n");
+	common->Printf("Using the P key you can place Marines Medics \n");
+	common->Printf("Using the K key you can place Marines Hyperblasters \n");
+	common->Printf("Using the L key you can place Marines Shotgunners \n");
+	common->Printf("Using the N key you can undo your most recent placement \n");
+	common->Printf("You must also only spawn units on your half of the platform. Anywhere else and they will not spawn \n");
+	common->Printf("Once you have finished placing everything press KEY to go to the Game phase \n\n");
+	common->Printf("The Game phase is where the action takes place. Just stand by and watch the units do their thing \n");
+	common->Printf("Once either side has ran out of living units press the KEY to enter the buy phase \n\n");
+	common->Printf("Depending on if you win the round or not you will score a point. If you reach 3 points you win, if the AI reaches 3 points you lose \n");
 }
+
+//my variables
+//Ammo for spawnable units
+int Marine_Ammo;
+int MarineTech_Ammo;
+int MarineMedic_Ammo;
+int MarineHyperblaster_Ammo;
+int MarineShotgun_Ammo;
+//list to keep track of all player spawned shit
+idEntity* spawnedEnts[10];
+int spawnedEntTypes[10];
+int currentlySpawned;
 
 //Need a command to start the game
 //This will bring up the buy menu and start the first phase - the buy phase
@@ -737,6 +770,12 @@ void Cmd_test_f(const idCmdArgs& args) {
 void Cmd_start_f(const idCmdArgs& args) {
 	common->Printf("Game Started \n");
 	//do all the initial variable setup
+	Marine_Ammo = 0;
+	MarineTech_Ammo = 0;
+	MarineMedic_Ammo = 0;
+	MarineHyperblaster_Ammo = 0;
+	MarineShotgun_Ammo = 0;
+	currentlySpawned = 0;
 	//bound to the same key is blah blah
 	common->Printf("Once ready to move on press KEYBIND to enter the buy phase \n");
 }
@@ -755,14 +794,9 @@ void Cmd_phaseTwo_f(const idCmdArgs& args) {
 	common->Printf("Place Your Units \n");
 }
 
-//list to keep track of all player spawned shit
-idEntity* spawnedEnts[10];
-int currentlySpawned = 0;
-
 //spawns marine woohoo
 //literally a copy pasted spawn function but with a limit
 //also adds the entity id to the list of spawned entities.
-int Marine_Ammo = 5;
 void spawnMarine(const idCmdArgs& args) {
 #ifndef _MPBETA
 	const char* key, * value;
@@ -782,8 +816,7 @@ void spawnMarine(const idCmdArgs& args) {
 		return;
 	}
 	//MY CODE
-	//The method of using inventory ammo breaks
-	if ((Marine_Ammo < 1) && (currentlySpawned > 9)) {
+	if ((currentlySpawned > 9)) {
 		return;
 	}
 	if (Marine_Ammo < 1) {
@@ -791,8 +824,74 @@ void spawnMarine(const idCmdArgs& args) {
 	}
 	Marine_Ammo = Marine_Ammo - 1;
 	currentlySpawned = currentlySpawned + 1;
-	gameLocal.Printf("Current Marine Ammo:  '%d'\n", Marine_Ammo);
-	gameLocal.Printf("Current Entities Spawned:  '%d'\n", Marine_Ammo);
+	//END MY CODE
+	yaw = player->viewAngles.yaw;
+
+	value = args.Argv(1);
+
+	dict.Set("classname", value);
+	dict.Set("angle", va("%f", yaw + 180));
+
+	org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+	dict.Set("origin", org.ToString());
+
+	for (i = 2; i < args.Argc() - 1; i += 2) {
+
+		key = args.Argv(i);
+		value = args.Argv(i + 1);
+
+		dict.Set(key, value);
+	}
+
+	// RAVEN BEGIN
+	// kfuller: want to know the name of the entity I spawned
+	idEntity* newEnt = NULL;
+	gameLocal.SpawnEntityDef(dict, &newEnt);
+	if (newEnt) {
+		//my code
+		gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+		gameLocal.Printf("entity number '%d'\n", newEnt->entityNumber);
+		
+		spawnedEnts[currentlySpawned - 1] = newEnt;
+		spawnedEntTypes[currentlySpawned - 1] = 1;
+		for (i = 0; i < currentlySpawned; i++) {
+			gameLocal.Printf("Ent %d:  '%s'\n", i, spawnedEnts[i]->name.c_str());
+			gameLocal.Printf("Ent Type %d:  '%d'\n", i, spawnedEntTypes[i]);
+			gameLocal.Printf("\n\n");
+		}
+		//end my code
+	}
+	// RAVEN END
+#endif // !_MPBETA
+}
+void spawnMarineTech(const idCmdArgs& args) {
+#ifndef _MPBETA
+	const char* key, * value;
+	int			i;
+	float		yaw;
+	idVec3		org;
+	idPlayer* player;
+	idDict		dict;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk(false)) {
+		return;
+	}
+
+	if (args.Argc() & 1) {	// must always have an even number of arguments
+		gameLocal.Printf("usage: spawn classname [key/value pairs]\n");
+		return;
+	}
+	//MY CODE
+	//The method of using inventory ammo breaks
+	if ((currentlySpawned > 9)) {
+		return;
+	}
+	if (MarineTech_Ammo < 1) {
+		return;
+	}
+	MarineTech_Ammo = MarineTech_Ammo - 1;
+	currentlySpawned = currentlySpawned + 1;
 	//END MY CODE
 	yaw = player->viewAngles.yaw;
 
@@ -822,8 +921,207 @@ void spawnMarine(const idCmdArgs& args) {
 		gameLocal.Printf("entity number '%d'\n", newEnt->entityNumber);
 		//my code
 		spawnedEnts[currentlySpawned - 1] = newEnt;
+		spawnedEntTypes[currentlySpawned - 1] = 2;
 		for (i = 0; i < currentlySpawned; i++) {
-			gameLocal.Printf("All entities:  '%s'\n", spawnedEnts[i]->name.c_str());
+			gameLocal.Printf("Ent %d:  '%s'\n", i, spawnedEnts[i]->name.c_str());
+		}
+		//end my code
+	}
+	// RAVEN END
+#endif // !_MPBETA
+}
+void spawnMarineMedic(const idCmdArgs& args) {
+#ifndef _MPBETA
+	const char* key, * value;
+	int			i;
+	float		yaw;
+	idVec3		org;
+	idPlayer* player;
+	idDict		dict;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk(false)) {
+		return;
+	}
+
+	if (args.Argc() & 1) {	// must always have an even number of arguments
+		gameLocal.Printf("usage: spawn classname [key/value pairs]\n");
+		return;
+	}
+	//MY CODE
+	//The method of using inventory ammo breaks
+	if ((currentlySpawned > 9)) {
+		return;
+	}
+	if (MarineMedic_Ammo < 1) {
+		return;
+	}
+	MarineMedic_Ammo = MarineMedic_Ammo - 1;
+	currentlySpawned = currentlySpawned + 1;
+	//END MY CODE
+	yaw = player->viewAngles.yaw;
+
+	value = args.Argv(1);
+
+	dict.Set("classname", value);
+	dict.Set("angle", va("%f", yaw + 180));
+
+	org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+	dict.Set("origin", org.ToString());
+
+	for (i = 2; i < args.Argc() - 1; i += 2) {
+
+		key = args.Argv(i);
+		value = args.Argv(i + 1);
+
+		dict.Set(key, value);
+	}
+
+	// RAVEN BEGIN
+	// kfuller: want to know the name of the entity I spawned
+	idEntity* newEnt = NULL;
+	gameLocal.SpawnEntityDef(dict, &newEnt);
+
+	if (newEnt) {
+		gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+		gameLocal.Printf("entity number '%d'\n", newEnt->entityNumber);
+		//my code
+		spawnedEnts[currentlySpawned - 1] = newEnt;
+		spawnedEntTypes[currentlySpawned - 1] = 3;
+		for (i = 0; i < currentlySpawned; i++) {
+			gameLocal.Printf("Ent %d:  '%s'\n", i, spawnedEnts[i]->name.c_str());
+		}
+		//end my code
+	}
+	// RAVEN END
+#endif // !_MPBETA
+}
+void spawnMarineHyperblaster(const idCmdArgs& args) {
+#ifndef _MPBETA
+	const char* key, * value;
+	int			i;
+	float		yaw;
+	idVec3		org;
+	idPlayer* player;
+	idDict		dict;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk(false)) {
+		return;
+	}
+
+	if (args.Argc() & 1) {	// must always have an even number of arguments
+		gameLocal.Printf("usage: spawn classname [key/value pairs]\n");
+		return;
+	}
+	//MY CODE
+	//The method of using inventory ammo breaks
+	if ((currentlySpawned > 9)) {
+		return;
+	}
+	if (MarineHyperblaster_Ammo < 1) {
+		return;
+	}
+	MarineHyperblaster_Ammo = MarineHyperblaster_Ammo - 1;
+	currentlySpawned = currentlySpawned + 1;
+	//END MY CODE
+	yaw = player->viewAngles.yaw;
+
+	value = args.Argv(1);
+
+	dict.Set("classname", value);
+	dict.Set("angle", va("%f", yaw + 180));
+
+	org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+	dict.Set("origin", org.ToString());
+
+	for (i = 2; i < args.Argc() - 1; i += 2) {
+
+		key = args.Argv(i);
+		value = args.Argv(i + 1);
+
+		dict.Set(key, value);
+	}
+
+	// RAVEN BEGIN
+	// kfuller: want to know the name of the entity I spawned
+	idEntity* newEnt = NULL;
+	gameLocal.SpawnEntityDef(dict, &newEnt);
+
+	if (newEnt) {
+		gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+		gameLocal.Printf("entity number '%d'\n", newEnt->entityNumber);
+		//my code
+		spawnedEnts[currentlySpawned - 1] = newEnt;
+		spawnedEntTypes[currentlySpawned - 1] = 4;
+		for (i = 0; i < currentlySpawned; i++) {
+			gameLocal.Printf("Ent %d:  '%s'\n", i, spawnedEnts[i]->name.c_str());
+		}
+		//end my code
+	}
+	// RAVEN END
+#endif // !_MPBETA
+}
+void spawnMarineShotgun(const idCmdArgs& args) {
+#ifndef _MPBETA
+	const char* key, * value;
+	int			i;
+	float		yaw;
+	idVec3		org;
+	idPlayer* player;
+	idDict		dict;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk(false)) {
+		return;
+	}
+
+	if (args.Argc() & 1) {	// must always have an even number of arguments
+		gameLocal.Printf("usage: spawn classname [key/value pairs]\n");
+		return;
+	}
+	//MY CODE
+	//The method of using inventory ammo breaks
+	if ((currentlySpawned > 9)) {
+		return;
+	}
+	if (MarineShotgun_Ammo < 1) {
+		return;
+	}
+	MarineShotgun_Ammo = MarineShotgun_Ammo - 1;
+	currentlySpawned = currentlySpawned + 1;
+	//END MY CODE
+	yaw = player->viewAngles.yaw;
+
+	value = args.Argv(1);
+
+	dict.Set("classname", value);
+	dict.Set("angle", va("%f", yaw + 180));
+
+	org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+	dict.Set("origin", org.ToString());
+
+	for (i = 2; i < args.Argc() - 1; i += 2) {
+
+		key = args.Argv(i);
+		value = args.Argv(i + 1);
+
+		dict.Set(key, value);
+	}
+
+	// RAVEN BEGIN
+	// kfuller: want to know the name of the entity I spawned
+	idEntity* newEnt = NULL;
+	gameLocal.SpawnEntityDef(dict, &newEnt);
+
+	if (newEnt) {
+		gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+		gameLocal.Printf("entity number '%d'\n", newEnt->entityNumber);
+		//my code
+		spawnedEnts[currentlySpawned - 1] = newEnt;
+		spawnedEntTypes[currentlySpawned - 1] = 5;
+		for (i = 0; i < currentlySpawned; i++) {
+			gameLocal.Printf("Ent %d:  '%s'\n", i, spawnedEnts[i]->name.c_str());
 		}
 		//end my code
 	}
@@ -833,16 +1131,41 @@ void spawnMarine(const idCmdArgs& args) {
 
 //Will remove the most recently PLAYER spawned entity
 void Cmd_removeSpawn(const idCmdArgs& args) {
+	if (currentlySpawned == 0) {
+		return;
+	}
 	idEntity* ent = spawnedEnts[currentlySpawned-1];
 	if (!ent) {
 		gameLocal.Printf("entity not found\n");
 		return;
 	}
+	gameLocal.Printf("Deleted Ent:  '%s'\n", spawnedEnts[currentlySpawned - 1]->name.c_str());
 	delete ent;
+	//depending on the entity type spawned refund that ammo
+	if (spawnedEntTypes[currentlySpawned - 1] == 1) {
+		Marine_Ammo = Marine_Ammo + 1;
+	} else if (spawnedEntTypes[currentlySpawned - 1] == 2) {
+		MarineTech_Ammo = MarineTech_Ammo + 1;
+	} else if (spawnedEntTypes[currentlySpawned - 1] == 3) {
+		MarineMedic_Ammo = MarineMedic_Ammo + 1;
+	} else if (spawnedEntTypes[currentlySpawned - 1] == 4) {
+		MarineHyperblaster_Ammo = MarineHyperblaster_Ammo + 1;
+	} else if (spawnedEntTypes[currentlySpawned - 1] == 5) {
+		MarineShotgun_Ammo = MarineShotgun_Ammo + 1;
+	}
+	spawnedEntTypes[currentlySpawned - 1] = 0;
 	currentlySpawned = currentlySpawned - 1;
-}
-//END MY CODE
 
+}
+
+//Command to open the buy menu
+void Cmd_BuyMenu(const idCmdArgs& args) {
+	Marine_Ammo = Marine_Ammo + 1;
+
+}
+
+
+//END MY CODE
 
 // RAVEN BEGIN
 // bdube: jump points
@@ -3195,8 +3518,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "kill",					Cmd_Kill_f,					CMD_FL_GAME,				"kills the player" );
 	//MY CODE
 	//my test
-	cmdSystem->AddCommand( "test",					Cmd_test_f,					CMD_FL_GAME,				"writes test to console" );
-	
+	cmdSystem->AddCommand( "test",					Cmd_help_f,					CMD_FL_GAME,				"writes test to console" );
 	//phases
 	cmdSystem->AddCommand( "startMod",				Cmd_start_f,				CMD_FL_GAME,				"starts the mod game" );
 	cmdSystem->AddCommand( "startPhaseOne",			Cmd_phaseOne_f,				CMD_FL_GAME,				"starts the buy phase" );
@@ -3204,6 +3526,10 @@ void idGameLocal::InitConsoleCommands( void ) {
 	
 	//Spawning Entities
 	cmdSystem->AddCommand("spawnMarine", spawnMarine, CMD_FL_GAME | CMD_FL_CHEAT, "spawns a marine", idCmdSystem::ArgCompletion_Decl<DECL_ENTITYDEF>);
+	cmdSystem->AddCommand("spawnMarineTech", spawnMarineTech, CMD_FL_GAME | CMD_FL_CHEAT, "spawns a marine", idCmdSystem::ArgCompletion_Decl<DECL_ENTITYDEF>);
+	cmdSystem->AddCommand("spawnMarineMedic", spawnMarineMedic, CMD_FL_GAME | CMD_FL_CHEAT, "spawns a marine", idCmdSystem::ArgCompletion_Decl<DECL_ENTITYDEF>);
+	cmdSystem->AddCommand("spawnMarineHyperblaster", spawnMarineHyperblaster, CMD_FL_GAME | CMD_FL_CHEAT, "spawns a marine", idCmdSystem::ArgCompletion_Decl<DECL_ENTITYDEF>);
+	cmdSystem->AddCommand("spawnMarineShotgun", spawnMarineShotgun, CMD_FL_GAME | CMD_FL_CHEAT, "spawns a marine", idCmdSystem::ArgCompletion_Decl<DECL_ENTITYDEF>);
 
 	//Removing Entitites
 	cmdSystem->AddCommand("removeRecent", Cmd_removeSpawn, CMD_FL_GAME | CMD_FL_CHEAT, "spawns a marine");
