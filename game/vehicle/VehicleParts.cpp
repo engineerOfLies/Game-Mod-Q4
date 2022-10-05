@@ -1630,7 +1630,7 @@ void rvVehicleTurret::RunPostPhysics ( void ) {
 			static_cast<rvVehicleSound*>(position->GetPart(soundPart))->Attenuate ( f, f );
 		}		
 	}
-
+	//*NEED THIS*
 	// Rotate the turret with the mouse
 	parent->GetAnimator()->SetJointAxis( joint, JOINTMOD_LOCAL, mat[YAW] * mat[PITCH] * mat[ROLL] );
 

@@ -2711,6 +2711,7 @@ void idPlayer::ServerSpectate( bool spectate ) {
 }
 
 /*
+* Might need
 ===========
 idPlayer::SelectSpawnPoint
 
@@ -8087,6 +8088,7 @@ void idPlayer::SetClipModel( bool forceSpectatorBBox ) {
 }
 
 /*
+* Need this
 ==============
 idPlayer::EnterVehicle
 ==============
@@ -8364,6 +8366,7 @@ bool idPlayer::AttemptToBuyTeamPowerup( const char* itemName )
 }
 
 /*
+* Might need this
 ==============
 idPlayer::AttemptToBuyItem
 ==============
@@ -8550,6 +8553,26 @@ void idPlayer::PerformImpulse( int impulse ) {
    			}
    			break;
    		}
+
+		//case for shop
+		case IMPULSE_23: {
+			break;
+		}
+
+		//case for class 1
+		case IMPULSE_24: {
+			break;
+		}
+
+		//case for class 2
+		case IMPULSE_25: {
+			break;
+		}
+
+		//case for class 3
+		case IMPULSE_26: {
+			break;
+		}
 				
 		case IMPULSE_28: {
  			if ( gameLocal.isClient || entityNumber == gameLocal.localClientNum ) {
