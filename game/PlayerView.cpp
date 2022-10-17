@@ -709,6 +709,7 @@ void idPlayerView::ScreenFade() {
 idPlayerView::InfluenceVision
 ===================
 */
+
 void idPlayerView::InfluenceVision( idUserInterface *hud, const renderView_t *view ) {
 
 	float distance = 0.0f;
