@@ -58,13 +58,13 @@ const int HEALTH_PER_DOSE = 10;
 const int WEAPON_DROP_TIME = 20 * 1000;
 
 // time before a next or prev weapon switch happens
-const int	WEAPON_SWITCH_DELAY		= 150;
+const int	WEAPON_SWITCH_DELAY		= 155;
 
 const float	PLAYER_ITEM_DROP_SPEED	= 100.0f;
 
 // how many units to raise spectator above default view height so it's in the head of someone
 const int SPECTATE_RAISE = 25;
-
+//int scores;///////////////////////
 const int	HEALTH_PULSE		= 1000;			// Regen rate and heal leak rate (for health > 100)
 const int	ARMOR_PULSE			= 1000;			// armor ticking down due to being higher than maxarmor
 const int	AMMO_REGEN_PULSE	= 1000;			// ammo regen in Arena CTF
@@ -198,13 +198,13 @@ const idVec4 defaultHitscanTint( 0.4f, 1.0f, 0.4f, 1.0f );
 idInventory::Clear
 ==============
 */
-void idInventory::Clear( void ) {
-	maxHealth			= 0;
-	weapons				= 0;
-	carryOverWeapons	= 0;
-	powerups			= 0;
-	armor				= 0;
-	maxarmor			= 0;
+void idInventory::Clear(void) {
+	maxHealth = 0;
+	weapons = 0;
+	carryOverWeapons = 0;
+	powerups = 0;
+	armor = 0;
+	maxarmor = 0;
 	secretAreasDiscovered = 0;
 
 	memset( ammo, 0, sizeof( ammo ) );
@@ -339,8 +339,9 @@ void idInventory::RestoreInventory( idPlayer *owner, const idDict &dict ) {
 	maxHealth		= dict.GetInt( "maxhealth", "100" );
 	armor			= dict.GetInt( "armor", "50" );
 	maxarmor		= dict.GetInt( "maxarmor", "100" );
-
+	
 	// ammo
+	
 	for( i = 0; i < MAX_AMMOTYPES; i++ ) {
 		name = rvWeapon::GetAmmoNameForIndex ( i );
 		if ( name ) {
@@ -2331,10 +2332,18 @@ void idPlayer::Save( idSaveGame *savefile ) const {
 	// TOSAVE: const idDeclEntityDef*	cachedPowerupDefs [ POWERUP_MAX ];
 
 #ifndef _XENON
- 	if ( hud ) {
-		hud->SetStateString( "message", common->GetLocalizedString( "#str_102916" ) );
-		hud->HandleNamedEvent( "Message" );
- 	}
+	
+	if (hud) {
+		hud->SetStateString("message", common->GetLocalizedString("#str_102916"));
+		hud->HandleNamedEvent("Message");
+		hud->SetStateInt("player_scores", scores);
+		int temp;
+		temp = hud->State().GetInt("player_scores", "-1");
+		if (temp != scores) {
+			//_hud->SetStateInt("player_healthDelta", temp == -1 ? 0 : (temp - health));
+			hud->SetStateInt("player_scores", scores);
+		}
+	}
 #endif
 }
 
@@ -3388,16 +3397,26 @@ idPlayer::UpdateHudStats
 ===============
 */
 void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
-	int temp;
+	//static int score = scores;
 	
+	
+	int temp;
 	assert ( _hud );
 
 	temp = _hud->State().GetInt ( "player_health", "-1" );
+	
 	if ( temp != health ) {		
 		_hud->SetStateInt   ( "player_healthDelta", temp == -1 ? 0 : (temp - health) );
 		_hud->SetStateInt	( "player_health", health < -100 ? -100 : health );
 		_hud->SetStateFloat	( "player_healthpct", idMath::ClampFloat ( 0.0f, 1.0f, (float)health / (float)inventory.maxHealth ) );
 		_hud->HandleNamedEvent ( "updateHealth" );
+	}
+	temp = hud->State().GetInt("player_scores", "-1");
+	if (temp != scores) {
+		//_hud->SetStateInt("player_healthDelta", temp == -1 ? 0 : (temp - health));
+		hud->SetStateInt("player_scores", scores);
+		
+		_hud->HandleNamedEvent("updateHealth");
 	}
 		
 	temp = _hud->State().GetInt ( "player_armor", "-1" );
@@ -3411,6 +3430,9 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	// Boss bar
 	if ( _hud->State().GetInt ( "boss_health", "-1" ) != (bossEnemy ? bossEnemy->health : -1) ) {
 		if ( !bossEnemy || bossEnemy->health <= 0 ) {
+			hud->SetStateInt("player_scores", scores);
+
+			////////
 			bossEnemy = NULL;
 			_hud->SetStateInt ( "boss_health", -1 );
 			_hud->HandleNamedEvent ( "hideBossBar" );			
@@ -6294,6 +6316,7 @@ idPlayer::UpdateWeapon
 */
 void idPlayer::UpdateWeapon( void ) {
 	if ( health <= 0 ) {
+		//scores++;///did not work/////////////////////////////////////////////////////////////
 		return;
 	}
 
@@ -7209,6 +7232,7 @@ void idPlayer::UpdateFocus( void ) {
 				}
 
 				ui->SetStateString( "player_health", va("%i", health ) );
+				ui->SetStateString("player_scores", va("%i", scores));
 				ui->SetStateString( "player_armor", va( "%i%%", inventory.armor ) );
 
 				kv = ent->spawnArgs.MatchPrefix( "gui_", NULL );
@@ -11182,7 +11206,13 @@ idPlayer::Event_SetHealth
 */
 void idPlayer::Event_SetHealth( float newHealth ) {
 	health = idMath::ClampInt( 1 , inventory.maxHealth, newHealth );
+	scores = 0;
+	
 }
+//void idPlayer::Event_SetScore(float newScore) {
+	
+//	scores = idMath::ClampInt(1, inventory.maxHealth, newScore);
+//}
 /*
 =============
 idPlayer::Event_SetArmor
@@ -11209,6 +11239,13 @@ idPlayer::AddProjectilesFired
 */
 void idPlayer::AddProjectilesFired( int count ) {
 	numProjectilesFired += count;
+	//scores += count;  // works ! 
+	//scores -= count;
+
+
+
+
+
 }
 
 /*
@@ -11218,9 +11255,11 @@ idPlayer::AddProjectileHites
 */
 void idPlayer::AddProjectileHits( int count ) {
 	numProjectileHits += count;
+    scores +=count; //does not work
+	
 }
 
-/*
+/* 
 =============
 idPlayer::SetLastHitTime
 =============
@@ -11230,6 +11269,7 @@ void idPlayer::SetLastHitTime( int time, bool armorHit ) {
  		// level start and inits
  		return;
  	}
+	scores += 1;//////////////////////////////////////////????
 
 	idUserInterface *cursor		= idPlayer::cursor;
 	bool spectated = false;
@@ -11247,10 +11287,12 @@ void idPlayer::SetLastHitTime( int time, bool armorHit ) {
 			spectated = true;
 		}
 	}
-
+	
 	if ( lastHitTime != time ) {
 		if ( cursor ) {
 			cursor->HandleNamedEvent( "weaponHit" );
+			
+			
 		}
 		if ( gameLocal.isMultiplayer ) {			
 			// spectated so we get sounds for a client we're following
@@ -11276,6 +11318,7 @@ void idPlayer::SetLastHitTime( int time, bool armorHit ) {
 			}
 
 		}
+		
 		lastHitTime = time;
 		lastArmorHit = armorHit;
 		lastHitToggle ^= 1;
@@ -11698,6 +11741,7 @@ idPlayer::TeleportDeath
 */
 void idPlayer::TeleportDeath( int killer ) {
 	teleportKiller = killer;
+	
 }
 
 /*
@@ -12500,7 +12544,9 @@ void idPlayer::ReadFromSnapshot( const idBitMsgDelta &msg ) {
  		if ( stateHitch ) {
  			// so we just hide and don't show a death skin
  			UpdateDeathSkin( true );
+
  		}
+		//scores++;///did not work/////////////////////////////////////////////////////////////
 		// die
 		pfl.dead = true;
 		ClearPowerUps();

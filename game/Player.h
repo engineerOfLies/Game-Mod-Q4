@@ -216,6 +216,8 @@ public:
 	int						startingAmmo[ MAX_WEAPONS ];
 
  	int						lastGiveTime;
+
+
  	
 	idList<idDict *>		items;
 	idStrList				pdas;
@@ -348,6 +350,8 @@ public:
 	bool					disableHud;
 	bool					showNewObjectives;
 
+
+	
 	int						lastDmgTime;
 	int						deathClearContentsTime;
  	bool					doingDeathSkin;
@@ -1098,6 +1102,7 @@ private:
 
 	// mekberg:	added sethealth
 	void					Event_SetHealth					( float newHealth );
+	//void					Event_SetScore					(float newscore);
 	void					Event_SetArmor					( float newArmor );
 
 	void					Event_SetExtraProjPassEntity( idEntity* _extraProjPassEntity );

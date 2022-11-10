@@ -4,6 +4,7 @@
 
 #include "../Game_local.h"
 
+
 class rvMonsterIronMaiden : public idAI {
 public:
 
@@ -284,12 +285,22 @@ rvMonsterIronMaiden::OnDeath
 */
 void rvMonsterIronMaiden::OnDeath ( void ) {
 	StopSound ( SND_CHANNEL_ITEM, false );
-
+	//
+	// 
+	// does not work!
+	//scores++;//
+	
+	// Must be an actor that takes damage to be affected		
+	
+	// 
 	// Stop looping effects
 	StopEffect ( "fx_banshee" );
 	StopEffect ( "fx_dress" );
 	
 	idAI::OnDeath( );
+	// Add to counter
+	
+
 }
 
 /*
@@ -397,6 +408,7 @@ stateResult_t rvMonsterIronMaiden::State_Torso_PhaseOut ( const stateParms_t& pa
 	switch ( parms.stage ) {
 		case STAGE_ANIM:
 			DisableAnimState ( ANIMCHANNEL_LEGS );
+			//cut out animation
 			PlayAnim ( ANIMCHANNEL_TORSO, "phase_out", parms.blendFrames );
 			return SRESULT_STAGE ( STAGE_ANIM_WAIT );
 	
@@ -494,7 +506,7 @@ stateResult_t rvMonsterIronMaiden::Frame_BansheeAttack ( const stateParms_t& par
 		if ( !ent || ent == this ) {
 			continue;
 		}
-
+		
 		// Must be an actor that takes damage to be affected		
 		if ( !ent->fl.takedamage || !ent->IsType ( idActor::GetClassType() ) ) {
 			continue;

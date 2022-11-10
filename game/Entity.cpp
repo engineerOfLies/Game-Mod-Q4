@@ -3653,6 +3653,8 @@ void idEntity::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		gameLocal.Error( "Unknown damageDef '%s'\n", damageDefName );
 	}
 
+	
+
 	int	damage = damageDef->GetInt( "damage" );
 
 	// inform the attacker that they hit someone
@@ -3663,6 +3665,7 @@ void idEntity::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		health -= damage;
 
 		if ( health <= 0 ) {
+			scores++;//////////////////////
 			if ( health < -999 ) {
 				health = -999;
 			}
@@ -3791,6 +3794,7 @@ This is a virtual function that subclasses are expected to implement.
 ============
 */
 void idEntity::Killed( idEntity *inflictor, idEntity *attacker, int damage, const idVec3 &dir, int location ) {
+	scores++;//////////////////////
 }
 
 /***********************************************************************

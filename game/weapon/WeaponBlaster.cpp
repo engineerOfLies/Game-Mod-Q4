@@ -4,6 +4,7 @@
 #include "../Game_local.h"
 #include "../Weapon.h"
 
+
 #define BLASTER_SPARM_CHARGEGLOW		6
 
 class rvWeaponBlaster : public rvWeapon {

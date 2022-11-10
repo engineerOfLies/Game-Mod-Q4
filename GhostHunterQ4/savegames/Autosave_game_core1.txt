@@ -1,0 +1,4 @@
+"Autosave game/core1"
+"^:Map Start	^0NEXUS CORE"
+"gfx/guis/loadscreens/core1"
+nooverwrite

@@ -1,0 +1,682 @@
+windowDef Desktop
+{
+	rect	0,0,640,480
+	backcolor	0.0352,0.0235,0,1
+	visible	1
+	windowDef top
+	{
+		rect	0,1,641,201
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_border"
+		matcolor	0.898,0.627,0.254,0.768
+	}
+	windowDef btm
+	{
+		rect	0,302,641,200
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_border"
+		matcolor	0.901,0.631,0.258,0.768
+		matscaley	-1
+	}
+	windowDef p_bars1
+	{
+		rect	7,164,122,156
+		visible	1
+		windowDef color1
+		{
+			rect	28,7,73,18
+			visible	1
+			backcolor	1,1,0.752,0.827
+			shear	0,-0.5
+		}
+		windowDef color2
+		{
+			rect	25,27,60,18
+			visible	1
+			backcolor	0.874,1,1,0.823
+			shear	0,-0.5
+		}
+		windowDef color3
+		{
+			rect	27,46,63,18
+			visible	1
+			backcolor	1,0.952,0.862,0.874
+			shear	0,-0.5
+		}
+		windowDef color4
+		{
+			rect	27,66,75,18
+			visible	1
+			backcolor	1,1,0.764,0.870
+			shear	0,-0.5
+		}
+		windowDef color5
+		{
+			rect	27,85,35,19
+			visible	1
+			backcolor	1,0.949,0.858,0.870
+			shear	0,-0.5
+		}
+		windowDef color6
+		{
+			rect	25,105,48,18
+			visible	1
+			backcolor	0.874,1,1,0.823
+			shear	0,-0.5
+		}
+		windowDef color7
+		{
+			rect	27,125,61,20
+			visible	1
+			backcolor	1,1,0.752,0.827
+			shear	0,-0.5
+		}
+		windowDef mask
+		{
+			rect	4,6,26,144
+			visible	1
+			backcolor	0.0901,0.0666,0,1
+		}
+		windowDef num1
+		{
+			rect	10,7,20,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"45"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num2
+		{
+			rect	5,28,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"156"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num3
+		{
+			rect	9,48,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"38"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num4
+		{
+			rect	18,68,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"5"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num5
+		{
+			rect	9,88,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"17"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num6
+		{
+			rect	2,108,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"287"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num7
+		{
+			rect	9,130,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"91"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+	}
+	windowDef p_bars2
+	{
+		rect	7,164,122,156
+		visible	1
+		windowDef color8
+		{
+			rect	28,7,73,18
+			visible	1
+			backcolor	0.996,0.905,0.847,0.823
+			shear	0,-0.5
+		}
+		windowDef color9
+		{
+			rect	25,66,60,18
+			visible	1
+			backcolor	0.874,1,1,0.823
+			shear	0,-0.5
+		}
+		windowDef color10
+		{
+			rect	27,85,71,19
+			visible	1
+			backcolor	1,0.952,0.862,0.874
+			shear	0,-0.5
+		}
+		windowDef color11
+		{
+			rect	27,27,58,18
+			visible	1
+			backcolor	1,1,0.764,0.870
+			shear	0,-0.5
+		}
+		windowDef color12
+		{
+			rect	25,45,35,19
+			visible	1
+			backcolor	1,1,0.498,0.858
+			shear	0,-0.5
+		}
+		windowDef color13
+		{
+			rect	25,125,41,18
+			visible	1
+			backcolor	0.874,1,1,0.823
+			shear	0,-0.5
+		}
+		windowDef color14
+		{
+			rect	27,105,74,20
+			visible	1
+			backcolor	1,1,0.752,0.827
+			shear	0,-0.5
+		}
+		windowDef mask1
+		{
+			rect	4,6,26,144
+			visible	1
+			backcolor	0.0901,0.0666,0,1
+		}
+		windowDef num8
+		{
+			rect	10,7,20,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"27"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num9
+		{
+			rect	11,28,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"75"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num10
+		{
+			rect	2,48,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"276"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num11
+		{
+			rect	12,68,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"56"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num12
+		{
+			rect	17,88,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"9"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num13
+		{
+			rect	2,108,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"834"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+		windowDef num14
+		{
+			rect	9,130,25,15
+			visible	1
+			forecolor	1,1,1,1
+			text	"23"
+			textscale	0.3
+			font	"fonts/strogg"
+		}
+	}
+	windowDef bracket1
+	{
+		rect	37,170,100,21
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_box"
+		matcolor	1,1,1,1
+	}
+	windowDef bracket2
+	{
+		rect	37,189,100,21
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_box"
+		matcolor	1,1,1,1
+	}
+	windowDef bracket3
+	{
+		rect	37,209,100,21
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_box"
+		matcolor	1,1,1,1
+	}
+	windowDef bracket4
+	{
+		rect	37,228,100,21
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_box"
+		matcolor	1,1,1,1
+	}
+	windowDef bracket5
+	{
+		rect	37,248,100,21
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_box"
+		matcolor	1,1,1,1
+	}
+	windowDef bracket6
+	{
+		rect	37,268,100,21
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_box"
+		matcolor	1,1,1,1
+	}
+	windowDef bracket7
+	{
+		rect	37,288,100,21
+		visible	1
+		background	"gfx/guis/maps/airdefense/gunschem_box"
+		matcolor	1,1,1,1
+	}
+	windowDef p_gun1
+	{
+		rect	0,0,640,480
+		visible	1
+		windowDef gun1
+		{
+			rect	282,113,442,253
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g1"
+			matcolor	0.949,1,0.756,1
+		}
+		windowDef gun_blur
+		{
+			rect	282,113,442,253
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g1_blur"
+			matcolor	0.945,1,0.752,0
+		}
+		windowDef d_gun_blur
+		{
+			rect	350,113,23,253
+			visible	0
+			background	"gfx/guis/maps/airdefense/gunschem_g1_blur"
+			matcolor	0.937,1,0.745,1
+		}
+		windowDef g1line1
+		{
+			rect	295,177,119,66
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g1line1"
+			matcolor	1,1,1,1
+		}
+		windowDef g1line2
+		{
+			rect	425,123,62,16
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g1line2"
+			matcolor	1,1,1,1
+		}
+		windowDef g1line3
+		{
+			rect	467,173,116,68
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g1line3"
+			matcolor	1,1,1,1
+		}
+		windowDef g1line4
+		{
+			rect	287,351,130,10
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g1line4"
+			matcolor	1,1,1,1
+		}
+		windowDef g1text1
+		{
+			rect	214,172,78,12
+			visible	1
+			forecolor	1,1,1,1
+			text	"circle thingy"
+			textscale	0.2
+			font	"fonts/strogg"
+		}
+		windowDef g1text2
+		{
+			rect	380,118,43,11
+			visible	1
+			forecolor	1,1,1,1
+			text	"barrels"
+			textscale	0.2
+			font	"fonts/strogg"
+		}
+		windowDef g1text3
+		{
+			rect	518,219,76,11
+			visible	1
+			forecolor	1,1,1,1
+			text	"barrel length"
+			textscale	0.2
+			font	"fonts/strogg"
+		}
+		windowDef g1text4
+		{
+			rect	306,364,97,11
+			visible	1
+			forecolor	1,1,1,1
+			text	"refracted mandog"
+			textscale	0.2
+			font	"fonts/strogg"
+		}
+		windowDef scrolltext1
+		{
+			rect	476,256,149,145
+			visible	1
+			background	"gfx/guis/common/strogg/scrolltext2"
+			matcolor	1,1,1,0.482
+		}
+		windowDef scrolltext2
+		{
+			rect	170,252,100,150
+			visible	1
+			background	"gfx/guis/common/strogg/scrolltext1fast"
+			matcolor	1,1,1,0.525
+			matscalex	-1
+		}
+	}
+	windowDef p_gun2
+	{
+		rect	0,0,640,480
+		visible	1
+		windowDef gun2
+		{
+			rect	308,113,206,369
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g2"
+			matcolor	0.949,1,0.756,0
+		}
+		windowDef gun2_blur
+		{
+			rect	308,113,206,369
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g2_blur"
+			matcolor	0.941,1,0.749,0
+		}
+		windowDef d_gun2_blur
+		{
+			rect	273,113,349,369
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g2_blur"
+			matcolor	0.941,1,0.749,0
+		}
+		windowDef g2line1
+		{
+			rect	303,375,141,10
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g1line4"
+			matcolor	1,1,1,0
+		}
+		windowDef g2line2
+		{
+			rect	432,280,37,24
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g2line2"
+			matcolor	1,1,1,0
+			rotate	180
+			matscalex	-1
+		}
+		windowDef g2line3
+		{
+			rect	228,294,118,12
+			visible	1
+			background	"gfx/guis/maps/airdefense/gunschem_g1line4"
+			matcolor	1,1,1,0
+			rotate	-90
+		}
+		windowDef scrolltext3
+		{
+			rect	473,101,149,145
+			visible	1
+			background	"gfx/guis/common/strogg/scrolltext2"
+			matcolor	1,1,1,0
+		}
+		windowDef scrolltext4
+		{
+			rect	169,104,100,149
+			visible	1
+			background	"gfx/guis/common/strogg/scrolltext1fast"
+			matcolor	1,1,1,0
+			matscalex	-1
+		}
+		windowDef g2text1
+		{
+			rect	477,306,88,12
+			visible	1
+			forecolor	1,1,1,0
+			text	"elevation meter"
+			textscale	0.2
+			font	"fonts/strogg"
+		}
+		windowDef g2text2
+		{
+			rect	324,389,105,12
+			visible	1
+			forecolor	1,1,1,0
+			text	"base maximum width"
+			textscale	0.2
+			font	"fonts/strogg"
+		}
+		windowDef g2text3
+		{
+			rect	185,299,92,12
+			visible	1
+			forecolor	1,1,1,0
+			text	"turret mechanism"
+			textscale	0.2
+			font	"fonts/strogg"
+		}
+		windowDef g2text4
+		{
+			rect	188,312,87,12
+			visible	1
+			forecolor	1,1,1,0
+			text	"moves the thing"
+			textscale	0.2
+			font	"fonts/strogg"
+		}
+	}
+	windowDef decal
+	{
+		rect	3,340,161,164
+		visible	1
+		background	"gfx/guis/common/strogg/decal"
+		matcolor	0.949,1,0.756,1
+	}
+	windowDef airdef_logo
+	{
+		rect	22,13,118,115
+		visible	1
+		background	"gfx/guis/common/strogg/airdef_logo"
+		matcolor	0.949,1,0.756,1
+	}
+	windowDef t_title1
+	{
+		rect	195,425,232,24
+		visible	1
+		forecolor	0,0,0,1
+		text	"Air Defense Unit"
+		textscale	0.54
+		font	"fonts/strogg"
+	}
+	windowDef t_title2
+	{
+		rect	195,451,139,24
+		visible	1
+		forecolor	1,1,0.764,1
+		text	"bg54-9try-45"
+		textscale	0.45
+		font	"fonts/strogg"
+	}
+	windowDef t_title3
+	{
+		rect	203,60,209,24
+		visible	1
+		forecolor	1,1,0.760,1
+		text	"rewt-97845-eer-2er"
+		textscale	0.45
+		font	"fonts/strogg"
+	}
+	windowDef topstuff
+	{
+		rect	0,0,640,480
+		visible	1
+		windowDef darkedge
+		{
+			rect	0,0,640,480
+			visible	1
+			background	"gfx/guis/common/monitor_darkedge"
+			matcolor	0,0,0,0.901
+		}
+		windowDef slines
+		{
+			rect	0,0,640,480
+			visible	1
+			background	"gfx/guis/common/monitor_line3"
+			matcolor	0.286,0.286,0.286,1
+		}
+		windowDef slines1
+		{
+			rect	0,0,640,480
+			visible	1
+			background	"gfx/guis/common/monitor_line4"
+			matcolor	0.713,0.713,0.713,0.101
+		}
+		windowDef scratches
+		{
+			rect	0,0,640,480
+			visible	1
+			background	"gfx/guis/common/screen_scratches"
+			matcolor	1,1,0.894,0.415
+		}
+		windowDef topreflect
+		{
+			rect	0,0,640,480
+			visible	1
+			background	"gfx/guis/common/monitor_glow3"
+			matcolor	1,1,0.878,0.541
+		}
+		windowDef dirt
+		{
+			rect	0,0,640,480
+			visible	1
+			background	"gfx/guis/common/screen_dirt4"
+			matcolor	0.815,0.819,0.603,0.298
+		}
+	}
+	windowDef anim
+	{
+		rect	0,0,1,1
+		visible	1
+
+		onTime 0 {
+			transition "gun1::matcolor_w" "1" "0" "300" ;
+			transition "gun_blur::matcolor_w" "0" "1" "300" ;
+			transition "gun_blur::rect" "$gun_blur::rect" "$d_gun_blur::rect" "300" ;
+			transition "g1line1::matcolor_w" "1" "0" "300" ;
+			transition "g1line2::matcolor_w" "1" "0" "300" ;
+			transition "g1line3::matcolor_w" "1" "0" "300" ;
+			transition "g1line4::matcolor_w" "1" "0" "300" ;
+			transition "g1text1::forecolor_w" "1" "0" "300" ;
+			transition "g1text2::forecolor_w" "1" "0" "300" ;
+			transition "g1text3::forecolor_w" "1" "0" "300" ;
+			transition "g1text4::forecolor_w" "1" "0" "300" ;
+			transition "scrolltext1::matcolor_w" "1" "0" "300" ;
+			transition "scrolltext2::matcolor_w" "1" "0" "300" ;
+		}
+
+		onTime +300 {
+			transition "gun2::matcolor_w" "0" "1" "300" ;
+			transition "g2line1::matcolor_w" "0" "1" "300" ;
+			transition "g2line2::matcolor_w" "0" "1" "300" ;
+			transition "g2line3::matcolor_w" "0" "1" "300" ;
+			transition "g2text1::forecolor_w" "0" "1" "300" ;
+			transition "g2text2::forecolor_w" "0" "1" "300" ;
+			transition "g2text3::forecolor_w" "0" "1" "300" ;
+			transition "g2text4::forecolor_w" "0" "1" "300" ;
+			transition "scrolltext3::matcolor_w" "0" "0.5" "300" ;
+			transition "scrolltext4::matcolor_w" "0" "0.5" "300" ;
+			set "p_bars1::visible" "0" ;
+			set "p_bars2::visible" "1" ;
+		}
+
+		onTime +5000 {
+			transition "gun2::matcolor_w" "1" "0" "300" ;
+			transition "gun_blur::rect" "$d_gun_blur::rect" "$gun_blur::rect" "300" ;
+			transition "g2line1::matcolor_w" "1" "0" "300" ;
+			transition "g2line2::matcolor_w" "1" "0" "300" ;
+			transition "g2line3::matcolor_w" "1" "0" "300" ;
+			transition "g2text1::forecolor_w" "1" "0" "300" ;
+			transition "g2text2::forecolor_w" "1" "0" "300" ;
+			transition "g2text3::forecolor_w" "1" "0" "300" ;
+			transition "g2text4::forecolor_w" "1" "0" "300" ;
+			transition "scrolltext3::matcolor_w" "0.5" "0" "300" ;
+			transition "scrolltext4::matcolor_w" "0.5" "0" "300" ;
+		}
+
+		onTime +300 {
+			set "gun1::matcolor_w" "1" ;
+			set "gun_blur::matcolor_w" "0" ;
+			transition "g1line1::matcolor_w" "0" "1" "300" ;
+			transition "g1line2::matcolor_w" "0" "1" "300" ;
+			transition "g1line3::matcolor_w" "0" "1" "300" ;
+			transition "g1line4::matcolor_w" "0" "1" "300" ;
+			transition "g1text1::forecolor_w" "0" "1" "300" ;
+			transition "g1text2::forecolor_w" "0" "1" "300" ;
+			transition "g1text3::forecolor_w" "0" "1" "300" ;
+			transition "g1text4::forecolor_w" "0" "1" "300" ;
+			transition "scrolltext1::matcolor_w" "0" "1" "300" ;
+			transition "scrolltext2::matcolor_w" "0" "1" "300" ;
+			set "p_bars1::visible" "1" ;
+			set "p_bars2::visible" "0" ;
+		}
+
+		onTime +5000 {
+			resettime "0" ;
+		}
+
+	}
+}

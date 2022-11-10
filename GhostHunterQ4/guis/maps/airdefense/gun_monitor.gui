@@ -1,0 +1,205 @@
+windowDef Desktop
+{
+	rect	0,0,640,480
+	visible	1
+	noclip	1
+	nocursor	1
+	backcolor	0,0,0,1
+
+
+	onNamedEvent doorDestroyed {
+		set "bg::background" "gfx/guis/maps/airdefense/gun_monitor_bg2" ;
+	}
+
+	windowDef bg
+	{
+		rect	0,0,640,480
+		visible	1
+		background	"gfx/guis/maps/airdefense/gun_monitor_bg"
+		matcolor	1,1,1,1
+		matscalex	-1
+		matscaley	-1
+	}
+	windowDef p_main
+	{
+		rect	0,0,640,480
+		visible	1
+		noclip	1
+		windowDef scope_glow_tl
+		{
+			rect	43,0,277,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_glow"
+			matcolor	0.141,0.0901,0,1
+		}
+		windowDef scope_glow_tr
+		{
+			rect	320,0,277,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_glow"
+			matcolor	0.141,0.0901,0,1
+			matscalex	-1
+		}
+		windowDef scope_glow_bl
+		{
+			rect	43,240,277,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_glow"
+			matcolor	0.141,0.0901,0,1
+			matscaley	-1
+		}
+		windowDef scope_glow_br
+		{
+			rect	320,240,277,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_glow"
+			matcolor	0.141,0.0901,0,1
+			matscaley	-1
+			matscalex	-1
+		}
+		windowDef scope_ring2
+		{
+			rect	64,-15,512,512
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_ring2"
+			matcolor	0,0,0,0.34
+		}
+		windowDef tl_scope
+		{
+			rect	0,0,256,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope"
+			matcolor	1,1,1,1
+		}
+		windowDef bl_scope
+		{
+			rect	0,240,256,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope"
+			matcolor	1,1,1,1
+			matscaley	-1
+		}
+		windowDef br_scope
+		{
+			rect	384,240,256,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope"
+			matcolor	1,1,1,1
+			matscaley	-1
+			matscalex	-1
+		}
+		windowDef tr_scope
+		{
+			rect	384,0,256,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope"
+			matcolor	1,1,1,1
+			matscalex	-1
+		}
+		windowDef tl_ring
+		{
+			rect	64,0,256,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_ring1"
+			matcolor	0.235,0.145,0,1
+		}
+		windowDef bl_ring
+		{
+			rect	64,240,256,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_ring1"
+			matcolor	0.235,0.145,0,1
+			matscaley	-1
+		}
+		windowDef br_ring
+		{
+			rect	320,240,256,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_ring1"
+			matcolor	0.235,0.145,0,1
+			matscaley	-1
+			matscalex	-1
+		}
+		windowDef tr_ring
+		{
+			rect	320,0,256,240
+			visible	1
+			background	"gfx/guis/hud/reticles/nailgun_scope_ring1"
+			matcolor	0.235,0.145,0,1
+			matscalex	-1
+		}
+		windowDef r_load_edge
+		{
+			rect	537,131,29,217
+			visible	1
+			background	"gfx/guis/hud/reticles/airdef_loadbar"
+			matcolor	0.901,0.470,0.0431,1
+		}
+		windowDef p_load_right
+		{
+			rect	537,143,29,192
+			visible	1
+			windowDef r_load
+			{
+				rect	0,-12,29,217
+				visible	1
+				background	"gfx/guis/hud/reticles/airdef_loadbar2"
+				matcolor	1,0.423,0.0431,0.4
+			}
+		}
+		windowDef l_load_edge
+		{
+			rect	74,131,29,217
+			visible	1
+			background	"gfx/guis/hud/reticles/airdef_loadbar"
+			matcolor	0.901,0.470,0.0431,1
+			matscalex	-1
+		}
+		windowDef p_load_left
+		{
+			rect	74,143,29,192
+			visible	1
+			windowDef l_load
+			{
+				rect	0,-11,29,217
+				visible	1
+				background	"gfx/guis/hud/reticles/airdef_loadbar2"
+				matcolor	1,0.423,0.0431,0.4
+				matscalex	-1
+			}
+		}
+	}
+	windowDef xhair
+	{
+		rect	295,215,50,50
+		visible	1
+		background	"gfx/guis/crosshairs/crosshair_nailgun"
+		matcolor	0.901,0.470,0.0431,1
+	}
+	windowDef topstuff
+	{
+		visible	1
+		rect	0,0,640,480
+		windowDef sline
+		{
+			visible	1
+			rect	0,-242,640,953
+			background	"gfx/guis/common/monitor_line8"
+			matcolor	0.101,0.0901,0.0745,0.0980
+		}
+		windowDef scratches
+		{
+			rect	0,0,640,480
+			visible	1
+			background	"gfx/guis/common/screen_scratches"
+			matcolor	0.886,0.929,0.952,0.32
+		}
+		windowDef monitor_darkedge2
+		{
+			visible	1
+			rect	0,0,640,480
+			background	"gfx/guis/common/monitor_darkedge2"
+			matcolor	0,0,0,1
+		}
+	}
+}
