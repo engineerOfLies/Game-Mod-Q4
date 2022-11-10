@@ -2327,6 +2327,7 @@ windowDef Desktop
 	{
 		rect	-4,-4,640,480
 		visible	1
+		backcolor	0,1,1,0.121
 	}
 	windowDef failedtext
 	{

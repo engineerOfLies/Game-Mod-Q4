@@ -285,7 +285,7 @@ entityDef damage_dmg_splash
 	"push"						"0"
 	"gib"						"0"
 
-	"deathPush"					"-200000"
+	"deathPush"					"0"
 	"deathPushMin"				"0 0"
 	"deathPushMax"				"10 20"
 
@@ -348,7 +348,7 @@ entityDef damage_dmg_mp
 	"gib"						"1"
 
 	/*
-	"push"						"-40000"
+	"push"						"0"
 	"deathPush"					"-60000"
 	"deathPushMin"				"-60000 -60000"
 	"deathPushMax"				"0 0"
@@ -367,7 +367,7 @@ entityDef damage_dmg_mp
 entityDef damage_dmg_splash_mp
 {
 	"damage"					"50000"
-	"radius"					"60000"
+	"radius"					"0"
 	"gib"						"1"
 
 	/*
@@ -402,9 +402,9 @@ entityDef projectile_dmg_mp
 	"def_damage"				"damage_dmg_mp"
 	"def_splash_damage"			"damage_dmg_splash_mp"
 																											
-	"speed"						"5500"
+	"speed"						"10500"
 	"fuse"						"1"
-	"push"						"-40000"
+	"push"						"-80000"
 	
 	"predictTime"				"0"
 							
