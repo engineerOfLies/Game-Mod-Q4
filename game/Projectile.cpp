@@ -861,7 +861,7 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity, bo
 // jshepard: Single Player- if the the player is the attacker and the victim is teammate, don't play any blood effects.
 				idAI * ai_ent = static_cast<idAI* >(ent);
 				if( ai_ent->team == player->team)	{
-					willPlayDamageEffect = false;
+					//willPlayDamageEffect = false;
 				}
 			}
 		}
@@ -909,7 +909,7 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity, bo
 // jshepard: Single Player- if the the player is the attacker and the victim is teammate, don't play any effects.
 // this should make sure that only explosion effects play when the player shoots his comrades. 
 	if( willPlayDamageEffect || spawnArgs.GetBool( "friendly_impact") )	{
-		DefaultDamageEffect( collision, velocity, damageDefName );
+		//DefaultDamageEffect( collision, velocity, damageDefName );
 	}
 // RAVEN END
 

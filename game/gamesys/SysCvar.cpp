@@ -340,12 +340,12 @@ idCVar rb_showContacts(				"rb_showContacts",			"0",			CVAR_GAME | CVAR_BOOL, "s
 // RAVEN END
 
 // The default values for player movement cvars are set in def/player.def
-idCVar pm_jumpheight(				"pm_jumpheight",			"48",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "approximate hieght the player can jump" );
+idCVar pm_jumpheight(				"pm_jumpheight",			"480",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "approximate hieght the player can jump" );
 idCVar pm_stepsize(					"pm_stepsize",				"16",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "maximum height the player can step up without jumping" );
 idCVar pm_crouchspeed(				"pm_crouchspeed",			"80",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "speed the player can move while crouched" );
 // RAVEN BEGIN
-idCVar pm_speed(					"pm_speed",					"160",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "speed the player can move while running" );
-idCVar pm_walkspeed(				"pm_walkspeed",				"80",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "speed the player can move while walking" );
+idCVar pm_speed(					"pm_speed",					"320",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "speed the player can move while running" );
+idCVar pm_walkspeed(				"pm_walkspeed",				"320",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "speed the player can move while walking" );
 // RAVEN END
 idCVar pm_noclipspeed(				"pm_noclipspeed",			"270",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "speed the player can move while in noclip" );
 idCVar pm_spectatespeed(			"pm_spectatespeed",			"450",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "speed the player can move while spectating" );
@@ -362,7 +362,7 @@ idCVar pm_normalheight(				"pm_normalheight",			"77",			CVAR_GAME | CVAR_NETWORK
 idCVar pm_crouchheight(				"pm_crouchheight",			"49",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "height of player's bounding box while crouched" );
 
 idCVar pm_crouchviewheight(			"pm_crouchviewheight",		"32",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "height of player's view while crouched" );
-idCVar pm_normalviewheight(			"pm_normalviewheight",		"68",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "height of player's view while standing" );
+idCVar pm_normalviewheight(			"pm_normalviewheight",		"150",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "height of player's view while standing" );
 
 idCVar pm_deadheight(				"pm_deadheight",			"20",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "height of player's bounding box while dead" );
 idCVar pm_deadviewheight(			"pm_deadviewheight",		"10",			CVAR_GAME | CVAR_NETWORKSYNC | CVAR_FLOAT | CVAR_NORESET, "height of player's view while dead" );

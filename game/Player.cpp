@@ -6966,42 +6966,9 @@ void idPlayer::UpdateFocus( void ) {
 			}
 		}
 		
-		bool isAI = ent->IsType( idAI::GetClassType() );
+		bool isAI = false;
 		bool isFriendly = false;
 		
-		if ( isAI ) {
-			isFriendly = (static_cast<idAI *>( ent )->team == team);
-		}
-		
-		//change crosshair color if over a friendly
-		if ( !gameLocal.isMultiplayer 
-			&& focusType == FOCUS_NONE 
-			&& !g_crosshairCharInfoFar.GetBool() ) {
-			if ( focusLength < 512 ) {
-				bool newTargetFriendly = false;
-				if ( isAI && isFriendly ) {
-					newTargetFriendly = true;
-				} else if ( ent->IsType( idAFAttachment::GetClassType() ) ) {
-					idEntity *body = static_cast<idAFAttachment *>( ent )->GetBody();
-					if ( body && body->IsType( idAI::GetClassType() ) && ( static_cast<idAI *>( body )->team == team ) ) {
-						newTargetFriendly = true;
-					}
-				}
-				if ( newTargetFriendly ) {
-				
-					// dluetscher: added optimization to eliminate redundant traces
-					if ( renderTrace.fraction == -1 ) {
-						gameLocal.TracePoint( this, renderTrace, start, end, MASK_SHOT_RENDERMODEL, this );
-					}
-					if ( ( renderTrace.fraction < 1.0f ) && ( renderTrace.c.entityNum == ent->entityNumber ) ) {
-						targetFriendly = true;
-						if( cursor && !wasTargetFriendly ) {
-							cursor->HandleNamedEvent( "showCrossBuddy" );
-						}
-					}
-				}
-			}
-		}
 
 // RAVEN BEGIN
 
