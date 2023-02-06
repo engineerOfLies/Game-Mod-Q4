@@ -401,7 +401,7 @@ bool rvMonsterStroggMarine::CheckActions ( void ) {
 		PerformAction ( &actionStrafe,  (checkAction_t)&rvMonsterStroggMarine::CheckAction_Strafe ) ||
 		PerformAction ( &actionAngry,  (checkAction_t)&rvMonsterStroggMarine::CheckAction_Angry ) ||
 		PerformAction ( &actionReload,  (checkAction_t)&rvMonsterStroggMarine::CheckAction_Reload ) ) {
-		return true;
+		return false;
 	}
 	return false;
 }

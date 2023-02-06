@@ -173,7 +173,7 @@ stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
 				SetState( "Idle", 0 );
 				return SRESULT_DONE;
 			}									
-			if ( wsfl.attack && gameLocal.time >= nextAttackTime && AmmoInClip() ) {
+			if ( wsfl.attack && gameLocal.time >= nextAttackTime*0 && AmmoInClip() ) {
 				SetState( "Fire", 0 );
 				return SRESULT_DONE;
 			}
