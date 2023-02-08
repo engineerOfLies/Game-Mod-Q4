@@ -32,6 +32,8 @@ private:
 	idVec2				chargeGlow;
 	bool				fireForced;
 	int					fireHeldTime;
+	bool				altfire;
+
 
 	stateResult_t		State_Raise				( const stateParms_t& parms );
 	stateResult_t		State_Lower				( const stateParms_t& parms );
@@ -61,12 +63,13 @@ rvWeaponBlaster::UpdateFlashlight
 ================
 */
 bool rvWeaponBlaster::UpdateFlashlight ( void ) {
-	if ( !wsfl.flashlight ) {
+	if (!wsfl.flashlight ) {
 		return false;
 	}
 	
-	SetState ( "Flashlight", 1 );
-	return true;		
+	SetState("Flashlight", 0);
+	return true;
+
 }
 
 /*
@@ -75,7 +78,35 @@ rvWeaponBlaster::Flashlight
 ================
 */
 void rvWeaponBlaster::Flashlight ( bool on ) {
-	owner->Flashlight ( on );
+	
+	const char* name;
+	const idDeclEntityDef* def;
+	if (on) {
+		if (spawnArgs.GetString("def_althitscan", "", &name) && *name) {
+			def = gameLocal.FindEntityDef(name, false);
+			if (!def) {
+				gameLocal.Warning("Unknown hitscan '%s' for weapon '%s'", name, weaponDef->GetName());
+			}
+			else {
+				attackDict = def->dict;
+			}
+			wfl.attackHitscan = true;
+			altfire = true;
+		}
+	}
+		else {
+			if (spawnArgs.GetString("def_hitscan", "", &name) && *name) {
+				def = gameLocal.FindEntityDef(name, false);
+				if (!def) {
+					gameLocal.Warning("Unknown hitscan '%s' for weapon '%s'", name, weaponDef->GetName());
+				}
+				else {
+					attackDict = def->dict;
+				}
+				wfl.attackHitscan = true;
+				altfire = false;
+			}
+		}
 	
 	if ( on ) {
 		worldModel->ShowSurface ( "models/weapons/blaster/flare" );
@@ -156,7 +187,8 @@ void rvWeaponBlaster::Spawn ( void ) {
 	fireHeldTime		= 0;
 	fireForced			= false;
 			
-	Flashlight ( owner->IsFlashlightOn() );
+	gameLocal.Printf("initial 1\n");
+	Flashlight ( owner->IsFlashlightOn());
 }
 
 /*
@@ -430,11 +462,14 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 				Attack ( true, 15, spread*5, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
+				
+
 			} else {
-				Attack ( false, 5, spread*2, 0, 1.0f );
+				Attack ( false, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_normalflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
-			}
+				
+			};
 			fireHeldTime = 0;
 			
 			return SRESULT_STAGE(FIRE_WAIT);
@@ -474,10 +509,12 @@ stateResult_t rvWeaponBlaster::State_Flashlight ( const stateParms_t& parms ) {
 				return SRESULT_WAIT;
 			}
 			
-			if ( owner->IsFlashlightOn() ) {
-				Flashlight ( true );
+			if ( altfire ) {
+				Flashlight(false);
+					gameLocal.Printf("trigered off\n");
 			} else {
 				Flashlight ( true );
+				gameLocal.Printf("trigered on \n");
 			}
 			
 			SetState ( "Idle", 4 );

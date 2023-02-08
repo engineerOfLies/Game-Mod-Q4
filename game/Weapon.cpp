@@ -952,6 +952,7 @@ void rvWeapon::InitDefs( void ) {
 		if ( !def ) {
 			gameLocal.Warning( "Unknown hitscan '%s' for weapon '%s'", name, weaponDef->GetName ( ) );
 		} else {
+
 			attackAltDict = def->dict;
 		}
 		wfl.attackAltHitscan = true;
