@@ -373,6 +373,7 @@
     <ClCompile Include="game\weapon\WeaponRocketLauncher.cpp" />
     <ClCompile Include="game\weapon\WeaponShotgun.cpp" />
     <ClCompile Include="game\WorldSpawn.cpp" />
+    <ClCompile Include="Tower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\Actor.h" />
@@ -479,6 +480,7 @@
     <ClInclude Include="game\vehicle\VehicleStatic.h" />
     <ClInclude Include="game\Weapon.h" />
     <ClInclude Include="game\WorldSpawn.h" />
+    <ClInclude Include="Tower.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="game\Game.def" />

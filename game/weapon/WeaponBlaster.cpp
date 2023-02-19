@@ -4,6 +4,7 @@
 #include "../Game_local.h"
 #include "../Weapon.h"
 
+
 #define BLASTER_SPARM_CHARGEGLOW		6
 
 class rvWeaponBlaster : public rvWeapon {
@@ -33,6 +34,9 @@ private:
 	bool				fireForced;
 	int					fireHeldTime;
 	bool				altfire;
+
+	idVec3 origin;   //personal
+	idMat3 axis;
 
 
 	stateResult_t		State_Raise				( const stateParms_t& parms );
@@ -187,8 +191,7 @@ void rvWeaponBlaster::Spawn ( void ) {
 	fireHeldTime		= 0;
 	fireForced			= false;
 			
-	gameLocal.Printf("initial 1\n");
-	Flashlight ( owner->IsFlashlightOn());
+
 }
 
 /*
@@ -430,6 +433,8 @@ rvWeaponBlaster::State_Fire
 ================
 */
 stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
+
+
 	enum {
 		FIRE_INIT,
 		FIRE_WAIT,
@@ -468,6 +473,9 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 				Attack ( false, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_normalflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
+				player->GetPosition(origin, axis);
+				gameLocal.Printf("%f: %f: %f\n", origin.x, origin.y, origin.z);
+
 				
 			};
 			fireHeldTime = 0;
