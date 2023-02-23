@@ -258,6 +258,7 @@ public:
 	int						lightningNextTime;
 	int						lightningEffects;
 
+
 protected:
 	friend class			idAnimState;
 

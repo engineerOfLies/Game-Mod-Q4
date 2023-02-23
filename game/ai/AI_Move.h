@@ -16,7 +16,7 @@ merge conflicts and to make further changes to the system possible.
 
 typedef idEntityPtr<idEntity>			entityPointer_t;
 
-#define MAX_PATH_LEN	48
+#define MAX_PATH_LEN	68
 
 /*
 =====================

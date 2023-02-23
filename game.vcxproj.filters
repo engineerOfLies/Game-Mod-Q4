@@ -517,7 +517,7 @@
       <Filter>Game\MP\Stats</Filter>
     </ClCompile>
     <ClCompile Include="Tower.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -834,7 +834,7 @@
       <Filter>Game\MP\Stats</Filter>
     </ClInclude>
     <ClInclude Include="Tower.h">
-      <Filter>Game</Filter>
+      <Filter>Game\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

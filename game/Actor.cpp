@@ -2661,13 +2661,13 @@ bool idActor::Pain( idEntity *inflictor, idEntity *attacker, int damage, const i
 	
 	// No pain if being hit by a friendly target
 	// jshepard: friendly targets can now cause pain
-/*
+
 	if ( attacker && attacker->IsType ( idActor::GetClassType ( ) ) ) {
 		if ( static_cast<idActor*>( attacker )->team == team ) {
 			return false;
 		}
 	}
-*/
+
 
 	// don't play pain sounds more than necessary
 	pain_debounce_time = gameLocal.time + pain_delay;

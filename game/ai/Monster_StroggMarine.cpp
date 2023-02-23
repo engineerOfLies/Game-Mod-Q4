@@ -95,6 +95,7 @@ rvMonsterStroggMarine::Spawn
 ================
 */
 void rvMonsterStroggMarine::Spawn ( void ) {
+	
 	actionStrafe.Init  ( spawnArgs, "action_strafe",	NULL,	0 );
 	actionCrouchRangedAttack.Init  ( spawnArgs, "action_crouchRangedAttack",	NULL, AIACTIONF_ATTACK );
 	actionRollAttack.Init  ( spawnArgs, "action_rollAttack",	NULL, AIACTIONF_ATTACK );

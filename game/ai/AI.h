@@ -460,7 +460,11 @@ public:
 
 							// Outputs a list of all monsters to the console.
 	static void				List_f( const idCmdArgs &args );
+	//------------------criipi
 
+	static void ListEnemies_f(const idCmdArgs& args);
+
+	//------------------criipi
 
 	// Add some dynamic externals for debugging
 	virtual void			GetDebugInfo					( debugInfoProc_t proc, void* userData );
@@ -478,6 +482,7 @@ public:
  	bool					IsCoverValid					( void ) const;
 	virtual bool			IsCrouching						( void ) const;
 
+	
 
 public:
 

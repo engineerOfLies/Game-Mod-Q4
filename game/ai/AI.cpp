@@ -1544,13 +1544,13 @@ bool idAI::Pain( idEntity *inflictor, idEntity *attacker, int damage, const idVe
 	// jshepard: friendly fire will cause pain. Players will only be able to pain buddy marines
 	// via splash damage.
 
-/*
+
 	if ( attacker && attacker->IsType ( idActor::GetClassType ( ) ) ) {
 		if ( static_cast<idActor*>( attacker )->team == team ) {
 			return aifl.pain;
 		}
 	}
-*/
+
 
 	// ignore damage from self
 	if ( attacker != this ) {
@@ -1792,7 +1792,7 @@ void idAI::Activate( idEntity *activator ) {
 	}
 
 	if ( ReactionTo( player ) & ATTACK_ON_ACTIVATE ) {
-		SetEnemy( player );
+		SetEnemy( gameLocal.FindEntity("tower"));
 	}
 	
 	// If being activated by a spawner we need to attach to it
@@ -5148,4 +5148,51 @@ bool idAI::CheckDeathCausesMissionFailure( void )
 		}
 	}
 	return false;
+}
+
+void idAI::ListEnemies_f(const idCmdArgs& args) {
+	idLinkList<idActor>* list;
+	idEntity* ent;
+	int i;
+
+	ent = gameLocal.FindEntity(args.Argv(1));
+	if (!ent) {
+		gameLocal.Printf("entity not found\n");
+		return;
+	}
+	if (ent->IsType(idActor::GetClassType())) {
+
+		idActor* en = static_cast<idActor*>(ent);
+		if (en)
+		{
+			list = en->enemyList.ListHead();
+			gameLocal.Printf("%d\n", en->enemyList.Num());
+			gameLocal.Printf("%s\n", list->Owner()->GetName());
+
+			for (i = 0; i < en->enemyList.Num(); i++) {
+			
+				gameLocal.Printf("$d\n", en->enemyList.Num());
+				gameLocal.Printf("\"ENEMY: \"  " S_COLOR_WHITE "\"%s\"\n", list->Owner()->GetName());
+
+				if (i< en->enemyList.Num() -1)
+				{
+					list->NextNode();
+				}
+			}
+		}
+		else
+		{
+			gameLocal.Printf("INVALID2");
+
+		}
+		
+		
+	}
+	else
+	{
+		gameLocal.Printf("INVALID");
+	}
+
+
+	
 }

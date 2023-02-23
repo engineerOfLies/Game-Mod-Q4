@@ -3014,6 +3014,7 @@ void Cmd_TestClientModel_f( const idCmdArgs& args ) {
 }
 
 
+
 // RAVEN END
 
 void Cmd_CheckSave_f( const idCmdArgs &args );
@@ -3090,6 +3091,12 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "listLines",				Cmd_ListDebugLines_f,		CMD_FL_GAME|CMD_FL_CHEAT,	"lists all debug lines" );
 	cmdSystem->AddCommand( "playerModel",			Cmd_PlayerModel_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"sets the given model on the player", idCmdSystem::ArgCompletion_Decl<DECL_MODELDEF> );
 	cmdSystem->AddCommand( "flashlight",			Cmd_Flashlight_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"toggle actor's flashlight", idGameLocal::ArgCompletion_AIName );
+
+	//--------------------------------------criipi
+
+	cmdSystem->AddCommand("listenemies", idAI::ListEnemies_f, CMD_FL_GAME | CMD_FL_CHEAT, "lists enemies", idGameLocal::ArgCompletion_EntityName);
+
+	//--------------------------------------criipi
 	
 	cmdSystem->AddCommand( "shuffleTeams",			Cmd_ShuffleTeams_f,			CMD_FL_GAME,				"shuffle teams" );
 // RAVEN BEGIN
