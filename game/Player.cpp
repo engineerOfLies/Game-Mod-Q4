@@ -1081,6 +1081,10 @@ idPlayer::idPlayer() {
 
 	alreadyDidTeamAnnouncerSound = false;
 
+	//-------criipi
+	fl.notarget = true;
+	//-------criipi
+
 	doInitWeapon			= false;
 	noclip					= false;
 	godmode					= false;
@@ -1498,6 +1502,10 @@ idPlayer::Init
 void idPlayer::Init( void ) {
 	const char			*value;
 	
+	//-------criipi
+	fl.notarget = true;
+	//-------criipi
+
 	noclip					= false;
 	godmode					= false;
 	godmodeDamage			= 0;
