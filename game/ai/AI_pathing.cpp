@@ -1081,7 +1081,7 @@ void idAI::FreeObstacleAvoidanceNodes( void ) {
 */
 
 const float OVERCLIP			= 1.001f;
-const int MAX_FRAME_SLIDE		= 5;
+const int MAX_FRAME_SLIDE		= 500;
 
 typedef struct pathTrace_s {
 	float					fraction;
@@ -1219,17 +1219,17 @@ bool idAI::PredictPath( const idEntity *ent, const idAAS *aas, const idVec3 &sta
 	}
 
 	path.endPos = start;
-	path.endVelocity = velocity;
+	path.endVelocity = velocity*5;
 	path.endNormal.Zero();
 	path.endEvent = 0;
 	path.endTime = 0;
 	path.blockingEntity = NULL;
 
 	curStart = start;
-	curVelocity = velocity;
+	curVelocity = velocity*5;
 
 	numFrames = ( totalTime + frameTime - 1 ) / frameTime;
-	curFrameTime = frameTime;
+	curFrameTime = frameTime*5;
 	for ( i = 0; i < numFrames; i++ ) {
 
 		if ( i == numFrames-1 ) {
@@ -1247,7 +1247,7 @@ bool idAI::PredictPath( const idEntity *ent, const idAAS *aas, const idVec3 &sta
 			idVec3 lineStart = curStart;
 
 			// allow stepping up three times per frame
-			for ( step = 0; step < 3; step++ ) {
+			for ( step = 0; step < 20; step++ ) {
 
 				curEnd = curStart + delta;
 // RAVEN BEGIN

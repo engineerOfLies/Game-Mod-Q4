@@ -16,8 +16,11 @@ rvTower::rvTower() {
 void rvTower::Spawn(void) {
 
 	health = 100;
+	fl.takedamage = true;
+	fl.solidForTeam = true;
+	BecomeSolid();
+	physicsObj.GetClipModel()->Link();
 
-	
 }
 
 void rvTower::InitSpawnArgsVariables(void)

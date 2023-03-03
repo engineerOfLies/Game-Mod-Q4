@@ -78,7 +78,7 @@ struct rvMarker;
 // RAVEN END
 
 
-#define MAX_REACH_PER_AREA			256
+#define MAX_REACH_PER_AREA			512
 #define MAX_AAS_TREE_DEPTH			128
 
 #define MAX_AAS_BOUNDING_BOXES		4

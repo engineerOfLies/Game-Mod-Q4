@@ -305,7 +305,7 @@ bool rvAITactical::CheckActions ( void ) {
 	}
 	
 	// If we are pressed, fight-- do not break melee combat until you or the enemy is dead.
-	if ( IsMeleeNeeded ( ))	{
+	if (IsMeleeNeeded()) {
 		if ( PerformAction ( &actionMeleeAttack, (checkAction_t)&idAI::CheckAction_MeleeAttack )							 || 
 			 PerformAction ( &actionElbowAttack, (checkAction_t)&idAI::CheckAction_LeapAttack )									) {
 			return true;
@@ -357,10 +357,10 @@ bool rvAITactical::CheckActions ( void ) {
 	}
 
 	// Standard attacks
-	if ( PerformAction ( &actionMeleeAttack, (checkAction_t)&idAI::CheckAction_MeleeAttack )							 || 
+	/*if (PerformAction(&actionMeleeAttack, (checkAction_t)&idAI::CheckAction_MeleeAttack) ||
 		 PerformAction ( &actionElbowAttack, (checkAction_t)&idAI::CheckAction_LeapAttack )									) {
 		return true;
-	}
+	}*/
 
 	// Ranged attack only if there is ammo
 	if ( postureInfo[postureCurrent].fl.canShoot && (ammo > 0 || ammo == -1) ) {

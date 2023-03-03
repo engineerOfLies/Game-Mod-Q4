@@ -535,8 +535,8 @@ idCVar g_exportMask(				"g_exportMask",				"",				CVAR_GAME, "" );
 idCVar g_flushSave(					"g_flushSave",				"0",			CVAR_GAME | CVAR_BOOL, "1 = don't buffer file writing for save games." );
 
 idCVar aas_test(					"aas_test",					"0",			CVAR_GAME | CVAR_INTEGER, "" );
-idCVar aas_showAreas(				"aas_showAreas",			"0",			CVAR_GAME | CVAR_INTEGER, "" );
-idCVar aas_showAreaBounds(			"aas_showAreaBounds",		"0",			CVAR_GAME | CVAR_INTEGER, "When show areas is on, this draws the bounds of the areas, too..." );
+idCVar aas_showAreas(				"aas_showAreas",			"1",			CVAR_GAME | CVAR_INTEGER, "" );
+idCVar aas_showAreaBounds(			"aas_showAreaBounds",		"1",			CVAR_GAME | CVAR_INTEGER, "When show areas is on, this draws the bounds of the areas, too..." );
 idCVar aas_showPath(				"aas_showPath",				"0",			CVAR_GAME | CVAR_INTEGER, "" );
 idCVar aas_showFlyPath(				"aas_showFlyPath",			"0",			CVAR_GAME | CVAR_INTEGER, "" );
 idCVar aas_showWallEdges(			"aas_showWallEdges",		"0",			CVAR_GAME | CVAR_BOOL, "" );

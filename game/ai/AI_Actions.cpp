@@ -109,7 +109,7 @@ bool rvAIAction::Init ( const idDict& args, const char* name, const char* defaul
 		fl.isAttack = true;
 	}
 	if ( _flags & AIACTIONF_MELEE ) {
-		fl.isMelee = true;
+		fl.isMelee = false;
 	}
 
 	// Initialize timer

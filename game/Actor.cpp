@@ -426,7 +426,7 @@ idActor::idActor( void )
 
 	team				= 0;
 	rank				= 0;
-	fovDot				= 0.0f;
+	fovDot				= 1000.0f;
 	pain_debounce_time	= 0;
 	pain_delay			= 0;
 
@@ -529,8 +529,8 @@ void idActor::Spawn( void ) {
 
 	viewAxis = GetPhysics()->GetAxis();
 
-	spawnArgs.GetFloat( "fov", "90", fovDegrees );
-	spawnArgs.GetFloat( "fovClose", "200", fovDegreesClose );
+	spawnArgs.GetFloat( "fov", "900", fovDegrees );
+	spawnArgs.GetFloat( "fovClose", "2000", fovDegreesClose );
 	spawnArgs.GetFloat( "fovCloseRange", "180", fovCloseRange );
 	SetFOV( fovDegrees, fovDegreesClose );
 
@@ -2109,13 +2109,13 @@ void idActor::GetAASLocation( idAAS *aas, idVec3 &pos, int &areaNum ) const {
 	}
 	
 	size = aas->GetSettings()->boundingBoxes[0][1];
-	bounds[0] = -size;
-	size.z = 32.0f;
-	bounds[1] = size;
+	bounds[0] = -size*2;
+	size.z = 32.0f*2;
+	bounds[1] = size*2;
 
 	areaNum = aas->PointReachableAreaNum( pos, bounds, AREA_REACHABLE_WALK );
 	if ( areaNum ) {
-		aas->PushPointIntoAreaNum( areaNum, pos );
+		aas->PushPointIntoAreaNum( areaNum*2, pos );
 	}
 }
 

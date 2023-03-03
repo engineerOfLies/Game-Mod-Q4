@@ -652,9 +652,9 @@ void idAI::Spawn( void ) {
  	combat.visStandHeight			= spawnArgs.GetFloat( "visStandHeight", "68" );
  	combat.visCrouchHeight			= spawnArgs.GetFloat( "visCrouchHeight", "48" );
  	combat.earRange					= spawnArgs.GetFloat( "earRange", "2048" );
- 	combat.awareRange				= spawnArgs.GetFloat( "awareRange", "150" );
+ 	combat.awareRange				= spawnArgs.GetFloat( "awareRange", "350" );
  	combat.aggressiveRange			= spawnArgs.GetFloat( "aggressiveRange", "0" );
- 	combat.maxLostVisTime			= SEC2MS ( spawnArgs.GetFloat ( "maxLostVisTime", "10" ) );
+ 	combat.maxLostVisTime			= SEC2MS ( spawnArgs.GetFloat ( "maxLostVisTime", "5" ) );
  	combat.tacticalPainThreshold    = spawnArgs.GetInt ( "tactical_painThreshold", va("%d", health / 4) );
 	combat.coverValidTime			= 0;
 	combat.maxInvalidCoverTime		= SEC2MS ( spawnArgs.GetFloat ( "maxInvalidCoverTime", "1" ) );
@@ -1138,12 +1138,12 @@ idAI::Think
 void idAI::Think( void ) {
 
 	// if we are completely closed off from the player, don't do anything at all
-	if ( CheckDormant() ) {
+	/*if (CheckDormant()) {
 		return;
-	}
+	}*/
 
 	// Simple think this frame?
-	aifl.simpleThink = aiManager.IsSimpleThink ( this );
+	
 
 	aiManager.thinkCount++;
 

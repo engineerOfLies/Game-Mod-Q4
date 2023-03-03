@@ -602,9 +602,9 @@ int idAI::PointReachableAreaNum( const idVec3 &pos, const float boundsScale ) co
 	idVec3 size;
 	idBounds bounds;
 
-	if ( !aas ) {
+	/*if (!aas) {
 		return 0;
-	}
+	}*/
 
 	size = aas->GetSettings()->boundingBoxes[0][1] * boundsScale;
 	bounds[0] = -size;
@@ -629,9 +629,9 @@ bool idAI::PathToGoal( aasPath_t &path, int areaNum, const idVec3 &origin, int g
 	idVec3 org;
 	idVec3 goal;
 
-	if ( !aas ) {
+	/*if (!aas) {
 		return false;
-	}
+	}*/
 
 	org = origin;
 	aas->PushPointIntoAreaNum( areaNum, org );
@@ -796,10 +796,10 @@ bool idAI::FaceEnemy( void ) {
 	move.moveCommand		= MOVE_FACE_ENEMY;
 	move.moveStatus			= MOVE_STATUS_WAITING;
 	move.startTime			= gameLocal.time;
-	move.speed				= 0.0f;
+	move.speed				= 2.0f;
 	
-	move.fl.done			= true;
-	move.fl.moving			= false;
+	move.fl.done			= false;
+	move.fl.moving			= true;
 	move.fl.goalUnreachable	= false;
 	aifl.simpleThink		= false;
 
@@ -845,10 +845,12 @@ Initialize a new movement by setting up the movement structure
 */
 bool idAI::StartMove ( aiMoveCommand_t command, const idVec3& goalOrigin, int goalArea, idEntity* goalEntity, aasFeature_t* feature, float range ) {
 	// If we are already there then we are done
-	if ( ReachedPos( goalOrigin, command ) ) {
+	//Enemy keeps moving even fater reaching position, makes enemies more dynamic movement. I think. - criipi
+	/*
+	if ( ReachedPos( goalOrigin, command ) && FaceEnemy()) {
 		StopMove( MOVE_STATUS_DONE );
 		return true;
-	}
+	}*/
 
 	move.lastMoveOrigin		= physicsObj.GetOrigin ( );
 

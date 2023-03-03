@@ -104,6 +104,7 @@ void rvMonsterStroggMarine::Spawn ( void ) {
 	actionReload.Init  ( spawnArgs, "action_reload",	NULL, 0 );
 
 	InitSpawnArgsVariables();
+	
 
 	shots	 = 0;
 	shotsFired = 0;
