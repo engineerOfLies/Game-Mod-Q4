@@ -1073,6 +1073,62 @@ void Cmd_Teleport_f( const idCmdArgs &args ) {
 	player->Teleport( origin, angles, ent );
 }
 
+void Cmd_Teleport_forward(const idCmdArgs& args) {
+	idVec3		origin;
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+
+	origin = player->GetPhysics()->GetOrigin();
+
+	player->SetOrigin(origin + idVec3(-50 + CM_CLIP_EPSILON, CM_CLIP_EPSILON, 10 + CM_CLIP_EPSILON));
+}
+
+void Cmd_Teleport_backward(const idCmdArgs& args) {
+	idVec3		origin;
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+
+	origin = player->GetPhysics()->GetOrigin();
+
+	player->SetOrigin(origin + idVec3(50 + CM_CLIP_EPSILON, CM_CLIP_EPSILON, 10 + CM_CLIP_EPSILON));
+}
+
+void Cmd_Teleport_left(const idCmdArgs& args) {
+	idVec3		origin;
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+
+	origin = player->GetPhysics()->GetOrigin();
+
+	player->SetOrigin(origin + idVec3(CM_CLIP_EPSILON, -50 + CM_CLIP_EPSILON, 10 + CM_CLIP_EPSILON));
+}
+
+void Cmd_Teleport_right(const idCmdArgs& args) {
+	idVec3		origin;
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+
+	origin = player->GetPhysics()->GetOrigin();
+
+	player->SetOrigin(origin + idVec3(CM_CLIP_EPSILON, 50 + CM_CLIP_EPSILON, 10 + CM_CLIP_EPSILON));
+}
+
 /*
 =================
 Cmd_Trigger_f
@@ -3076,6 +3132,12 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "getviewpos",			Cmd_GetViewpos_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"prints the current view position" );
 	cmdSystem->AddCommand( "setviewpos",			Cmd_SetViewpos_f,			CMD_FL_GAME|CMD_FL_CHEAT,	"sets the current view position" );
 	cmdSystem->AddCommand( "teleport",				Cmd_Teleport_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"teleports the player to an entity location", idGameLocal::ArgCompletion_EntityName );
+
+	cmdSystem->AddCommand("gridForward", Cmd_Teleport_forward, CMD_FL_GAME | CMD_FL_CHEAT, "move the player forward by 25 units");
+	cmdSystem->AddCommand("gridBackward", Cmd_Teleport_backward, CMD_FL_GAME | CMD_FL_CHEAT, "move the player backward by 25 units");
+	cmdSystem->AddCommand("gridLeft", Cmd_Teleport_left, CMD_FL_GAME | CMD_FL_CHEAT, "move the player left by 25 units");
+	cmdSystem->AddCommand("gridRight", Cmd_Teleport_right, CMD_FL_GAME | CMD_FL_CHEAT, "move the player forward by 25 units");
+
 	cmdSystem->AddCommand( "trigger",				Cmd_Trigger_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"triggers an entity", idGameLocal::ArgCompletion_EntityName );
 	cmdSystem->AddCommand( "spawn",					Cmd_Spawn_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"spawns a game entity", idCmdSystem::ArgCompletion_Decl<DECL_ENTITYDEF> );
 	cmdSystem->AddCommand( "damage",				Cmd_Damage_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"apply damage to an entity", idGameLocal::ArgCompletion_EntityName );

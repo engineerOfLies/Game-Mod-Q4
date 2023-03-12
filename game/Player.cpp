@@ -10009,6 +10009,115 @@ void idPlayer::CalcDamagePoints( idEntity *inflictor, idEntity *attacker, const 
 	*armor = armorSave;
 }
 
+void idPlayer::gridMove(idEntity* inflictor, idEntity* attacker, const idVec3& dir,
+	const char* damageDefName, const float damageScale, int location) {
+	idVec3		kick;
+	int			damage;
+	int			armorSave;
+	int			knockback;
+	idVec3		damage_from;
+	float		attackerPushScale;
+
+	// RAVEN BEGIN
+	// twhitaker: difficulty levels
+	float modifiedDamageScale = damageScale;
+
+	if (!gameLocal.isMultiplayer) {
+		if (inflictor != gameLocal.world) {
+			modifiedDamageScale *= (1.0f + gameLocal.GetDifficultyModifier());
+		}
+	}
+	// RAVEN END
+
+	if (forwardDamageEnt.IsValid()) {
+		forwardDamageEnt->Damage(inflictor, attacker, dir, damageDefName, modifiedDamageScale, location);
+		return;
+	}
+
+	// damage is only processed on server
+	if (gameLocal.isClient) {
+		return;
+	}
+
+	if (!fl.takedamage || noclip || spectating || gameLocal.inCinematic) {
+		// If in vehicle let it know that something is trying to hurt the invisible player
+		if (IsInVehicle()) {
+			const idDict* damageDict = gameLocal.FindEntityDefDict(damageDefName, false);
+			if (!damageDict) {
+				gameLocal.Warning("Unknown damageDef '%s'", damageDefName);
+				return;
+			}
+
+			// If the damage def is marked as a hazard then issue a warning to the vehicle 
+			if (damageDict->GetBool("hazard", "0")) {
+				vehicleController.GetVehicle()->IssueHazardWarning();
+			}
+		}
+		return;
+	}
+
+	if (!inflictor) {
+		inflictor = gameLocal.world;
+	}
+	if (!attacker) {
+		attacker = gameLocal.world;
+	}
+
+	// MCG: player doesn't take friendly fire damage, except from self!
+	if (!gameLocal.isMultiplayer && attacker != this) {
+		if (attacker->IsType(idActor::GetClassType()) && static_cast<idActor*>(attacker)->team == team) {
+			return;
+		}
+	}
+
+	const idDeclEntityDef* damageDef = gameLocal.FindEntityDef(damageDefName, false);
+	if (!damageDef) {
+		gameLocal.Warning("Unknown damageDef '%s'", damageDefName);
+		return;
+	}
+
+	if (damageDef->dict.GetBool("ignore_player")) {
+		return;
+	}
+
+	if (damageDef->dict.GetBool("lightning_damage_effect"))
+	{
+		lightningEffects = 0;
+		lightningNextTime = gameLocal.GetTime();
+	}
+
+	// We pass in damageScale, because this function calculates a modified damageScale 
+	// based on g_skill, and we don't want to compensate for skill level twice.
+	CalcDamagePoints(inflictor, attacker, &damageDef->dict, damageScale, location, &damage, &armorSave);
+
+	//
+	// determine knockback
+	//
+	damageDef->dict.GetInt("knockback", "0", knockback);
+	if (gameLocal.isMultiplayer && gameLocal.IsTeamGame()) {
+		damageDef->dict.GetInt("knockback_team", va("%d", knockback), knockback);
+	}
+
+	knockback *= damageScale;
+
+	damageDef->dict.GetFloat("attackerPushScale", "2", attackerPushScale);
+
+
+	kick = dir;
+
+	kick.Normalize();
+	kick *= g_knockback.GetFloat() * knockback * attackerPushScale * 20.0f;
+
+	physicsObj.SetLinearVelocity(kick);
+
+	// set the timer so that the player can't cancel out the movement immediately
+	physicsObj.SetKnockBack(idMath::ClampInt(50, 200, knockback * 2));
+
+	// move the world direction vector to local coordinates
+	ClientDamageEffects(damageDef->dict, dir, damage);
+
+}
+
 /*
 ============
 Damage
