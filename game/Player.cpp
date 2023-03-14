@@ -9598,12 +9598,23 @@ void idPlayer::Think( void ) {
 	if ( g_showEnemies.GetBool() ) {
 		idActor *ent;
 		int num = 0;
-		for( ent = enemyList.Next(); ent != NULL; ent = ent->enemyNode.Next() ) {
-			common->DPrintf( "enemy (%d)'%s'\n", ent->entityNumber, ent->name.c_str() );
-			gameRenderWorld->DebugBounds( colorRed, ent->GetPhysics()->GetBounds().Expand( 2 ), ent->GetPhysics()->GetOrigin() );
+		for( ent = teamNode.Next(); ent != NULL; ent = ent->teamNode.Next() ) {
+			common->DPrintf( "team (%d)'%s'\n", ent->entityNumber, ent->name.c_str() );
+			gameRenderWorld->DebugBounds( colorBlue, ent->GetPhysics()->GetBounds().Expand( 2 ), ent->GetPhysics()->GetOrigin() );
 			num++;
 		}
 		common->DPrintf( "%d: enemies\n", num );
+	}
+
+	if (g_showEnemies.GetBool()) {
+		idActor* ent;
+		int num = 0;
+		for (ent = enemyList.Next(); ent != NULL; ent = ent->enemyNode.Next()) {
+			common->DPrintf("enemy (%d)'%s'\n", ent->entityNumber, ent->name.c_str());
+			gameRenderWorld->DebugBounds(colorRed, ent->GetPhysics()->GetBounds().Expand(2), ent->GetPhysics()->GetOrigin());
+			num++;
+		}
+		common->DPrintf("%d: enemies\n", num);
 	}
 
 	if ( !inBuyZonePrev )

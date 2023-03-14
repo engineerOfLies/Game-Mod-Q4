@@ -871,6 +871,9 @@ void idAI::Spawn( void ) {
 			aifl.disableLook = true;
 		}
 	}
+
+	//gameRenderWorld->DebugBounds(colorRed, GetPhysics()->GetBounds().Expand(2), GetPhysics()->GetOrigin());
+	Event_BecomePassive(true);
 	
 	// Print out a warning about any AI that is spawned unhidden since they will be all thinking
 	if( gameLocal.GameState ( ) == GAMESTATE_STARTUP && !spawnArgs.GetInt( "hide" ) && !spawnArgs.GetInt( "trigger_anim" ) && !spawnArgs.GetInt( "trigger_cover" ) && !spawnArgs.GetInt( "trigger_move" ) ){

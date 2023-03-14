@@ -198,8 +198,8 @@ idCVar g_showEntityInfo(			"g_showEntityInfo",			"0",			CVAR_GAME | CVAR_BOOL, "
 idCVar g_showviewpos(				"g_showviewpos",			"0",			CVAR_GAME | CVAR_BOOL, "" );
 idCVar g_showcamerainfo(			"g_showcamerainfo",			"0",			CVAR_GAME | PC_CVAR_ARCHIVE, "displays the current frame # for the camera when playing cinematics" );
 idCVar g_showTestModelFrame(		"g_showTestModelFrame",		"0",			CVAR_GAME | CVAR_BOOL, "displays the current animation and frame # for testmodels" );
-idCVar g_showActiveEntities(		"g_showActiveEntities",		"0",			CVAR_GAME | CVAR_BOOL, "draws boxes around thinking entities.  dormant entities (outside of pvs) are drawn yellow.  non-dormant are green." );
-idCVar g_showEnemies(				"g_showEnemies",			"0",			CVAR_GAME | CVAR_BOOL, "draws boxes around monsters that have targeted the the player" );
+idCVar g_showActiveEntities(		"g_showActiveEntities",		"1",			CVAR_GAME | CVAR_BOOL, "draws boxes around thinking entities.  dormant entities (outside of pvs) are drawn yellow.  non-dormant are green." );
+idCVar g_showEnemies(				"g_showEnemies",			"1",			CVAR_GAME | CVAR_BOOL, "draws boxes around monsters that have targeted the the player" );
 
 idCVar g_frametime(					"g_frametime",				"0",			CVAR_GAME | CVAR_BOOL, "displays timing information for each game frame" );
 idCVar g_timeentities(				"g_timeEntities",			"0",			CVAR_GAME | CVAR_FLOAT, "when non-zero, shows entities whose think functions exceeded the # of milliseconds specified" );
@@ -587,7 +587,7 @@ idCVar g_forceUndying(				"g_forceUndying",			"0",			CVAR_GAME | CVAR_BOOL, "for
 idCVar g_perfTest_weaponNoFX(				"g_perfTest_weaponNoFX",			"0",			CVAR_GAME | CVAR_BOOL, "no muzzle flash, brass eject, muzzle fx, tracers, impact fx, blood decals or blood splats (whew!)" );
 idCVar g_perfTest_hitscanShort(				"g_perfTest_hitscanShort",			"0",			CVAR_GAME | CVAR_BOOL, "all hitscans capped at 2048" );
 idCVar g_perfTest_hitscanBBox(				"g_perfTest_hitscanBBox",			"0",			CVAR_GAME | CVAR_BOOL, "all hitscans vs bbox, not rendermodel" );
-idCVar g_perfTest_aiStationary(				"g_perfTest_aiStationary",			"0",			CVAR_GAME | CVAR_BOOL, "ai attempts no combat movement" );
+idCVar g_perfTest_aiStationary(				"g_perfTest_aiStationary",			"1",			CVAR_GAME | CVAR_BOOL, "ai attempts no combat movement" );
 idCVar g_perfTest_aiNoDodge(				"g_perfTest_aiNoDodge",				"0",			CVAR_GAME | CVAR_BOOL, "ai attempts no dodging" );
 idCVar g_perfTest_aiNoRagdoll(				"g_perfTest_aiNoRagdoll",			"0",			CVAR_GAME | CVAR_BOOL, "ai does not ragdoll" );
 idCVar g_perfTest_aiNoObstacleAvoid(		"g_perfTest_aiNoObstacleAvoid",		"0",			CVAR_GAME | CVAR_BOOL, "ai does not attempt obstacle avoidance" );

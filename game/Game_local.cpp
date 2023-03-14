@@ -4285,10 +4285,10 @@ void idGameLocal::RunDebugInfo( void ) {
 				b[0][0] = b[0][1] = b[0][2] = -8;
 				b[1][0] = b[1][1] = b[1][2] = 8;
 			}
-			if ( ent->fl.isDormant ) {
-				gameRenderWorld->DebugBounds( colorYellow, b, ent->GetPhysics()->GetOrigin() );
+			if ( ent->fl.hasAwakened) {
+				gameRenderWorld->DebugBounds( colorRed, b, ent->GetPhysics()->GetOrigin() );
 			} else {
-				gameRenderWorld->DebugBounds( colorGreen, b, ent->GetPhysics()->GetOrigin() );
+				//gameRenderWorld->DebugBounds( colorGreen, b, ent->GetPhysics()->GetOrigin() );
 			}
 		}
 	}
