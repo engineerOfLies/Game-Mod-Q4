@@ -291,9 +291,12 @@ public:
 	bool					godmode;
 	int						godmodeDamage;
 	bool					undying;
+
 	int						unit;
 	int						unit_level;
 	int						unit_name;
+
+	int						num_killed;
 
 	bool					spawnAnglesSet;		// on first usercmd, we must set deltaAngles
 	idAngles				spawnAngles;

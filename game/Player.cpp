@@ -13068,6 +13068,16 @@ void idPlayer::DamageFeedback( idEntity *victim, idEntity *inflictor, int &damag
 		}
 	} 
 
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+
+	if (victim->health - damage <= 0) {
+		player->num_killed += 1;
+	}
+
 	SetLastHitTime( gameLocal.time, armorHit );
 }
 

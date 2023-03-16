@@ -566,6 +566,7 @@ void Cmd_Get_Fighter(const idCmdArgs& args) {
 		player->unit_name = 1;
 		player->unit_level = 1;
 		player->unit = 1;
+		player->num_killed = 0;
 	}
 }
 
@@ -581,6 +582,7 @@ void Cmd_Get_Gunner(const idCmdArgs& args) {
 		player->unit_name = 2;
 		player->unit_level = 1;
 		player->unit = 1;
+		player->num_killed = 0;
 	}
 }
 
@@ -596,6 +598,7 @@ void Cmd_Get_Grenader(const idCmdArgs& args) {
 		player->unit_name = 3;
 		player->unit_level = 1;
 		player->unit = 1;
+		player->num_killed = 0;
 	}
 }
 
@@ -611,6 +614,7 @@ void Cmd_Get_Rocketer(const idCmdArgs& args) {
 		player->unit_name = 4;
 		player->unit_level = 1;
 		player->unit = 1;
+		player->num_killed = 0;
 	}
 }
 
@@ -626,6 +630,7 @@ void Cmd_Get_Healer(const idCmdArgs& args) {
 		player->unit_name = 5;
 		player->unit_level = 1;
 		player->unit = 1;
+		player->num_killed = 0;
 	}
 }
 
@@ -640,46 +645,63 @@ void Cmd_Upgrade(const idCmdArgs& args) {
 	if (player->unit == 1) {
 		if (player->unit_name == 1) {
 			if (player->unit_level == 1) {
-				
+				if (player->num_killed > 0) {
+
+				}
 			}
 			if (player->unit_level == 2) {
-				
+				if (player->num_killed > 2) {
+
+				}
 			}
 		}
 		if (player->unit_name == 2) {
 			if (player->unit_level == 1) {
-				GiveStuffToPlayer(player, "weapon_nailgun", "");
-				player->unit_level = 2;
+				if (player->num_killed > 0) {
+					GiveStuffToPlayer(player, "weapon_nailgun", "");
+					player->unit_level = 2;
+				}
 			}
 			if (player->unit_level == 2) {
-				GiveStuffToPlayer(player, "weapon_hyperblaster", "");
-				player->unit_level = 3;
+				if (player->num_killed > 2) {
+					GiveStuffToPlayer(player, "weapon_hyperblaster", "");
+					player->unit_level = 3;
+				}
 			}
 		}
 		if (player->unit_name == 3) {
 			if (player->unit_level == 1) {
-				GiveStuffToPlayer(player, "weapon_grenadelauncher", "");
-				player->unit_level = 2;
+				if (player->num_killed > 0) {
+					GiveStuffToPlayer(player, "weapon_grenadelauncher", "");
+					player->unit_level = 2;
+				}
 			}
 			if (player->unit_level == 2) {
+				if (player->num_killed > 2) {
 
+				}
 			}
 		}
 		if (player->unit_name == 4) {
 			if (player->unit_level == 1) {
-				GiveStuffToPlayer(player, "weapon_rocketlauncher", "");
-				player->unit_level = 2;
+				if (player->num_killed > 0) {
+					GiveStuffToPlayer(player, "weapon_rocketlauncher", "");
+					player->unit_level = 2;
+				}
 			}
 			if (player->unit_level == 2) {
-
+				if (player->num_killed > 2) {
+				}
 			}
 		}
 		if (player->unit_name == 5) {
 			if (player->unit_level == 1) {
-
+				if (player->num_killed > 0) {
+				}
 			}
 			if (player->unit_level == 2) {
-
+				if (player->num_killed > 2) {
+				}
 			}
 		}
 	}
