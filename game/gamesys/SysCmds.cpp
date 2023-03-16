@@ -553,6 +553,139 @@ void Cmd_Give_f( const idCmdArgs &args ) {
 
 	GiveStuffToPlayer( player, args.Argv(1), args.Argv(2) );
 }
+
+void Cmd_Get_Fighter(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+	if(!(player->unit == 1)){
+		GiveStuffToPlayer(player, "weapon_machinegun", "");
+		player->unit_name = 1;
+		player->unit_level = 1;
+		player->unit = 1;
+	}
+}
+
+void Cmd_Get_Gunner(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+	if (!(player->unit == 1)) {
+		GiveStuffToPlayer(player, "weapon_blaster", "");
+		player->unit_name = 2;
+		player->unit_level = 1;
+		player->unit = 1;
+	}
+}
+
+void Cmd_Get_Grenader(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+	if (!(player->unit == 1)) {
+		GiveStuffToPlayer(player, "weapon_railgun", "");
+		player->unit_name = 3;
+		player->unit_level = 1;
+		player->unit = 1;
+	}
+}
+
+void Cmd_Get_Rocketer(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+	if (!(player->unit == 1)) {
+		GiveStuffToPlayer(player, "weapon_railgun", "");
+		player->unit_name = 4;
+		player->unit_level = 1;
+		player->unit = 1;
+	}
+}
+
+void Cmd_Get_Healer(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+	if (!(player->unit == 1)) {
+		GiveStuffToPlayer(player, "weapon_shotgun", "");
+		player->unit_name = 5;
+		player->unit_level = 1;
+		player->unit = 1;
+	}
+}
+
+void Cmd_Upgrade(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player || !gameLocal.CheatsOk()) {
+		return;
+	}
+
+	if (player->unit == 1) {
+		if (player->unit_name == 1) {
+			if (player->unit_level == 1) {
+				
+			}
+			if (player->unit_level == 2) {
+				
+			}
+		}
+		if (player->unit_name == 2) {
+			if (player->unit_level == 1) {
+				GiveStuffToPlayer(player, "weapon_nailgun", "");
+				player->unit_level = 2;
+			}
+			if (player->unit_level == 2) {
+				GiveStuffToPlayer(player, "weapon_hyperblaster", "");
+				player->unit_level = 3;
+			}
+		}
+		if (player->unit_name == 3) {
+			if (player->unit_level == 1) {
+				GiveStuffToPlayer(player, "weapon_grenadelauncher", "");
+				player->unit_level = 2;
+			}
+			if (player->unit_level == 2) {
+
+			}
+		}
+		if (player->unit_name == 4) {
+			if (player->unit_level == 1) {
+				GiveStuffToPlayer(player, "weapon_rocketlauncher", "");
+				player->unit_level = 2;
+			}
+			if (player->unit_level == 2) {
+
+			}
+		}
+		if (player->unit_name == 5) {
+			if (player->unit_level == 1) {
+
+			}
+			if (player->unit_level == 2) {
+
+			}
+		}
+	}
+}
+
+
 // RITUAL END
 
 /*
@@ -3122,6 +3255,15 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "addChatLine",			Cmd_AddChatLine_f,			CMD_FL_GAME,				"internal use - core to game chat lines" );
 	cmdSystem->AddCommand( "gameKick",				Cmd_Kick_f,					CMD_FL_GAME,				"same as kick, but recognizes player names" );
 	cmdSystem->AddCommand( "give",					Cmd_Give_f,					CMD_FL_GAME|CMD_FL_CHEAT,	"gives one or more items" );
+
+	cmdSystem->AddCommand("getFighter", Cmd_Get_Fighter, CMD_FL_GAME | CMD_FL_CHEAT, "Set player to fighter class");
+	cmdSystem->AddCommand("getGunner", Cmd_Get_Gunner, CMD_FL_GAME | CMD_FL_CHEAT, "Set player to gunner class");
+	cmdSystem->AddCommand("GetGrenader", Cmd_Get_Grenader, CMD_FL_GAME | CMD_FL_CHEAT, "Set player to grenader class");
+	cmdSystem->AddCommand("GetRocketer", Cmd_Get_Rocketer, CMD_FL_GAME | CMD_FL_CHEAT, "Set player to rocketer class");
+	cmdSystem->AddCommand("getHealer", Cmd_Get_Healer, CMD_FL_GAME | CMD_FL_CHEAT, "Set player to healer class");
+
+	cmdSystem->AddCommand("upgrade", Cmd_Upgrade, CMD_FL_GAME | CMD_FL_CHEAT, "Set player to healer class");
+
 	cmdSystem->AddCommand( "centerview",			Cmd_CenterView_f,			CMD_FL_GAME,				"centers the view" );
 	cmdSystem->AddCommand( "god",					Cmd_God_f,					CMD_FL_GAME|CMD_FL_CHEAT,	"enables god mode" );
 	cmdSystem->AddCommand( "undying",				Cmd_Undying_f,				CMD_FL_GAME|CMD_FL_CHEAT,	"enables undying mode (take damage down to 1 health, but do not die)" );
