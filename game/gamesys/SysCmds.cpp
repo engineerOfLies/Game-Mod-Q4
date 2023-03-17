@@ -567,6 +567,7 @@ void Cmd_Get_Fighter(const idCmdArgs& args) {
 		player->unit_level = 1;
 		player->unit = 1;
 		player->num_killed = 0;
+		player->HideClassHud();
 	}
 }
 
@@ -583,6 +584,7 @@ void Cmd_Get_Gunner(const idCmdArgs& args) {
 		player->unit_level = 1;
 		player->unit = 1;
 		player->num_killed = 0;
+		player->HideClassHud();
 	}
 }
 
@@ -599,6 +601,7 @@ void Cmd_Get_Grenader(const idCmdArgs& args) {
 		player->unit_level = 1;
 		player->unit = 1;
 		player->num_killed = 0;
+		player->HideClassHud();
 	}
 }
 
@@ -615,6 +618,7 @@ void Cmd_Get_Rocketer(const idCmdArgs& args) {
 		player->unit_level = 1;
 		player->unit = 1;
 		player->num_killed = 0;
+		player->HideClassHud();
 	}
 }
 
@@ -631,6 +635,7 @@ void Cmd_Get_Healer(const idCmdArgs& args) {
 		player->unit_level = 1;
 		player->unit = 1;
 		player->num_killed = 0;
+		player->HideClassHud();
 	}
 }
 

@@ -3439,6 +3439,17 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	_hud->StateChanged( gameLocal.time );
 }
 
+void idPlayer::HideClassHud() {
+
+	int index = 0;
+	int idealIndex = 0;
+	idUserInterface* hud = gameLocal.GetDemoHud();;
+	idUserInterface* mphud = idPlayer::mphud;
+	idUserInterface* cursor = idPlayer::cursor;
+
+	hud->HandleNamedEvent("hideClassHud");
+}
+
 /*
 ===============
 idPlayer::UpdateHudWeapon
