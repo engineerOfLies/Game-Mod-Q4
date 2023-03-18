@@ -3443,11 +3443,25 @@ void idPlayer::HideClassHud() {
 
 	int index = 0;
 	int idealIndex = 0;
-	idUserInterface* hud = gameLocal.GetDemoHud();;
+	idUserInterface* hud = gameLocal.GetDemoHud();
 	idUserInterface* mphud = idPlayer::mphud;
 	idUserInterface* cursor = idPlayer::cursor;
 
 	hud->HandleNamedEvent("hideClassHud");
+	hud->SetStateInt("numkilled", num_killed);
+	hud->SetStateInt("requiredkills", 1);
+}
+
+void idPlayer::ChangeKillRequired(int num) {
+
+	idUserInterface* hud = gameLocal.GetDemoHud();
+	hud->SetStateInt("requiredkills", num);
+}
+
+void idPlayer::ChangeClass(char *num) {
+
+	idUserInterface* hud = gameLocal.GetDemoHud();
+	hud->SetStateString ("class_name", num);
 }
 
 /*
@@ -13085,8 +13099,11 @@ void idPlayer::DamageFeedback( idEntity *victim, idEntity *inflictor, int &damag
 		return;
 	}
 
+	idUserInterface* hud = gameLocal.GetDemoHud();
+
 	if (victim->health - damage <= 0) {
 		player->num_killed += 1;
+		hud->SetStateInt("numkilled", player->num_killed);
 	}
 
 	SetLastHitTime( gameLocal.time, armorHit );

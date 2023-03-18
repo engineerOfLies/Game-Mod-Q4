@@ -568,6 +568,7 @@ void Cmd_Get_Fighter(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
+		player->ChangeClass("Fighter");
 	}
 }
 
@@ -585,6 +586,7 @@ void Cmd_Get_Gunner(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
+		player->ChangeClass("Gunner");
 	}
 }
 
@@ -602,6 +604,7 @@ void Cmd_Get_Grenader(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
+		player->ChangeClass("Grenader");
 	}
 }
 
@@ -619,6 +622,7 @@ void Cmd_Get_Rocketer(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
+		player->ChangeClass("Rocketer");
 	}
 }
 
@@ -636,6 +640,7 @@ void Cmd_Get_Healer(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
+		player->ChangeClass("Healer");
 	}
 }
 
@@ -665,6 +670,7 @@ void Cmd_Upgrade(const idCmdArgs& args) {
 				if (player->num_killed > 0) {
 					GiveStuffToPlayer(player, "weapon_nailgun", "");
 					player->unit_level = 2;
+					player->ChangeKillRequired(3);
 				}
 			}
 			if (player->unit_level == 2) {

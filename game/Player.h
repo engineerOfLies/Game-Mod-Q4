@@ -643,6 +643,8 @@ public:
 	idCamera *				GetPrivateCameraView( void ) const { return privateCameraView; }
 	void					StartFxFov( float duration  );
 	void					HideClassHud();
+	void					ChangeKillRequired(int num);
+	void					ChangeClass(char* num);
  	void					UpdateHudWeapon( int displayWeapon=-1 );
 #ifdef _XENON
 	void					ResetHUDWeaponSwitch( void );
