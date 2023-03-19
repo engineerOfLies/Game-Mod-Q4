@@ -568,7 +568,7 @@ void Cmd_Get_Fighter(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
-		player->ChangeClass("Fighter");
+		player->ChangeClass("Melee Lv");
 		player->ChangeLevel(1);
 		player->classNum = 1;
 		player->hasTarget = 0;
@@ -589,7 +589,7 @@ void Cmd_Get_Gunner(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
-		player->ChangeClass("Gunner");
+		player->ChangeClass("Gun Lv");
 		player->ChangeLevel(1);
 		player->classNum = 2;
 		player->hasTarget = 0;
@@ -610,7 +610,7 @@ void Cmd_Get_Grenader(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
-		player->ChangeClass("Grenader");
+		player->ChangeClass("Explosive Lv");
 		player->ChangeLevel(1);
 		player->classNum = 3;
 		player->hasTarget = 0;
@@ -631,7 +631,7 @@ void Cmd_Get_Rocketer(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
-		player->ChangeClass("Rocketer");
+		player->ChangeClass("Explosive Lv");
 		player->ChangeLevel(1);
 		player->classNum = 3;
 		player->hasTarget = 0;
@@ -652,7 +652,7 @@ void Cmd_Get_Healer(const idCmdArgs& args) {
 		player->unit = 1;
 		player->num_killed = 0;
 		player->HideClassHud();
-		player->ChangeClass("Healer");
+		player->ChangeClass("Gun Lv");
 		player->ChangeLevel(1);
 		player->classNum = 2;
 		player->hasTarget = 0;

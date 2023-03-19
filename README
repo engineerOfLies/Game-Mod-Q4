@@ -1,0 +1,41 @@
+This the Advance Wars Mod!
+
+In order to run this mod:
+1. Download this respository
+2. Move the Meatcircus folder to the Quake 4 folder
+3. Run Quake 4
+4. Go to MODS on the main menu
+5. Click on Meatcircus and press "load mod"
+6. Enjoy!
+
+Details of the mod are included in a help screen and as follows:
+
+Welcome to the Advance Wars mod!
+The mod rebuilds Quake 4 as a Advance Wars Style RPG!
+Changes Includes:
+
+A third-person camera similar to Fire Emblem & Advance Wars"
+
+Grid-Based Movement, where players use the WASD keys to move in a grid shape"
+
+A class system where players choose from 5 classes, Fighter, Gunner, Greander, Rocketer, and Healer"
+  Your class will decide your attack options, strengths and weaknesses"
+  
+All combat is RPG player-initiated. The enemies will only attack after you choose an action"
+  Enemies only have one type of attack, while the player has two attacks"
+  The player's first attack wil have a higher base attack, but the second will be a different type"
+  
+A weapon triangle, for the three types of attacks"
+  Melee is strong against explosive, explosive is strong against gun, and gun is strong against melee"
+  Attacks also have a certain range, and you cannot attack if you out of range
+  
+Finally, an upgrade system, where killing enemies will allow the player to improve their stats"
+  Killing one enemy will upgrade one level, and killing three will upgrade another"
+  
+Controls:
+WASD - Grid Movement
+Mouse - Rotate Camera
+J - Target Enemies
+U - Upgrade Player
+I - Primary Action
+K - Secondary Action
