@@ -569,7 +569,9 @@ void Cmd_Get_Fighter(const idCmdArgs& args) {
 		player->num_killed = 0;
 		player->HideClassHud();
 		player->ChangeClass("Fighter");
+		player->ChangeLevel(1);
 		player->classNum = 1;
+		player->hasTarget = 0;
 	}
 }
 
@@ -588,7 +590,9 @@ void Cmd_Get_Gunner(const idCmdArgs& args) {
 		player->num_killed = 0;
 		player->HideClassHud();
 		player->ChangeClass("Gunner");
+		player->ChangeLevel(1);
 		player->classNum = 2;
+		player->hasTarget = 0;
 	}
 }
 
@@ -607,7 +611,9 @@ void Cmd_Get_Grenader(const idCmdArgs& args) {
 		player->num_killed = 0;
 		player->HideClassHud();
 		player->ChangeClass("Grenader");
+		player->ChangeLevel(1);
 		player->classNum = 3;
+		player->hasTarget = 0;
 	}
 }
 
@@ -626,7 +632,9 @@ void Cmd_Get_Rocketer(const idCmdArgs& args) {
 		player->num_killed = 0;
 		player->HideClassHud();
 		player->ChangeClass("Rocketer");
+		player->ChangeLevel(1);
 		player->classNum = 3;
+		player->hasTarget = 0;
 	}
 }
 
@@ -645,7 +653,9 @@ void Cmd_Get_Healer(const idCmdArgs& args) {
 		player->num_killed = 0;
 		player->HideClassHud();
 		player->ChangeClass("Healer");
+		player->ChangeLevel(1);
 		player->classNum = 2;
+		player->hasTarget = 0;
 	}
 }
 
@@ -662,12 +672,14 @@ void Cmd_Upgrade(const idCmdArgs& args) {
 			if (player->unit_level == 1) {
 				if (player->num_killed > 0) {
 					player->unit_level = 2;
+					player->ChangeLevel(2);
 					player->ChangeKillRequired(3);
 				}
 			}
 			if (player->unit_level == 2) {
 				if (player->num_killed > 2) {
 					player->unit_level = 3;
+					player->ChangeLevel(3);
 				}
 			}
 		}
@@ -676,12 +688,14 @@ void Cmd_Upgrade(const idCmdArgs& args) {
 				if (player->num_killed > 0) {
 					GiveStuffToPlayer(player, "weapon_nailgun", "");
 					player->unit_level = 2;
+					player->ChangeLevel(2);
 					player->ChangeKillRequired(3);
 				}
 			}
 			if (player->unit_level == 2) {
 				if (player->num_killed > 2) {
 					GiveStuffToPlayer(player, "weapon_hyperblaster", "");
+					player->ChangeLevel(3);
 					player->unit_level = 3;
 				}
 			}
@@ -691,12 +705,14 @@ void Cmd_Upgrade(const idCmdArgs& args) {
 				if (player->num_killed > 0) {
 					GiveStuffToPlayer(player, "weapon_grenadelauncher", "");
 					player->unit_level = 2;
+					player->ChangeLevel(2);
 					player->ChangeKillRequired(3);
 				}
 			}
 			if (player->unit_level == 2) {
 				if (player->num_killed > 2) {
 					player->unit_level = 3;
+					player->ChangeLevel(3);
 				}
 			}
 		}
@@ -705,12 +721,14 @@ void Cmd_Upgrade(const idCmdArgs& args) {
 				if (player->num_killed > 0) {
 					GiveStuffToPlayer(player, "weapon_rocketlauncher", "");
 					player->unit_level = 2;
+					player->ChangeLevel(2);
 					player->ChangeKillRequired(3);
 				}
 			}
 			if (player->unit_level == 2) {
 				if (player->num_killed > 2) {
 					player->unit_level = 3;
+					player->ChangeLevel(3);
 				}
 			}
 		}
@@ -718,11 +736,13 @@ void Cmd_Upgrade(const idCmdArgs& args) {
 			if (player->unit_level == 1) {
 				if (player->num_killed > 0) {
 					player->unit_level = 2;
+					player->ChangeLevel(2);
 					player->ChangeKillRequired(3);
 				}
 			}
 			if (player->unit_level == 2) {
 				if (player->num_killed > 2) {
+					player->ChangeLevel(3);
 					player->unit_level = 3;
 				}
 			}
@@ -1316,17 +1336,6 @@ void Cmd_List_enemy(const idCmdArgs& args) {
 	}
 
 	player->getCloseEnemy();
-}
-
-void Cmd_reset_class(const idCmdArgs& args) {
-	idPlayer* player;
-
-	player = gameLocal.GetLocalPlayer();
-	if (!player || !gameLocal.CheatsOk()) {
-		return;
-	}
-
-	player->resetClass();
 }
 
 void Cmd_primary_fire(const idCmdArgs& args) {
@@ -3370,7 +3379,6 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand("gridRight", Cmd_Teleport_right, CMD_FL_GAME | CMD_FL_CHEAT, "move the player forward by 25 units");
 
 	cmdSystem->AddCommand("listEnemy", Cmd_List_enemy, CMD_FL_GAME | CMD_FL_CHEAT, "List the closest enemy");
-	cmdSystem->AddCommand("resetClass", Cmd_reset_class, CMD_FL_GAME | CMD_FL_CHEAT, "Reset Class HUD");
 	cmdSystem->AddCommand("primaryFire", Cmd_primary_fire, CMD_FL_GAME | CMD_FL_CHEAT, "Primary attack the closest enemy");
 	cmdSystem->AddCommand("secondaryFire", Cmd_secondary_fire, CMD_FL_GAME | CMD_FL_CHEAT, "Secondary attack the closest enemy");
 	

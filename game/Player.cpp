@@ -3452,10 +3452,61 @@ void idPlayer::HideClassHud() {
 	hud->SetStateInt("requiredkills", 1);
 }
 
+void idPlayer::HideEnemyHud() {
+
+	idUserInterface* hud = gameLocal.GetDemoHud();
+	hud->HandleNamedEvent("hideEnemyHud");
+}
+
+void idPlayer::ShowEnemyHud(int classNum) {
+	idPlayer* player;
+	idUserInterface* hud = gameLocal.GetDemoHud();
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	if (classNum == 1) {
+		player->ChangeEnemyClass("Melee");
+	}
+	if (classNum == 2) {
+		player->ChangeEnemyClass("Gun");
+	}
+	if (classNum == 3) {
+		player->ChangeEnemyClass("Explosive");
+	}
+	
+	hud->HandleNamedEvent("ShowEnemyHud");
+	hud->SetStateInt("enemy_health", entityTarget->health);
+}
+
+void idPlayer::HideDamageHud() {
+
+	idUserInterface* hud = gameLocal.GetDemoHud();
+	hud->HandleNamedEvent("hideDamageHud");
+}
+
+void idPlayer::ShowDamageHud(int damage1, int damage2, int damageheal) {
+
+	idUserInterface* hud = gameLocal.GetDemoHud();
+	hud->HandleNamedEvent("showDamageHud");
+	hud->SetStateInt("damagedealt", damage1);
+	hud->SetStateInt("damagerecieved", damage2);
+	if (damageheal == 1) {
+		hud->SetStateString("damageheal", "You healed ");
+	}
+	else {
+		hud->SetStateString("damageheal", "You dealt ");
+	}
+}
+
 void idPlayer::getCloseEnemy() {
 	idEntity* ent;
 	idPlayer* player;
 	srand(time(0));
+
+	hasTarget = 0;
 
 	player = gameLocal.GetLocalPlayer();
 	if (!player) {
@@ -3479,17 +3530,10 @@ void idPlayer::getCloseEnemy() {
 				if (dist < bestDist) {
 					bestDist = dist;
 					entityTarget = ent;
+					hasTarget = 1;
 					int classNum = (rand() % 3) + 1;
 					entityTarget->classNum = classNum;
-					if (classNum == 1) {
-						player->ChangeClass("Melee");
-					}
-					if (classNum == 2) {
-						player->ChangeClass("Gun");
-					}
-					if (classNum == 3) {
-						player->ChangeClass("Explosive");
-					}
+					ShowEnemyHud(classNum);
 				}
 			}
 		}
@@ -3509,10 +3553,13 @@ int idPlayer::checkDistance(float dist1) {
 
 	dist2 = (origin - entityTarget->GetPhysics()->GetOrigin()).LengthFast();
 
+	idUserInterface* hud = gameLocal.GetDemoHud();
 	if (dist1 > dist2) {
+		hud->HandleNamedEvent("InRange");
 		return 1;
 	}
 	else {
+		hud->HandleNamedEvent("OutOfRange");
 		return 0;
 	}
 }
@@ -3520,14 +3567,15 @@ int idPlayer::checkDistance(float dist1) {
 void idPlayer::primaryFire() {
 	idPlayer* player;
 	srand(time(0));
-	int damage = 0;
+	int damageDealt = 0;
+	int damageRecieved = 0;
 
 	player = gameLocal.GetLocalPlayer();
 	if (!player) {
 		return;
 	}
 
-	if (entityTarget == NULL) {
+	if (hasTarget==0) {
 		return;
 	}
 
@@ -3539,25 +3587,26 @@ void idPlayer::primaryFire() {
 		if (checkDistance(100) == 1) {
 			if (player->unit_level == 1) {
 
-				damage = (rand() % 10) + 20;
-				DamageTarget(damage, 1);
+				damageDealt = (rand() % 10) + 20;
+				DamageTarget(damageDealt, 1);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 2) {
-				damage = (rand() % 10) + 25;
-				DamageTarget(damage, 1);
+				damageDealt = (rand() % 10) + 25;
+				DamageTarget(damageDealt, 1);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 3) {
-				damage = (rand() % 10) + 30;
-				DamageTarget(damage, 1);
+				damageDealt = (rand() % 10) + 30;
+				DamageTarget(damageDealt, 1);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 		}
 	}
@@ -3565,25 +3614,25 @@ void idPlayer::primaryFire() {
 	if (player->unit_name == 2) {
 		if (checkDistance(200) == 1) {
 			if (player->unit_level == 1) {
-				damage = (rand() % 10) + 20;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 20;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 2) {
-				damage = (rand() % 10) + 25;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 25;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 3) {
-				damage = (rand() % 10) + 30;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 30;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 		}
 	}
@@ -3591,94 +3640,97 @@ void idPlayer::primaryFire() {
 	if (player->unit_name == 3) {
 		if (checkDistance(300) == 1) {
 			if (player->unit_level == 1) {
-				damage = (rand() % 10) + 20;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 10) + 20;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 2) {
-				damage = (rand() % 10) + 25;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 10) + 25;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 3) {
-				damage = (rand() % 10) + 30;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 10) + 30;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 		}
 	}
 	if (player->unit_name == 4) {
 		if (checkDistance(400) == 1) {
 			if (player->unit_level == 1) {
-				damage = (rand() % 20) + 30;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 20) + 30;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				damageRecieved *= 2;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 2) {
-				damage = (rand() % 20) + 35;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 20) + 35;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				damageRecieved *= 2;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 3) {
-				damage = (rand() % 20) + 40;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 20) + 40;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				damageRecieved *= 2;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 		}
 	}
 	if (player->unit_name == 5) {
 		if (checkDistance(200) == 1) {
 			if (player->unit_level == 1) {
-				damage = (rand() % 10) + 15;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 15;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 2) {
-				damage = (rand() % 10) + 20;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 20;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 3) {
-				damage = (rand() % 10) + 25;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 25;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 		}
 	}
+	ShowDamageHud(damageDealt, damageRecieved, 0);
 }
 
 void idPlayer::secondaryFire() {
 	idPlayer* player;
 	srand(time(0));
-	int damage = 0;
+	int damageDealt = 0;
+	int damageRecieved = 0;
+	int damageheal = 0;
 
 	player = gameLocal.GetLocalPlayer();
 	if (!player) {
 		return;
 	}
 
-	if (entityTarget == NULL) {
+	if (hasTarget==0) {
 		return;
 	}
 
@@ -3690,25 +3742,25 @@ void idPlayer::secondaryFire() {
 		if (checkDistance(200) == 1) {
 			if (player->unit_level == 1) {
 
-				damage = (rand() % 10) + 10;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 10;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 2) {
-				damage = (rand() % 10) + 15;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 15;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 3) {
-				damage = (rand() % 10) + 20;
-				DamageTarget(damage, 2);
+				damageDealt = (rand() % 10) + 20;
+				DamageTarget(damageDealt, 2);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 		}
 	}
@@ -3716,25 +3768,25 @@ void idPlayer::secondaryFire() {
 	if (player->unit_name == 2) {
 		if (checkDistance(300) == 1) {
 			if (player->unit_level == 1) {
-				damage = (rand() % 10) + 10;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 10) + 10;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 2) {
-				damage = (rand() % 10) + 15;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 10) + 15;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 3) {
-				damage = (rand() % 10) + 20;
-				DamageTarget(damage, 3);
+				damageDealt = (rand() % 10) + 20;
+				DamageTarget(damageDealt, 3);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 		}
 	}
@@ -3742,25 +3794,25 @@ void idPlayer::secondaryFire() {
 	if (player->unit_name == 3) {
 		if (checkDistance(100) == 1) {
 			if (player->unit_level == 1) {
-				damage = (rand() % 10) + 10;
-				DamageTarget(damage, 1);
+				damageDealt = (rand() % 10) + 10;
+				DamageTarget(damageDealt, 1);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 2) {
-				damage = (rand() % 10) + 15;
-				DamageTarget(damage, 1);
+				damageDealt = (rand() % 10) + 15;
+				DamageTarget(damageDealt, 1);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 			if (player->unit_level == 3) {
-				damage = (rand() % 10) + 30;
-				DamageTarget(damage, 1);
+				damageDealt = (rand() % 10) + 30;
+				DamageTarget(damageDealt, 1);
 
-				damage = (rand() % 10) + 10;
-				DamageSelf(damage, entityTarget->classNum);
+				damageRecieved = (rand() % 10) + 10;
+				DamageSelf(damageRecieved, entityTarget->classNum);
 			}
 		}
 	}
@@ -3769,27 +3821,29 @@ void idPlayer::secondaryFire() {
 	}
 	if (player->unit_name == 5) {
 		if (player->unit_level == 1) {
-			damage = (rand() % 10) + 25;
-			player->Event_SetHealth(player->health + damage);
+			damageDealt = (rand() % 10) + 25;
+			player->Event_SetHealth(player->health + damageDealt);
 
-			damage = (rand() % 10) + 10;
-			DamageSelf(damage, entityTarget->classNum);
+			damageRecieved = (rand() % 10) + 10;
+			DamageSelf(damageRecieved, entityTarget->classNum);
 		}
 		if (player->unit_level == 2) {
-			damage = (rand() % 10) + 25;
-			player->Event_SetHealth(player->health + damage);
+			damageDealt = (rand() % 10) + 25;
+			player->Event_SetHealth(player->health + damageDealt);
 
-			damage = (rand() % 10) + 10;
-			DamageSelf(damage, entityTarget->classNum);
+			damageRecieved = (rand() % 10) + 10;
+			DamageSelf(damageRecieved, entityTarget->classNum);
 		}
 		if (player->unit_level == 3) {
-			damage = (rand() % 10) + 25;
-			player->Event_SetHealth(player->health + damage);
+			damageDealt = (rand() % 10) + 25;
+			player->Event_SetHealth(player->health + damageDealt);
 
-			damage = (rand() % 10) + 10;
-			DamageSelf(damage, entityTarget->classNum);
+			damageRecieved = (rand() % 10) + 10;
+			DamageSelf(damageRecieved, entityTarget->classNum);
 		}
+		damageheal = 1;
 	}
+	ShowDamageHud(damageDealt, damageRecieved, damageheal);
 }
 
 void idPlayer::DamageSelf(float amount, int classType) {
@@ -3855,26 +3909,20 @@ void idPlayer::DamageTarget(float amount, int classType) {
 		amount *= 0.5;
 	}
 
+	idUserInterface* hud = gameLocal.GetDemoHud();
 	if (entityTarget->health>0) {
 		entityTarget->Damage(gameLocal.world, gameLocal.world, idVec3(0, 0, 1), "damage_moverCrush", amount, INVALID_JOINT);
 		if (entityTarget->health <= 0) {
-			idUserInterface* hud = gameLocal.GetDemoHud();
 			player->num_killed += 1;
 			hud->SetStateInt("numkilled", player->num_killed);
+			hasTarget = 0;
+			HideEnemyHud();
+			HideDamageHud();
+		}
+		else {
+			hud->SetStateInt("enemy_health", entityTarget->health);
 		}
 	}
-}
-
-void idPlayer::resetClass() {
-	idEntity* ent;
-	idPlayer* player;
-
-	player = gameLocal.GetLocalPlayer();
-	if (!player) {
-		return;
-	}
-
-	player->ChangeClass("Does");
 }
 
 void idPlayer::ChangeKillRequired(int num) {
@@ -3887,6 +3935,38 @@ void idPlayer::ChangeClass(char *num) {
 
 	idUserInterface* hud = gameLocal.GetDemoHud();
 	hud->SetStateString ("class_name", num);
+	if (unit_name == 1) {
+		hud->SetStateString("primaryattack", "Melee Attack");
+		hud->SetStateString("secondaryattack", "Mini Gun ");
+	}
+	if (unit_name == 2) {
+		hud->SetStateString("primaryattack", "Gun Attack");
+		hud->SetStateString("secondaryattack", "Mini Grenade");
+	}
+	if (unit_name == 3) {
+		hud->SetStateString("primaryattack", "Grenade");
+		hud->SetStateString("secondaryattack", "Mini Gun");
+	}
+	if (unit_name == 4) {
+		hud->SetStateString("primaryattack", "Rocket Blast");
+		hud->SetStateString("secondaryattack", "None");
+	}
+	if (unit_name == 5) {
+		hud->SetStateString("primaryattack", "Shotgun");
+		hud->SetStateString("secondaryattack", "Heal");
+	}
+}
+
+void idPlayer::ChangeEnemyClass(char* num) {
+
+	idUserInterface* hud = gameLocal.GetDemoHud();
+	hud->SetStateString("enemy_type", num);
+}
+
+void idPlayer::ChangeLevel(int num) {
+
+	idUserInterface* hud = gameLocal.GetDemoHud();
+	hud->SetStateInt("class_level", num);
 }
 
 /*
