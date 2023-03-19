@@ -295,8 +295,9 @@ public:
 	int						unit;
 	int						unit_level;
 	int						unit_name;
-
 	int						num_killed;
+
+	idEntity*				entityTarget;
 
 	bool					spawnAnglesSet;		// on first usercmd, we must set deltaAngles
 	idAngles				spawnAngles;
@@ -643,6 +644,13 @@ public:
 	idCamera *				GetPrivateCameraView( void ) const { return privateCameraView; }
 	void					StartFxFov( float duration  );
 	void					HideClassHud();
+	void					getCloseEnemy();
+	int					checkDistance(float dist1);
+	void					primaryFire();
+	void					secondaryFire();
+	void					DamageSelf(float amount, int classType);
+	void					DamageTarget(float amount, int classType);
+	void					resetClass();
 	void					ChangeKillRequired(int num);
 	void					ChangeClass(char* num);
  	void					UpdateHudWeapon( int displayWeapon=-1 );

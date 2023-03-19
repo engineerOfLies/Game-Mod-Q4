@@ -1032,6 +1032,7 @@ private:
 	void					SortActiveEntityList( void );
 	void					ShowTargets( void );
 	void					RunDebugInfo( void );
+	void					GetEnemyList(void);
 
 	void					InitScriptForMap( void );
 	void					InitConsoleCommands( void );
@@ -1106,7 +1107,7 @@ private:
 	idList<mpBanInfo_t>		banList;
 	bool					banListLoaded;
 	bool					banListChanged;
-// RAVEN END
+	// RAVEN END
 };
 
 //============================================================================

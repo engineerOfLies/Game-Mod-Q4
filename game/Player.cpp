@@ -3452,6 +3452,431 @@ void idPlayer::HideClassHud() {
 	hud->SetStateInt("requiredkills", 1);
 }
 
+void idPlayer::getCloseEnemy() {
+	idEntity* ent;
+	idPlayer* player;
+	srand(time(0));
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	const idVec3& origin = player->GetPhysics()->GetOrigin();
+
+	// debug tool to draw bounding boxes around active entities
+	if (g_showActiveEntities.GetBool()) {
+		for (ent = gameLocal.activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next()) {
+			idBounds	b = ent->GetPhysics()->GetBounds();
+			if (b.GetVolume() <= 0) {
+				b[0][0] = b[0][1] = b[0][2] = -8;
+				b[1][0] = b[1][1] = b[1][2] = 8;
+			}
+			float bestDist = 500;
+			float dist = 0;
+			if (ent->fl.hasAwakened && ent->fl.takedamage && (ent->GetEntityDefName()[6] == 'r')) {
+				dist = (origin - ent->GetPhysics()->GetOrigin()).LengthFast();
+				if (dist < bestDist) {
+					bestDist = dist;
+					entityTarget = ent;
+					int classNum = (rand() % 3) + 1;
+					entityTarget->classNum = classNum;
+					if (classNum == 1) {
+						player->ChangeClass("Melee");
+					}
+					if (classNum == 2) {
+						player->ChangeClass("Gun");
+					}
+					if (classNum == 3) {
+						player->ChangeClass("Explosive");
+					}
+				}
+			}
+		}
+	}
+}
+
+int idPlayer::checkDistance(float dist1) {
+	idPlayer* player;
+	float dist2;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return 0;
+	}
+
+	const idVec3& origin = player->GetPhysics()->GetOrigin();
+
+	dist2 = (origin - entityTarget->GetPhysics()->GetOrigin()).LengthFast();
+
+	if (dist1 > dist2) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+void idPlayer::primaryFire() {
+	idPlayer* player;
+	srand(time(0));
+	int damage = 0;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	if (entityTarget == NULL) {
+		return;
+	}
+
+	if (player->unit != 1) {
+		return;
+	}
+
+	if (player->unit_name == 1) {
+		if (checkDistance(100) == 1) {
+			if (player->unit_level == 1) {
+
+				damage = (rand() % 10) + 20;
+				DamageTarget(damage, 1);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 2) {
+				damage = (rand() % 10) + 25;
+				DamageTarget(damage, 1);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 3) {
+				damage = (rand() % 10) + 30;
+				DamageTarget(damage, 1);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+		}
+	}
+
+	if (player->unit_name == 2) {
+		if (checkDistance(200) == 1) {
+			if (player->unit_level == 1) {
+				damage = (rand() % 10) + 20;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 2) {
+				damage = (rand() % 10) + 25;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 3) {
+				damage = (rand() % 10) + 30;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+		}
+	}
+
+	if (player->unit_name == 3) {
+		if (checkDistance(300) == 1) {
+			if (player->unit_level == 1) {
+				damage = (rand() % 10) + 20;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 2) {
+				damage = (rand() % 10) + 25;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 3) {
+				damage = (rand() % 10) + 30;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+		}
+	}
+	if (player->unit_name == 4) {
+		if (checkDistance(400) == 1) {
+			if (player->unit_level == 1) {
+				damage = (rand() % 20) + 30;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 2) {
+				damage = (rand() % 20) + 35;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 3) {
+				damage = (rand() % 20) + 40;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+				DamageSelf(damage, entityTarget->classNum);
+			}
+		}
+	}
+	if (player->unit_name == 5) {
+		if (checkDistance(200) == 1) {
+			if (player->unit_level == 1) {
+				damage = (rand() % 10) + 15;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 2) {
+				damage = (rand() % 10) + 20;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 3) {
+				damage = (rand() % 10) + 25;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+		}
+	}
+}
+
+void idPlayer::secondaryFire() {
+	idPlayer* player;
+	srand(time(0));
+	int damage = 0;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	if (entityTarget == NULL) {
+		return;
+	}
+
+	if (player->unit != 1) {
+		return;
+	}
+
+	if (player->unit_name == 1) {
+		if (checkDistance(200) == 1) {
+			if (player->unit_level == 1) {
+
+				damage = (rand() % 10) + 10;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 2) {
+				damage = (rand() % 10) + 15;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 3) {
+				damage = (rand() % 10) + 20;
+				DamageTarget(damage, 2);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+		}
+	}
+
+	if (player->unit_name == 2) {
+		if (checkDistance(300) == 1) {
+			if (player->unit_level == 1) {
+				damage = (rand() % 10) + 10;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 2) {
+				damage = (rand() % 10) + 15;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 3) {
+				damage = (rand() % 10) + 20;
+				DamageTarget(damage, 3);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+		}
+	}
+
+	if (player->unit_name == 3) {
+		if (checkDistance(100) == 1) {
+			if (player->unit_level == 1) {
+				damage = (rand() % 10) + 10;
+				DamageTarget(damage, 1);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 2) {
+				damage = (rand() % 10) + 15;
+				DamageTarget(damage, 1);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+			if (player->unit_level == 3) {
+				damage = (rand() % 10) + 30;
+				DamageTarget(damage, 1);
+
+				damage = (rand() % 10) + 10;
+				DamageSelf(damage, entityTarget->classNum);
+			}
+		}
+	}
+	if (player->unit_name == 4) {
+		return;
+	}
+	if (player->unit_name == 5) {
+		if (player->unit_level == 1) {
+			damage = (rand() % 10) + 25;
+			player->Event_SetHealth(player->health + damage);
+
+			damage = (rand() % 10) + 10;
+			DamageSelf(damage, entityTarget->classNum);
+		}
+		if (player->unit_level == 2) {
+			damage = (rand() % 10) + 25;
+			player->Event_SetHealth(player->health + damage);
+
+			damage = (rand() % 10) + 10;
+			DamageSelf(damage, entityTarget->classNum);
+		}
+		if (player->unit_level == 3) {
+			damage = (rand() % 10) + 25;
+			player->Event_SetHealth(player->health + damage);
+
+			damage = (rand() % 10) + 10;
+			DamageSelf(damage, entityTarget->classNum);
+		}
+	}
+}
+
+void idPlayer::DamageSelf(float amount, int classType) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	if (player->classNum == 1 && classType == 2) {
+		amount *= 1.5;
+	}
+	if (player->classNum == 1 && classType == 3) {
+		amount *= 0.5;
+	}
+
+	if (player->classNum == 2 && classType == 3) {
+		amount *= 1.5;
+	}
+	if (player->classNum == 2 && classType == 1) {
+		amount *= 0.5;
+	}
+
+	if (player->classNum == 3 && classType == 1) {
+		amount *= 1.5;
+	}
+	if (player->classNum == 3 && classType == 2) {
+		amount *= 0.5;
+	}
+
+	if (entityTarget->health > 0) {
+		player->Damage(gameLocal.world, gameLocal.world, idVec3(0, 0, 1), "damage_moverCrush", amount, INVALID_JOINT);
+	}
+}
+
+void idPlayer::DamageTarget(float amount, int classType) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	if (entityTarget->classNum == 1 && classType == 2) {
+		amount *= 1.5;
+	}
+	if (entityTarget->classNum == 1 && classType == 3) {
+		amount *= 0.5;
+	}
+
+	if (entityTarget->classNum == 2 && classType == 3) {
+		amount *= 1.5;
+	}
+	if (entityTarget->classNum == 2 && classType == 1) {
+		amount *= 0.5;
+	}
+
+	if (entityTarget->classNum == 3 && classType == 1) {
+		amount *= 1.5;
+	}
+	if (entityTarget->classNum == 3 && classType == 2) {
+		amount *= 0.5;
+	}
+
+	if (entityTarget->health>0) {
+		entityTarget->Damage(gameLocal.world, gameLocal.world, idVec3(0, 0, 1), "damage_moverCrush", amount, INVALID_JOINT);
+		if (entityTarget->health <= 0) {
+			idUserInterface* hud = gameLocal.GetDemoHud();
+			player->num_killed += 1;
+			hud->SetStateInt("numkilled", player->num_killed);
+		}
+	}
+}
+
+void idPlayer::resetClass() {
+	idEntity* ent;
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	player->ChangeClass("Does");
+}
+
 void idPlayer::ChangeKillRequired(int num) {
 
 	idUserInterface* hud = gameLocal.GetDemoHud();
@@ -9631,22 +10056,13 @@ void idPlayer::Think( void ) {
 		common->DPrintf( "%d: enemies\n", num );
 	}
 
-	if (g_showEnemies.GetBool()) {
-		idActor* ent;
-		int num = 0;
-		for (ent = enemyList.Next(); ent != NULL; ent = ent->enemyNode.Next()) {
-			common->DPrintf("enemy (%d)'%s'\n", ent->entityNumber, ent->name.c_str());
-			gameRenderWorld->DebugBounds(colorRed, ent->GetPhysics()->GetBounds().Expand(2), ent->GetPhysics()->GetOrigin());
-			num++;
-		}
-		common->DPrintf("%d: enemies\n", num);
-	}
-
 	if ( !inBuyZonePrev )
 		inBuyZone = false;
 
 	inBuyZonePrev = false;
 }
+
+
 
 /*
 =================

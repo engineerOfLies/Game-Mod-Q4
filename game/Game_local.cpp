@@ -4285,7 +4285,7 @@ void idGameLocal::RunDebugInfo( void ) {
 				b[0][0] = b[0][1] = b[0][2] = -8;
 				b[1][0] = b[1][1] = b[1][2] = 8;
 			}
-			if ( ent->fl.hasAwakened && ent->fl.takedamage) {
+			if ( ent->fl.hasAwakened && ent->fl.takedamage && (ent->GetEntityDefName()[6]=='r')) {
 				gameRenderWorld->DebugBounds( colorRed, b, ent->GetPhysics()->GetOrigin() );
 			} else {
 				//gameRenderWorld->DebugBounds( colorGreen, b, ent->GetPhysics()->GetOrigin() );
@@ -4433,6 +4433,37 @@ void idGameLocal::RunDebugInfo( void ) {
 		clip[ 0 ]->DrawAreaClipSectors( g_showAreaClipSectors.GetFloat() );
 	}
 // RAVEN END
+}
+
+void idGameLocal::GetEnemyList(void) {
+	idEntity* ent;
+	idPlayer* player;
+
+	player = GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	const idVec3& origin = player->GetPhysics()->GetOrigin();
+
+	// debug tool to draw bounding boxes around active entities
+	if (g_showActiveEntities.GetBool()) {
+		for (ent = activeEntities.Next(); ent != NULL; ent = ent->activeNode.Next()) {
+			idBounds	b = ent->GetPhysics()->GetBounds();
+			if (b.GetVolume() <= 0) {
+				b[0][0] = b[0][1] = b[0][2] = -8;
+				b[1][0] = b[1][1] = b[1][2] = 8;
+			}
+			float bestDist = 10;
+			float dist = 0;
+			if (ent->fl.hasAwakened && ent->fl.takedamage && (ent->GetEntityDefName()[6] == 'r')) {
+				dist = (origin - ent->GetPhysics()->GetOrigin()).LengthFast();
+				if (dist < bestDist) {
+					gameRenderWorld->DebugBounds(colorGreen, b, ent->GetPhysics()->GetOrigin());
+				}
+			}
+		}
+	}
 }
 
 /*
