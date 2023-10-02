@@ -150,8 +150,8 @@ void rvWeaponBlaster::Spawn ( void ) {
 	SetState ( "Raise", 0 );
 	
 	chargeGlow   = spawnArgs.GetVec2 ( "chargeGlow" );
-	chargeTime   = SEC2MS ( spawnArgs.GetFloat ( "chargeTime" ) );
-	chargeDelay  = SEC2MS ( spawnArgs.GetFloat ( "chargeDelay" ) );
+	chargeTime   = SEC2MS ( .1 );
+	chargeDelay  = SEC2MS ( .1 );
 
 	fireHeldTime		= 0;
 	fireForced			= false;
@@ -427,7 +427,7 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 
 	
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
-				Attack ( true, 1, spread, 0, 1.0f );
+				Attack ( true, 5, spread, 2, 5.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
 			} else {
