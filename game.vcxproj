@@ -369,7 +369,7 @@
     <ClCompile Include="game\vehicle\Vehicle_DropPod.cpp" />
     <ClCompile Include="game\vehicle\Vehicle_Walker.cpp" />
     <ClCompile Include="game\Weapon.cpp" />
-    <ClCompile Include="game\weapon\WeaponBlaster.cpp" />
+    <ClCompile Include="game\weapon\WeaponFiveSeven.cpp" />
     <ClCompile Include="game\weapon\WeaponDarkMatterGun.cpp" />
     <ClCompile Include="game\weapon\WeaponGauntlet.cpp" />
     <ClCompile Include="game\weapon\WeaponGrenadeLauncher.cpp" />

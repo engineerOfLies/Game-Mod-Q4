@@ -456,7 +456,7 @@
     <ClCompile Include="game\Weapon.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="game\weapon\WeaponBlaster.cpp">
+    <ClCompile Include="game\weapon\WeaponFiveSeven.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="game\weapon\WeaponDarkMatterGun.cpp">
