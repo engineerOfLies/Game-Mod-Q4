@@ -14051,9 +14051,10 @@ void idPlayer::ResetCash()
 	//int maxCash = gameLocal.mpGame.mpBuyingManager.GetIntValueForKey( "playerMaxCash", 0 );
 	//buyMenuCash = gameLocal.mpGame.mpBuyingManager.GetIntValueForKey( "playerStartingCash", 0 );
 
-	float minCash = (float) gameLocal.serverInfo.GetInt("si_buyModeMinCredits");
-	float maxCash = (float) gameLocal.serverInfo.GetInt("si_buyModeMaxCredits");
-	buyMenuCash = (float) gameLocal.serverInfo.GetInt("si_buyModeStartingCredits");
+	// Player starts off with no money; hard coded mode values
+	float minCash = (float)0;
+	float maxCash = (float)99999;
+	buyMenuCash = (float)0;
 	ClampCash( minCash, maxCash );
 }
 
