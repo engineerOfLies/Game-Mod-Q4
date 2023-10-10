@@ -792,6 +792,7 @@ public:
 	bool					CanBuyItem( const char* itemName );
 	void					GiveCash( float cashDeltaAmount );
 	void					ClampCash( float minCash, float maxCash );
+	float					GetCash();
 	void					SetCash( float newCashAmount );
 	void					ResetCash();
 // RITUAL END

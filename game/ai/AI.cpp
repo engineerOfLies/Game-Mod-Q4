@@ -1753,6 +1753,13 @@ void idAI::Killed( idEntity *inflictor, idEntity *attacker, int damage, const id
 		}
 		kv = spawnArgs.MatchPrefix( "def_drops", kv );
 	}
+
+	// When the player kills an entity, give them cash for the kill
+	if (attacker && attacker->IsType(idPlayer::GetClassType())) {
+		idPlayer* player = static_cast<idPlayer*>(attacker);
+		player->GiveCash(100);
+		gameLocal.Printf("Current Cash: %.0f\n", player->GetCash());
+	}
 }
 
 /***********************************************************************

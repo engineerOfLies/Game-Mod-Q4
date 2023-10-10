@@ -14041,6 +14041,10 @@ void idPlayer::SetCash( float newCashAmount )
 	ClampCash( minCash, maxCash );
 }
 
+float idPlayer::GetCash() {
+	return this->buyMenuCash;
+}
+
 void idPlayer::ResetCash()
 {
 	//int minCash = gameLocal.mpGame.mpBuyingManager.GetIntValueForKey( "playerMinCash", 0 );
