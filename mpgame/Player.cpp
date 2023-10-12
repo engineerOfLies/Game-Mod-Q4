@@ -9662,6 +9662,7 @@ void idPlayer::Think( void ) {
 		inBuyZone = false;
 
 	inBuyZonePrev = false;
+
 }
 
 /*
