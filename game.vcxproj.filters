@@ -474,7 +474,7 @@
     <ClCompile Include="game\weapon\WeaponLightningGun.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="game\weapon\WeaponMachinegun.cpp">
+    <ClCompile Include="game\weapon\WeaponM4A1.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="game\weapon\WeaponNailgun.cpp">

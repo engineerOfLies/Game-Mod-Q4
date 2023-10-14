@@ -375,7 +375,7 @@
     <ClCompile Include="game\weapon\WeaponGrenadeLauncher.cpp" />
     <ClCompile Include="game\weapon\WeaponHyperblaster.cpp" />
     <ClCompile Include="game\weapon\WeaponLightningGun.cpp" />
-    <ClCompile Include="game\weapon\WeaponMachinegun.cpp" />
+    <ClCompile Include="game\weapon\WeaponM4A1.cpp" />
     <ClCompile Include="game\weapon\WeaponNailgun.cpp" />
     <ClCompile Include="game\weapon\WeaponNapalmGun.cpp" />
     <ClCompile Include="game\weapon\WeaponRailgun.cpp" />
