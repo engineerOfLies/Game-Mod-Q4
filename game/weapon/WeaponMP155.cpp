@@ -6,12 +6,12 @@
 
 const int SHOTGUN_MOD_AMMO = BIT(0);
 
-class rvWeaponShotgun : public rvWeapon {
+class rvWeaponMP155 : public rvWeapon {
 public:
 
-	CLASS_PROTOTYPE( rvWeaponShotgun );
+	CLASS_PROTOTYPE( rvWeaponMP155 );
 
-	rvWeaponShotgun ( void );
+	rvWeaponMP155 ( void );
 
 	virtual void			Spawn				( void );
 	void					Save				( idSaveGame *savefile ) const;
@@ -28,26 +28,26 @@ private:
 	stateResult_t		State_Fire		( const stateParms_t& parms );
 	stateResult_t		State_Reload	( const stateParms_t& parms );
 	
-	CLASS_STATES_PROTOTYPE( rvWeaponShotgun );
+	CLASS_STATES_PROTOTYPE( rvWeaponMP155 );
 };
 
-CLASS_DECLARATION( rvWeapon, rvWeaponShotgun )
+CLASS_DECLARATION( rvWeapon, rvWeaponMP155 )
 END_CLASS
 
 /*
 ================
-rvWeaponShotgun::rvWeaponShotgun
+rvWeaponMP155::rvWeaponMP155
 ================
 */
-rvWeaponShotgun::rvWeaponShotgun( void ) {
+rvWeaponMP155::rvWeaponMP155( void ) {
 }
 
 /*
 ================
-rvWeaponShotgun::Spawn
+rvWeaponMP155::Spawn
 ================
 */
-void rvWeaponShotgun::Spawn( void ) {
+void rvWeaponMP155::Spawn( void ) {
 	hitscans   = spawnArgs.GetFloat( "hitscans" );
 	
 	SetState( "Raise", 0 );	
@@ -55,35 +55,35 @@ void rvWeaponShotgun::Spawn( void ) {
 
 /*
 ================
-rvWeaponShotgun::Save
+rvWeaponMP155::Save
 ================
 */
-void rvWeaponShotgun::Save( idSaveGame *savefile ) const {
+void rvWeaponMP155::Save( idSaveGame *savefile ) const {
 }
 
 /*
 ================
-rvWeaponShotgun::Restore
+rvWeaponMP155::Restore
 ================
 */
-void rvWeaponShotgun::Restore( idRestoreGame *savefile ) {
+void rvWeaponMP155::Restore( idRestoreGame *savefile ) {
 	hitscans   = spawnArgs.GetFloat( "hitscans" );
 }
 
 /*
 ================
-rvWeaponShotgun::PreSave
+rvWeaponMP155::PreSave
 ================
 */
-void rvWeaponShotgun::PreSave ( void ) {
+void rvWeaponMP155::PreSave ( void ) {
 }
 
 /*
 ================
-rvWeaponShotgun::PostSave
+rvWeaponMP155::PostSave
 ================
 */
-void rvWeaponShotgun::PostSave ( void ) {
+void rvWeaponMP155::PostSave ( void ) {
 }
 
 
@@ -95,18 +95,18 @@ void rvWeaponShotgun::PostSave ( void ) {
 ===============================================================================
 */
 
-CLASS_STATES_DECLARATION( rvWeaponShotgun )
-	STATE( "Idle",				rvWeaponShotgun::State_Idle)
-	STATE( "Fire",				rvWeaponShotgun::State_Fire )
-	STATE( "Reload",			rvWeaponShotgun::State_Reload )
+CLASS_STATES_DECLARATION( rvWeaponMP155 )
+	STATE( "Idle",				rvWeaponMP155::State_Idle)
+	STATE( "Fire",				rvWeaponMP155::State_Fire )
+	STATE( "Reload",			rvWeaponMP155::State_Reload )
 END_CLASS_STATES
 
 /*
 ================
-rvWeaponShotgun::State_Idle
+rvWeaponMP155::State_Idle
 ================
 */
-stateResult_t rvWeaponShotgun::State_Idle( const stateParms_t& parms ) {
+stateResult_t rvWeaponMP155::State_Idle( const stateParms_t& parms ) {
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
@@ -153,10 +153,10 @@ stateResult_t rvWeaponShotgun::State_Idle( const stateParms_t& parms ) {
 
 /*
 ================
-rvWeaponShotgun::State_Fire
+rvWeaponMP155::State_Fire
 ================
 */
-stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
+stateResult_t rvWeaponMP155::State_Fire( const stateParms_t& parms ) {
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
@@ -190,10 +190,10 @@ stateResult_t rvWeaponShotgun::State_Fire( const stateParms_t& parms ) {
 
 /*
 ================
-rvWeaponShotgun::State_Reload
+rvWeaponMP155::State_Reload
 ================
 */
-stateResult_t rvWeaponShotgun::State_Reload ( const stateParms_t& parms ) {
+stateResult_t rvWeaponMP155::State_Reload ( const stateParms_t& parms ) {
 	enum {
 		STAGE_INIT,
 		STAGE_WAIT,
