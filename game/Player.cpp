@@ -65,7 +65,8 @@ const float	PLAYER_ITEM_DROP_SPEED	= 100.0f;
 // how many units to raise spectator above default view height so it's in the head of someone
 const int SPECTATE_RAISE = 25;
 
-const int	HEALTH_PULSE		= 1000;			// Regen rate and heal leak rate (for health > 100)
+//0 HEALTH_PULSE No Health Regen on its own 
+const int	HEALTH_PULSE		= 0;			// Regen rate and heal leak rate (for health > 100)
 const int	ARMOR_PULSE			= 1000;			// armor ticking down due to being higher than maxarmor
 const int	AMMO_REGEN_PULSE	= 1000;			// ammo regen in Arena CTF
 const int	POWERUP_BLINKS		= 5;			// Number of times the powerup wear off sound plays
@@ -1298,6 +1299,7 @@ idPlayer::idPlayer() {
 	reloadModel = false;
 	modelDecl = NULL;
 
+	//No hud for modded Version for Immersive Feeling
 	disableHud = false;
 
 	mutedPlayers = 0;
@@ -10262,6 +10264,23 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 			damage = 1;
 		}
 
+		// Chance of bleed
+		float bleedChance = 0.25f;
+		if (gameLocal.random.RandomFloat() < bleedChance) {
+			BleedEffect newBleed;
+
+			newBleed.isHeavyBleed = (gameLocal.random.RandomFloat() < 0.5f);
+
+			if (newBleed.isHeavyBleed) {
+				gameLocal.Printf("Heavy Bleed Active");
+			}
+			else {
+				gameLocal.Printf("Light Bleed Active");
+			}
+
+			activeBleeds.Append(newBleed);
+		}
+
 		int oldHealth = health;
 		health -= damage;
 
@@ -10322,6 +10341,14 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 	lastDamageDef = damageDef->Index();
 	lastDamageLocation = location;
 }
+
+/*
+=====================
+idPlayer::UpdateBleedEffects
+=====================
+*/
+//void idPlayer::UpdateBleedEffects(bool healed) {
+//}
 
 /*
 =====================
