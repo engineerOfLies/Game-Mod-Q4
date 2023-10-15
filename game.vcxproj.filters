@@ -459,34 +459,7 @@
     <ClCompile Include="game\weapon\WeaponFiveSeven.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="game\weapon\WeaponDarkMatterGun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponGauntlet.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponGrenadeLauncher.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponHyperblaster.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponLightningGun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
     <ClCompile Include="game\weapon\WeaponM4A1.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponNailgun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponNapalmGun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponRailgun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponRocketLauncher.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="game\weapon\WeaponMP155.cpp">
