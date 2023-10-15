@@ -2,40 +2,40 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Game">
-      <UniqueIdentifier>{451b0d32-79ef-4181-ba45-e124a4725372}</UniqueIdentifier>
+      <UniqueIdentifier>{38c3f0fa-ec9f-4f3f-9bae-cc9582bbae27}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\AI">
-      <UniqueIdentifier>{647c3232-7cdd-4ec1-b8ab-05988864d653}</UniqueIdentifier>
+      <UniqueIdentifier>{d24d0a48-96dd-4371-84e5-ad782de5268f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Anim">
-      <UniqueIdentifier>{0e6f7351-e277-40cf-8a42-e8da743c5d85}</UniqueIdentifier>
+      <UniqueIdentifier>{e359a78c-e611-4f87-8180-2eff12cfda34}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Client">
-      <UniqueIdentifier>{f8156c95-010e-47da-8d66-d3264eebffd9}</UniqueIdentifier>
+      <UniqueIdentifier>{c14d75af-49e1-48f1-891c-ebbaed4346a2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\GameSys">
-      <UniqueIdentifier>{e3ca6f36-870f-4566-8807-331e7ef6a092}</UniqueIdentifier>
+      <UniqueIdentifier>{d023587a-efd5-4317-a036-74988b8d29ba}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Physics">
-      <UniqueIdentifier>{fc6539c9-6c4e-4c8c-910d-f562facfc8f7}</UniqueIdentifier>
+      <UniqueIdentifier>{9e2e3193-eaee-4fc7-b27c-2d75003c935f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Player">
-      <UniqueIdentifier>{2bca3342-f92d-4e72-9b63-6ce341d17533}</UniqueIdentifier>
+      <UniqueIdentifier>{d0d16b46-19b0-4551-a7f8-6f261fa82d11}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Script">
-      <UniqueIdentifier>{200c58c1-6328-4877-8b74-4918f42adb4b}</UniqueIdentifier>
+      <UniqueIdentifier>{fa73a205-0c08-433b-a77b-1f97ac393c98}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Vehicle">
-      <UniqueIdentifier>{788403b2-e0dc-42ab-8779-04eb3c0ed0d6}</UniqueIdentifier>
+      <UniqueIdentifier>{3a651575-2644-43cb-9ef4-e12a0393ce42}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Weapon">
-      <UniqueIdentifier>{5c09701b-f2fd-475c-a125-cc67180704a4}</UniqueIdentifier>
+      <UniqueIdentifier>{c60a3887-51f0-4555-a61c-09131b283756}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\MP">
-      <UniqueIdentifier>{3168c93f-dec0-42d6-9859-0efd02c62eb3}</UniqueIdentifier>
+      <UniqueIdentifier>{584f7759-e204-41f0-ade2-585c4d7f6940}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\MP\Stats">
-      <UniqueIdentifier>{52f32930-cc38-43e8-8e42-e7bee14c8c32}</UniqueIdentifier>
+      <UniqueIdentifier>{d5a60733-35f2-411c-8cdf-aa73a63771b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -456,40 +456,13 @@
     <ClCompile Include="game\Weapon.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="game\weapon\WeaponBlaster.cpp">
+    <ClCompile Include="game\weapon\WeaponFiveSeven.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="game\weapon\WeaponDarkMatterGun.cpp">
+    <ClCompile Include="game\weapon\WeaponM4A1.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="game\weapon\WeaponGauntlet.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponGrenadeLauncher.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponHyperblaster.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponLightningGun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponMachinegun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponNailgun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponNapalmGun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponRailgun.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponRocketLauncher.cpp">
-      <Filter>Game\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="game\weapon\WeaponShotgun.cpp">
+    <ClCompile Include="game\weapon\WeaponMP155.cpp">
       <Filter>Game\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="game\mp\Buying.cpp">

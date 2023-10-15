@@ -11,7 +11,7 @@ instancing of objects.
 #include "../Game_local.h"
 
 #ifdef _WIN32
-#include "TypeInfo.h"
+#include "TypeInfo"
 #else
 #include "NoGameTypeInfo.h"
 #endif
@@ -1328,7 +1328,6 @@ void idClass::RegisterClasses( void )
 	REGISTER(rvClientMoveable); // ..\..\code\game\client\ClientMoveable.cpp
 	REGISTER(rvClientPhysics); // ..\..\code\game\client\ClientEntity.cpp
 	REGISTER(rvConveyor); // ..\..\code\game\Mover.cpp
-	REGISTER(rvDarkMatterProjectile); // ..\..\code\game\weapon\WeaponDarkMatterGun.cpp
 	REGISTER(rvDebugJumpPoint); // ..\..\code\game\Misc.cpp
 	REGISTER(rvDriftingProjectile); // ..\..\code\game\Projectile.cpp
 	REGISTER(rvEffect); // ..\..\code\game\Effect.cpp
@@ -1412,20 +1411,11 @@ void idClass::RegisterClasses( void )
 	REGISTER(rvVehicleWeapon); // ..\..\code\game\vehicle\VehicleParts.cpp
 	REGISTER(rvViewWeapon); // ..\..\code\game\Weapon.cpp
 	REGISTER(rvWeapon); // ..\..\code\game\Weapon.cpp
-	REGISTER(rvWeaponBlaster); // ..\..\code\game\weapon\WeaponBlaster.cpp
-	REGISTER(rvWeaponDarkMatterGun); // ..\..\code\game\weapon\WeaponDarkMatterGun.cpp
-	REGISTER(rvWeaponGauntlet); // ..\..\code\game\weapon\WeaponGauntlet.cpp
-	REGISTER(rvWeaponGrenadeLauncher); // ..\..\code\game\weapon\WeaponGrenadeLauncher.cpp
-	REGISTER(rvWeaponHyperblaster); // ..\..\code\game\weapon\WeaponHyperblaster.cpp
-	REGISTER(rvWeaponLightningGun); // ..\..\code\game\weapon\WeaponLightningGun.cpp
-	REGISTER(rvWeaponMachinegun); // ..\..\code\game\weapon\WeaponMachinegun.cpp
-	REGISTER(rvWeaponNailgun); // ..\..\code\game\weapon\WeaponNailgun.cpp
-	REGISTER(rvWeaponRailgun); // ..\..\code\game\weapon\WeaponRailgun.cpp
-	REGISTER(rvWeaponRocketLauncher); // ..\..\code\game\weapon\WeaponRocketLauncher.cpp
-	REGISTER(rvWeaponShotgun); // ..\..\code\game\weapon\WeaponShotgun.cpp
+	REGISTER(rvWeaponFiveSeven); // ..\..\code\game\weapon\WeaponFiveSeven.
+	REGISTER(rvWeaponM4A1); // ..\..\code\game\weapon\WeaponM4A1.
+	REGISTER(rvWeaponMP155); // ..\..\code\game\weapon\WeaponMP155.cpp
 // RITUAL BEGIN
 	REGISTER(riDeadZonePowerup); // ..\..\code\game\Item.cpp
-	REGISTER(WeaponNapalmGun);	// ..\..\code\game\weapon\WeaponNapalmGun.cpp
 // RITUAL END
 #undef REGISTER
 }
