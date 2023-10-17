@@ -289,6 +289,12 @@ public:
 		Pain
 	};
 
+	enum class FracturedPart {
+		None,
+		Leg,
+		Arm
+	};
+
 	friend class idThread;
 
 	usercmd_t				usercmd;
@@ -1188,9 +1194,20 @@ private:
 		};
 
 		class FractureEffect : public StatusEffect {
-			// ... Specific properties for fractures
+		private:
+			FracturedPart fracturedPart;
 
-			virtual void ApplyEffect(idPlayer* player) override;  // Specific implementation for fracture effect
+		public:
+			FractureEffect(FracturedPart part) : fracturedPart(part) {}
+
+			virtual void ApplyEffect(idPlayer* player) override;
+
+			virtual void EndEffect(idPlayer* player);
+
+			FracturedPart GetFracturedPart() const {
+				return fracturedPart;
+			}
+
 			virtual EffectType GetType() const override {
 				return EffectType::Fracture;
 			}
@@ -1205,7 +1222,18 @@ private:
 			EffectsManager(idPlayer* ownerPtr) : owner(ownerPtr) {}  // Constructor to set the owner
 			void AddEffect(StatusEffect* effect);
 			void RemoveEffect(EffectType type);
-			void UpdateEffects();     // Calls ApplyEffect() for each active effect
+
+			StatusEffect* idPlayer::EffectsManager::GetStatusEffect(EffectType type) {
+				for (int i = 0; i < activeEffects.Num(); ++i) {
+					if (activeEffects[i]->GetType() == type) {
+						return activeEffects[i];
+					}
+				}
+				return nullptr;  // Return null if the effect is not found
+			};
+
+			bool HasStatusEffect(EffectType type);
+			void UpdateEffects();									 // Calls ApplyEffect() for each active effect
 		};
 
 		EffectsManager effectsManager;
