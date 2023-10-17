@@ -1077,7 +1077,7 @@ bool idInventory::UseAmmo( int index, int amount ) {
 idPlayer::idPlayer
 ==============
 */
-idPlayer::idPlayer() {
+idPlayer::idPlayer() : effectsManager(this) {
 	memset( &usercmd, 0, sizeof( usercmd ) );
 
 	alreadyDidTeamAnnouncerSound = false;
@@ -1346,6 +1346,7 @@ idPlayer::idPlayer() {
 	teamDoubler			= NULL;		
 	teamDoublerPending		= false;
 }
+
 
 /*
 ==============
@@ -10265,18 +10266,21 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 			damage = 1;
 		}
 
-		// Chance of bleed
+		// BleedEffect
 		float bleedChance = 0.25f;
 		if (gameLocal.random.RandomFloat() < bleedChance) {
-			BleedEffect newBleed;
+			BleedEffect* newBleed = new BleedEffect();								// Dynamically allocate a new BleedEffect instance.
 
-			newBleed.isHeavyBleed = (gameLocal.random.RandomFloat() < 0.5f);  // 50% chance of heavy bleed
-			newBleed.bleedDuration = newBleed.isHeavyBleed ? 60.0f : 30.0f;  // 1 minute for heavy, 30 seconds for light
-			newBleed.remainingBleedTime = newBleed.bleedDuration;
-			newBleed.damageAccumulator = 0.0f;  // start with no accumulated damage
-			newBleed.lastBleedApplyTime = gameLocal.time;  // set the last bleed apply time to the current time
+			newBleed->isHeavyBleed = (gameLocal.random.RandomFloat() < 0.5f);		// 50% chance of heavy bleed.
+			int durationInMilliseconds = newBleed->isHeavyBleed ? 60000 : 30000;	// Convert duration to milliseconds: 60,000 for heavy bleed and 30,000 for light bleed.
+			newBleed->duration = newBleed->isHeavyBleed ? 60.0f : 30.0f;			// Start with no accumulated damage.
+			newBleed->damageAccumulator = 0.0f;										// Start with no accumulated damage.
+			newBleed->endTime = gameLocal.time + durationInMilliseconds;			// Set the absolute end time for this effect.
+			newBleed->lastApplyTime = gameLocal.time;								// Set the last bleed apply time to the current time.
 
-			activeBleeds.Append(newBleed);
+			gameLocal.Printf("New Bleed\n");
+
+			effectsManager.AddEffect( newBleed );									// Add the new bleed effect to the effects manager.
 		}
 
 		int oldHealth = health;
@@ -10342,59 +10346,90 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 
 /*
 =====================
-idPlayer::UpdateBleedEffects
+idPlayer::UpdateEffects
 =====================
 */
-void idPlayer::UpdateBleedEffects() {
-	if (activeBleeds.Num() <= 0) {
-		// No active bleeds, return early
-		return;
-	}
+void idPlayer::UpdateEffects() {
+	effectsManager.UpdateEffects();
+}
 
+/*
+=====================
+idPlayer::EffectsManager::AddEffect
+=====================
+*/
+void idPlayer::EffectsManager::AddEffect(StatusEffect* effect) {
+	activeEffects.Append(effect);
+}
+
+/*
+=====================
+idPlayer::EffectsManager::UpdateEffects
+=====================
+*/
+void idPlayer::EffectsManager::UpdateEffects() {
 	int currentTime = gameLocal.time;
-	float deltaTime = (currentTime - lastBleedTime) * 0.001f;
-	lastBleedTime = currentTime;
 
-	for (int i = 0; i < activeBleeds.Num(); ++i) {
-		BleedEffect& bleed = activeBleeds[i];
-		bleed.remainingBleedTime -= deltaTime;
+	for (int i = 0; i < activeEffects.Num(); ++i) {
+		StatusEffect* effect = activeEffects[i];
 
-		if (bleed.remainingBleedTime <= 0.0f) {
-			activeBleeds.RemoveIndex(i);
+		float elapsedTime = (currentTime - effect->lastApplyTime) * 0.001f;  // Convert elapsed time to seconds.
+
+		// Check if the effect has ended
+		if (currentTime >= effect->endTime) {
+			RemoveEffect(effect->GetType());
 			--i;  // adjust index due to removal
-			continue;  // skip further processing for this bleed effect
+			continue;  // skip further processing for this effect
 		}
 
-		// Only process the bleed effect every 2 seconds
-		if (currentTime - bleed.lastBleedApplyTime < 2000) {
-			continue;  // skip further processing for this bleed effect
+		// If it's time to apply this effect
+		if (currentTime - effect->lastApplyTime >= 2000) {
+			effect->ApplyEffect(owner);  // Apply effect to the player
+			effect->lastApplyTime = currentTime;  // Update the last application time
 		}
+	}
+}
 
-		bleed.lastBleedApplyTime = currentTime;
+/*
+=====================
+idPlayer::EffectsManager::RemoveEffect
+=====================
+*/
+void idPlayer::EffectsManager::RemoveEffect(EffectType type) {
+	for (int i = 0; i < activeEffects.Num(); ++i) {
+		if (activeEffects[i]->GetType() == type) {
+			delete activeEffects[i];  // Free the memory allocated for this effect
+			activeEffects.RemoveIndex(i);
+			--i;  // Adjust the index because of the removal
+			break;
+		}
+	}
+}
 
-		// Only allow bleed effect if health is greater than 5
-		if (health > 5) {
-			float bleedRate = bleed.isHeavyBleed ? 2.0f : 1.0f;
+/*
+=====================
+idPlayer::BleedEffect::ApplyEffect
+=====================
+*/
+void idPlayer::BleedEffect::ApplyEffect(idPlayer* player) {
+	if (player->health > 5) {
+		float bleedRate = isHeavyBleed ? 2.0f : 1.0f;
+		damageAccumulator += bleedRate;
+		int damage = static_cast<int>(damageAccumulator);
 
-			// Accumulate damage over time
-			bleed.damageAccumulator += bleedRate;
-			int damage = static_cast<int>(bleed.damageAccumulator);
-
-			if (damage >= 1) {
-				// Ensure health does not fall below 5 due to a bleed effect
-				if (health - damage < 5) {
-					damage = health - 5;
-				}
-				health -= damage;
-				bleed.damageAccumulator -= damage;  // subtract the integer part
-
-				// Log damage taken
-				GAMELOG_ADD(va("player%d_damage_taken", entityNumber), damage);
+		if (damage >= 1) {
+			// Ensure player's health does not fall below 5 due to a bleed effect
+			if (player->health - damage < 5) {
+				damage = player->health - 5;
 			}
+			player->health -= damage;
+			damageAccumulator -= damage;  // subtract the integer part
+
+			// Log damage taken
+			GAMELOG_ADD(va("player%d_damage_taken", player->entityNumber), damage);
 		}
 	}
 
-	gameLocal.Printf("Active Bleeds Count: %d at time %d\n", activeBleeds.Num(), currentTime);
 }
 
 /*

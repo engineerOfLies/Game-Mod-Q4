@@ -3473,7 +3473,7 @@ idGameLocal::RunFrame
 	player = GetLocalPlayer();
 
 	if ( player ) {
-		player->UpdateBleedEffects();
+		player->UpdateEffects();
 	}
 
 	if ( !isMultiplayer && g_stopTime.GetBool() ) {
