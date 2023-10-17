@@ -349,6 +349,7 @@ public:
 	bool					showNewObjectives;
 
 	int						lastDmgTime;
+	int						lastBleedTime;
 	int						deathClearContentsTime;
  	bool					doingDeathSkin;
 	int						nextHealthPulse;	// time when health will tick down
@@ -485,6 +486,7 @@ public:
 	void					CalcDamagePoints(  idEntity *inflictor, idEntity *attacker, const idDict *damageDef,
 							   const float damageScale, const int location, int *health, int *armor );
 	virtual	void			Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &dir, const char *damageDefName, const float damageScale, const int location );
+	virtual void			UpdateBleedEffects( void );
 	virtual bool			CanPlayImpactEffect ( idEntity* attacker, idEntity* target );
 	virtual void			AddDamageEffect( const trace_t &collision, const idVec3 &velocity, const char *damageDefName, idEntity* inflictor );
 	virtual void			ProjectHeadOverlay( const idVec3 &point, const idVec3 &dir, float size, const char *decal );
@@ -1157,6 +1159,10 @@ private:
 	private: 
 		struct BleedEffect {
 			bool isHeavyBleed;
+			float bleedDuration; // time in seconds for how long this bleed effect will last
+			float remainingBleedTime; // time in seconds left for this bleed effect
+			float damageAccumulator;        // Accumulates fractional damage until it becomes a whole number
+			int lastBleedApplyTime;  // keeps track of the last time damage was applied due to this bleed effect
 		};
 
 		idList<BleedEffect> activeBleeds;

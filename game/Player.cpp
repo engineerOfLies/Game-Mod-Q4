@@ -1120,6 +1120,7 @@ idPlayer::idPlayer() {
 	overlayHudTime			= 0;
 
 	lastDmgTime				= 0;
+	lastBleedTime			= 0;
 	deathClearContentsTime	= 0;
 	nextHealthPulse			= 0;
 
@@ -10269,14 +10270,11 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 		if (gameLocal.random.RandomFloat() < bleedChance) {
 			BleedEffect newBleed;
 
-			newBleed.isHeavyBleed = (gameLocal.random.RandomFloat() < 0.5f);
-
-			if (newBleed.isHeavyBleed) {
-				gameLocal.Printf("Heavy Bleed Active");
-			}
-			else {
-				gameLocal.Printf("Light Bleed Active");
-			}
+			newBleed.isHeavyBleed = (gameLocal.random.RandomFloat() < 0.5f);  // 50% chance of heavy bleed
+			newBleed.bleedDuration = newBleed.isHeavyBleed ? 60.0f : 30.0f;  // 1 minute for heavy, 30 seconds for light
+			newBleed.remainingBleedTime = newBleed.bleedDuration;
+			newBleed.damageAccumulator = 0.0f;  // start with no accumulated damage
+			newBleed.lastBleedApplyTime = gameLocal.time;  // set the last bleed apply time to the current time
 
 			activeBleeds.Append(newBleed);
 		}
@@ -10347,8 +10345,57 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 idPlayer::UpdateBleedEffects
 =====================
 */
-//void idPlayer::UpdateBleedEffects(bool healed) {
-//}
+void idPlayer::UpdateBleedEffects() {
+	if (activeBleeds.Num() <= 0) {
+		// No active bleeds, return early
+		return;
+	}
+
+	int currentTime = gameLocal.time;
+	float deltaTime = (currentTime - lastBleedTime) * 0.001f;
+	lastBleedTime = currentTime;
+
+	for (int i = 0; i < activeBleeds.Num(); ++i) {
+		BleedEffect& bleed = activeBleeds[i];
+		bleed.remainingBleedTime -= deltaTime;
+
+		if (bleed.remainingBleedTime <= 0.0f) {
+			activeBleeds.RemoveIndex(i);
+			--i;  // adjust index due to removal
+			continue;  // skip further processing for this bleed effect
+		}
+
+		// Only process the bleed effect every 2 seconds
+		if (currentTime - bleed.lastBleedApplyTime < 2000) {
+			continue;  // skip further processing for this bleed effect
+		}
+
+		bleed.lastBleedApplyTime = currentTime;
+
+		// Only allow bleed effect if health is greater than 5
+		if (health > 5) {
+			float bleedRate = bleed.isHeavyBleed ? 2.0f : 1.0f;
+
+			// Accumulate damage over time
+			bleed.damageAccumulator += bleedRate;
+			int damage = static_cast<int>(bleed.damageAccumulator);
+
+			if (damage >= 1) {
+				// Ensure health does not fall below 5 due to a bleed effect
+				if (health - damage < 5) {
+					damage = health - 5;
+				}
+				health -= damage;
+				bleed.damageAccumulator -= damage;  // subtract the integer part
+
+				// Log damage taken
+				GAMELOG_ADD(va("player%d_damage_taken", entityNumber), damage);
+			}
+		}
+	}
+
+	gameLocal.Printf("Active Bleeds Count: %d at time %d\n", activeBleeds.Num(), currentTime);
+}
 
 /*
 =====================
