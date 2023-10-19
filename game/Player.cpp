@@ -10335,6 +10335,8 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 				newFracture->endTime = gameLocal.time + durationInMilliseconds;												// Set the absolute end time for this effect.
 				newFracture->lastApplyTime = gameLocal.time;																// Set the last effect apply time to the current time.
 
+				hasFractureEffect = true;
+
 				effectsManager.AddEffect(newFracture);																		// Add the new fracture effect to the effects manager.
 			}
 		}
@@ -10361,6 +10363,8 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 				newBroken->duration = (part == BrokenPart::Leg) ? 120.0f : 60.0f;											// Set the duration based on the broken part.
 				newBroken->endTime = gameLocal.time + durationInMilliseconds;												// Set the absolute end time for this effect.
 				newBroken->lastApplyTime = gameLocal.time;																	// Set the last effect apply time to the current time.
+
+				hasBrokenEffect = true;
 
 				effectsManager.AddEffect(newBroken);																		// Add the new broken effect to the effects manager.
 			}
@@ -10565,6 +10569,8 @@ idPlayer::BrokenEffect::ApplyEffect
 void idPlayer::BrokenEffect::ApplyEffect(idPlayer* player) {
 	// Check if the player has a broken arm or leg
 	if (brokenPart == BrokenPart::Leg || brokenPart == BrokenPart::Arm) {
+
+		player->blink_time = 0;
 
 		// Call pain function using the stored values.
 		player->pfl.pain = player->Pain(inflictor, attacker, damage, dir, location);
