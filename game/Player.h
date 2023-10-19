@@ -295,6 +295,12 @@ public:
 		Arm
 	};
 
+	enum class BrokenPart {
+		None,
+		Leg,
+		Arm
+	};
+
 	friend class idThread;
 
 	usercmd_t				usercmd;
@@ -1210,6 +1216,32 @@ private:
 
 			virtual EffectType GetType() const override {
 				return EffectType::Fracture;
+			}
+		};
+
+		class BrokenEffect : public StatusEffect {
+		private:
+			BrokenPart brokenPart;
+
+		public:
+			idEntity* inflictor;
+			idEntity* attacker;
+			int damage;
+			idVec3 dir;
+			int location;
+
+			BrokenEffect(BrokenPart part) : brokenPart(part) {}
+
+			virtual void ApplyEffect(idPlayer* player) override;
+
+			virtual void EndEffect(idPlayer* player);
+
+			BrokenPart GetBrokenPart() const {
+				return brokenPart;
+			}
+
+			virtual EffectType GetType() const override {
+				return EffectType::BrokenLimb;
 			}
 		};
 

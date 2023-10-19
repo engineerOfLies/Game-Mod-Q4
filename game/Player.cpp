@@ -8742,12 +8742,18 @@ idPlayer::AdjustSpeed
 void idPlayer::AdjustSpeed(void) {
 	float speed;
 
-	bool isLegFractured = false;
+	float injurySpeedMultiplier = 1.0f;
 
 	if (effectsManager.HasStatusEffect(EffectType::Fracture)) {
 		FractureEffect* fracture = dynamic_cast<FractureEffect*>(effectsManager.GetStatusEffect(EffectType::Fracture));
 		if (fracture && fracture->GetFracturedPart() == FracturedPart::Leg) {
-			isLegFractured = true;
+			injurySpeedMultiplier = 0.5f;  // Half the speed if leg is fractured
+		}
+	}
+	else if (effectsManager.HasStatusEffect(EffectType::BrokenLimb)) {
+		BrokenEffect* broken = dynamic_cast<BrokenEffect*>(effectsManager.GetStatusEffect(EffectType::BrokenLimb));
+		if (broken && broken->GetBrokenPart() == BrokenPart::Leg) {
+			injurySpeedMultiplier = 0.25f;  // Reduce to a quarter of the speed if leg is broken
 		}
 	}
 
@@ -8762,19 +8768,15 @@ void idPlayer::AdjustSpeed(void) {
 	else if (!physicsObj.OnLadder() && (usercmd.buttons & BUTTON_RUN) && (usercmd.forwardmove || usercmd.rightmove) && (usercmd.upmove >= 0)) {
 		bobFrac = 1.0f;
 		speed = pm_speed.GetFloat();
-		if (isLegFractured) {
-			speed *= 0.5f;  // Half the running speed if leg is fractured
-		}
 	}
 	else {
 		speed = pm_walkspeed.GetFloat();
-		if (isLegFractured) {
-			speed *= 0.5f;  // Half the walking speed if leg is fractured
-		}
 		bobFrac = 0.0f;
 	}
 
 	speed *= PowerUpModifier(PMOD_SPEED);
+
+	speed *= injurySpeedMultiplier;
 
 	if (influenceActive == INFLUENCE_LEVEL3) {
 		speed *= 0.33f;
@@ -9685,11 +9687,18 @@ void idPlayer::RouteGuiMouse( idUserInterface *gui ) {
 }
 
 bool idPlayer::CanZoom(void) {
-	// Check if the player has a fractured arm
+	// Check if the player has a fractured or broken arm
 	if (effectsManager.HasStatusEffect(EffectType::Fracture)) {
 		FractureEffect* fracture = dynamic_cast<FractureEffect*>(effectsManager.GetStatusEffect(EffectType::Fracture));
 		if (fracture && fracture->GetFracturedPart() == FracturedPart::Arm) {
 			return false;  // Can't zoom if arm is fractured
+		}
+	}
+
+	if (effectsManager.HasStatusEffect(EffectType::BrokenLimb)) {
+		BrokenEffect* broken = dynamic_cast<BrokenEffect*>(effectsManager.GetStatusEffect(EffectType::BrokenLimb));
+		if (broken && broken->GetBrokenPart() == BrokenPart::Arm) {
+			return false;  // Can't zoom if arm is broken
 		}
 	}
 
@@ -10306,19 +10315,56 @@ void idPlayer::Damage( idEntity *inflictor, idEntity *attacker, const idVec3 &di
 			effectsManager.AddEffect( newBleed );																		// Add the new bleed effect to the effects manager.
 		}
 
-		// FractureEffect
-		float fractureChance = 0.15f; // For example, a 15% chance to get a fracture.
-		if (gameLocal.random.RandomFloat() < fractureChance) {
-			FracturedPart part = (gameLocal.random.RandomFloat() < 0.5f) ? FracturedPart::Leg : FracturedPart::Arm;		// 50% chance of leg fracture or arm fracture.
+		// Check if there's an existing fracture or broken effect.
+		bool hasFractureEffect = effectsManager.HasStatusEffect(EffectType::Fracture);
+		bool hasBrokenEffect = effectsManager.HasStatusEffect(EffectType::BrokenLimb);
 
-			FractureEffect* newFracture = new FractureEffect( part );													// Dynamically allocate a new FractureEffect instance.
+		// FractureEffect: Only add if there's neither an existing FractureEffect nor a BrokenEffect.
+		if (!hasFractureEffect && !hasBrokenEffect) {
 
-			int durationInMilliseconds = (part == FracturedPart::Leg) ? 90000 : 45000;									// For example, 90,000 ms for leg fracture and 45,000 ms for arm fracture.
-			newFracture->duration = (part == FracturedPart::Leg) ? 90.0f : 45.0f;										// Set the duration based on the fractured part.
-			newFracture->endTime = gameLocal.time + durationInMilliseconds;												// Set the absolute end time for this effect.
-			newFracture->lastApplyTime = gameLocal.time;																// Set the last effect apply time to the current time.
+			float fractureChance = 0.15f;																					// 15% chance to get a fracture.
 
-			effectsManager.AddEffect( newFracture );																	// Add the new fracture effect to the effects manager.
+			if (gameLocal.random.RandomFloat() < fractureChance) {
+
+				FracturedPart part = (gameLocal.random.RandomFloat() < 0.5f) ? FracturedPart::Leg : FracturedPart::Arm;		// 50% chance of leg fracture or arm fracture.
+
+				FractureEffect* newFracture = new FractureEffect(part);														// Dynamically allocate a new FractureEffect instance.
+
+				int durationInMilliseconds = (part == FracturedPart::Leg) ? 90000 : 45000;									// 90,000 ms for leg fracture and 45,000 ms for arm fracture.
+				newFracture->duration = (part == FracturedPart::Leg) ? 90.0f : 45.0f;										// Set the duration based on the fractured part.
+				newFracture->endTime = gameLocal.time + durationInMilliseconds;												// Set the absolute end time for this effect.
+				newFracture->lastApplyTime = gameLocal.time;																// Set the last effect apply time to the current time.
+
+				effectsManager.AddEffect(newFracture);																		// Add the new fracture effect to the effects manager.
+			}
+		}
+
+		// BrokenEffect: Only add if there's neither an existing FractureEffect nor a BrokenEffect.
+		if (!hasFractureEffect && !hasBrokenEffect) {
+
+			float brokenChance = 0.05f;																						// 5% chance to get a broken bone.
+
+			if (gameLocal.random.RandomFloat() < brokenChance) {
+
+				BrokenPart part = (gameLocal.random.RandomFloat() < 0.5f) ? BrokenPart::Leg : BrokenPart::Arm;				// 50% chance of leg break or arm break.
+
+				BrokenEffect* newBroken = new BrokenEffect(part);															// Dynamically allocate a new BrokenEffect instance.
+
+				// Store the necessary data from the Damage function into the BrokenEffect instance
+				newBroken->inflictor = inflictor;
+				newBroken->attacker = attacker;
+				newBroken->damage = damage;
+				newBroken->dir = dir;
+				newBroken->location = location;
+
+				int durationInMilliseconds = (part == BrokenPart::Leg) ? 120000 : 60000;									// 120,000 ms for leg break and 60,000 ms for arm break.
+				newBroken->duration = (part == BrokenPart::Leg) ? 120.0f : 60.0f;											// Set the duration based on the broken part.
+				newBroken->endTime = gameLocal.time + durationInMilliseconds;												// Set the absolute end time for this effect.
+				newBroken->lastApplyTime = gameLocal.time;																	// Set the last effect apply time to the current time.
+
+				effectsManager.AddEffect(newBroken);																		// Add the new broken effect to the effects manager.
+			}
+
 		}
 
 		int oldHealth = health;
@@ -10489,8 +10535,6 @@ void idPlayer::FractureEffect::ApplyEffect(idPlayer* player) {
 	// Check if the player has a fracture
 	if (fracturedPart == FracturedPart::Leg || fracturedPart == FracturedPart::Arm) {
 
-		// Call pain function. For this, you might need to gather additional details 
-		// like the inflictor, attacker, damage value, direction, and location.
 		// These are just placeholder values and could be replaced
 
 		idEntity* inflictor = NULL;		
@@ -10513,6 +10557,30 @@ void idPlayer::FractureEffect::EndEffect(idPlayer* player) {
 	player->AdjustSpeed();
 }
 
+/*
+=====================
+idPlayer::BrokenEffect::ApplyEffect
+=====================
+*/
+void idPlayer::BrokenEffect::ApplyEffect(idPlayer* player) {
+	// Check if the player has a broken arm or leg
+	if (brokenPart == BrokenPart::Leg || brokenPart == BrokenPart::Arm) {
+
+		// Call pain function using the stored values.
+		player->pfl.pain = player->Pain(inflictor, attacker, damage, dir, location);
+		player->AdjustSpeed();
+
+	}
+}
+
+/*
+=====================
+idPlayer::BrokenEffect::EndEffect
+=====================
+*/
+void idPlayer::BrokenEffect::EndEffect(idPlayer* player) {
+	player->AdjustSpeed();
+}
 
 /*
 =====================
