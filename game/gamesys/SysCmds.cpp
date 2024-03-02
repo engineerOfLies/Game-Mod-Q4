@@ -575,7 +575,13 @@ void Cmd_CenterView_f( const idCmdArgs &args ) {
 	ang.pitch = 0.0f;
 	player->SetViewAngles( ang );
 }
+/*
+==================
+Cmd_Locate_f
 
+Give the x,y,z coords of the player
+==================
+*/
 void Cmd_Locate_f(const idCmdArgs& args) {
 	idPlayer* player;
 	idVec3 origin;

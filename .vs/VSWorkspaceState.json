@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\game"
+    "\\game",
+    "\\game\\weapon"
   ],
-  "SelectedNode": "\\game\\Player.h",
+  "SelectedNode": "\\game\\weapon\\WeaponBlaster.cpp",
   "PreviewInSolutionExplorer": false
 }
