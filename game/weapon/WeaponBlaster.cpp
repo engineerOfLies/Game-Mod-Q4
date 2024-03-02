@@ -3,6 +3,8 @@
 
 #include "../Game_local.h"
 #include "../Weapon.h"
+#include "../Entity.h"
+#include "../Player.h"
 
 #define BLASTER_SPARM_CHARGEGLOW		6
 
@@ -32,6 +34,9 @@ private:
 	idVec2				chargeGlow;
 	bool				fireForced;
 	int					fireHeldTime;
+
+	// New Summon Command
+	
 
 	stateResult_t		State_Raise				( const stateParms_t& parms );
 	stateResult_t		State_Lower				( const stateParms_t& parms );
@@ -67,6 +72,12 @@ bool rvWeaponBlaster::UpdateFlashlight ( void ) {
 	
 	SetState ( "Flashlight", 0 );
 	return true;		
+}
+
+void SpawnTurret() {
+	//idVec3 playerPosition = GetEyePosition();
+
+	//SpawnEntity("char_marine", playerPosition);
 }
 
 /*
@@ -427,6 +438,9 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 
 	
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
+				// Spawn Entity When fully charged
+				
+				//gameLocal.spawnedEntities;
 				Attack ( true, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
