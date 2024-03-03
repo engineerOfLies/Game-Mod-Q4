@@ -131,7 +131,7 @@ void rvWeaponBlaster::Spawn_Turret ( void ) {
 	idCmdArgs args;
 
 	args.AppendArg("spawn");
-	args.AppendArg("monster_grunt");
+	args.AppendArg("monster_turret_small_friendly");
 	Spawn_f(args);
 
 	gameLocal.Printf("THE CODE WORK GIVE ME TIME.\n");
@@ -496,8 +496,10 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 
 	
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
-				// Spawn Entity When fully charged
+				// Spawn Turret When fully charged
 				Spawn_Turret();
+
+				// Old code
 				//Attack ( true, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );

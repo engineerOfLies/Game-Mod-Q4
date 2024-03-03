@@ -7,36 +7,37 @@
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\SteamLibrary\\steamapps\\common\\Quake 4\\BaseBuilderV1\\def\\ai\\monster_turret.def||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\ai\\Monster_Grunt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\Monster_Grunt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\migue\\AppData\\Local\\Temp\\7zO43CE5EAA\\char_marine.def||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\migue\\AppData\\Local\\Temp\\7zO43C4A639\\actor.def||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\ai\\Monster_Turret.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\Monster_Turret.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Game_local.cpp||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Game_local.cpp||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\spawner.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\spawner.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57400}|idlib.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\idlib\\CmdArgs.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57400}|idlib.vcxproj|solutionrelative:idlib\\CmdArgs.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\gamesys\\SysCmds.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SysCmds.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\Vehicle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\vehicle\\Vehicle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\Vehicle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\vehicle\\Vehicle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\VehicleMonster.h||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\vehicle\\VehicleMonster.h||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Game_local.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Game_local.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,15 +47,102 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 10,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "char_marine.def",
+              "DocumentMoniker": "C:\\Users\\migue\\AppData\\Local\\Temp\\7zO43CE5EAA\\char_marine.def",
+              "ToolTip": "C:\\Users\\migue\\AppData\\Local\\Temp\\7zO43CE5EAA\\char_marine.def",
+              "ViewState": "AQIAAAMKAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001913|",
+              "WhenOpened": "2024-03-03T18:38:13.323Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "actor.def",
+              "DocumentMoniker": "C:\\Users\\migue\\AppData\\Local\\Temp\\7zO43C4A639\\actor.def",
+              "ToolTip": "C:\\Users\\migue\\AppData\\Local\\Temp\\7zO43C4A639\\actor.def",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001913|",
+              "WhenOpened": "2024-03-03T18:37:42.4Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "monster_turret.def",
+              "DocumentMoniker": "D:\\SteamLibrary\\steamapps\\common\\Quake 4\\BaseBuilderV1\\def\\ai\\monster_turret.def",
+              "RelativeDocumentMoniker": "..\\..\\..\\SteamLibrary\\steamapps\\common\\Quake 4\\BaseBuilderV1\\def\\ai\\monster_turret.def",
+              "ToolTip": "D:\\SteamLibrary\\steamapps\\common\\Quake 4\\BaseBuilderV1\\def\\ai\\monster_turret.def",
+              "RelativeToolTip": "..\\..\\..\\SteamLibrary\\steamapps\\common\\Quake 4\\BaseBuilderV1\\def\\ai\\monster_turret.def",
+              "ViewState": "AQIAALoAAAAAAAAAAAAAAMgAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001913|",
+              "WhenOpened": "2024-03-03T18:36:11.917Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Player.cpp",
+              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Player.cpp",
+              "RelativeDocumentMoniker": "game\\Player.cpp",
+              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Player.cpp",
+              "RelativeToolTip": "game\\Player.cpp",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-03T18:25:35.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Monster_Turret.cpp",
+              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\ai\\Monster_Turret.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\Monster_Turret.cpp",
+              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\ai\\Monster_Turret.cpp",
+              "RelativeToolTip": "game\\ai\\Monster_Turret.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-03T18:16:26.367Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "spawner.cpp",
+              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\spawner.cpp",
+              "RelativeDocumentMoniker": "game\\spawner.cpp",
+              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\spawner.cpp",
+              "RelativeToolTip": "game\\spawner.cpp",
+              "ViewState": "AQIAAFkBAAAAAAAAAAAjwHMBAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-03T18:05:35.946Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
+              "Title": "Game_local.h",
+              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Game_local.h",
+              "RelativeDocumentMoniker": "game\\Game_local.h",
+              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Game_local.h",
+              "RelativeToolTip": "game\\Game_local.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-03-02T23:15:58.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "CmdArgs.cpp",
               "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\idlib\\CmdArgs.cpp",
               "RelativeDocumentMoniker": "idlib\\CmdArgs.cpp",
@@ -67,93 +155,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Game_local.cpp",
               "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Game_local.cpp",
               "RelativeDocumentMoniker": "game\\Game_local.cpp",
               "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\Game_local.cpp",
               "RelativeToolTip": "game\\Game_local.cpp",
-              "ViewState": "AQIAALISAAAAAAAAAAAjwMgSAAAPAAAA",
+              "ViewState": "AQIAAAoCAAAAAAAAAAAAABMCAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-02T20:08:11.433Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Vehicle.cpp",
-              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\Vehicle.cpp",
-              "RelativeDocumentMoniker": "game\\vehicle\\Vehicle.cpp",
-              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\Vehicle.cpp",
-              "RelativeToolTip": "game\\vehicle\\Vehicle.cpp",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAjwFoAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-02T19:42:50.285Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Vehicle.h",
-              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\Vehicle.h",
-              "RelativeDocumentMoniker": "game\\vehicle\\Vehicle.h",
-              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\Vehicle.h",
-              "RelativeToolTip": "game\\vehicle\\Vehicle.h",
-              "ViewState": "AQIAAHYAAAAAAAAAAAAjwIUAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-02T19:42:48.079Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Monster_Grunt.cpp",
-              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\ai\\Monster_Grunt.cpp",
-              "RelativeDocumentMoniker": "game\\ai\\Monster_Grunt.cpp",
-              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\ai\\Monster_Grunt.cpp",
-              "RelativeToolTip": "game\\ai\\Monster_Grunt.cpp",
-              "ViewState": "AQIAAH4AAAAAAAAAAAAAAJkAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-02T19:25:22.314Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "VehicleMonster.h",
-              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\VehicleMonster.h",
-              "RelativeDocumentMoniker": "game\\vehicle\\VehicleMonster.h",
-              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\vehicle\\VehicleMonster.h",
-              "RelativeToolTip": "game\\vehicle\\VehicleMonster.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-02T19:20:34.539Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SysCmds.h",
-              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\gamesys\\SysCmds.h",
-              "RelativeDocumentMoniker": "game\\gamesys\\SysCmds.h",
-              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\gamesys\\SysCmds.h",
-              "RelativeToolTip": "game\\gamesys\\SysCmds.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-02T18:32:24.584Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SysCmds.cpp",
-              "DocumentMoniker": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp",
-              "RelativeDocumentMoniker": "game\\gamesys\\SysCmds.cpp",
-              "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp",
-              "RelativeToolTip": "game\\gamesys\\SysCmds.cpp",
-              "ViewState": "AQIAAGEEAAAAAAAAAAAjwG0EAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-02T05:37:35.051Z",
               "EditorCaption": ""
             },
             {
@@ -164,7 +174,7 @@
               "RelativeDocumentMoniker": "game\\weapon\\WeaponBlaster.cpp",
               "ToolTip": "D:\\Git\\GameMod\\MAldana-Game-Mod-Q4\\game\\weapon\\WeaponBlaster.cpp",
               "RelativeToolTip": "game\\weapon\\WeaponBlaster.cpp",
-              "ViewState": "AQIAAN0BAAAAAAAAAAAAAPMBAAATAAAA",
+              "ViewState": "AQIAAHMAAAAAAAAAAAAgwJQAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-02T05:11:50.569Z",
               "EditorCaption": ""
