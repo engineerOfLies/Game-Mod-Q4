@@ -1,0 +1,4 @@
+"Autosave game/airdefense1"
+"^:Map Start	^0AIR DEFENSE BUNKER"
+"gfx/guis/loadscreens/generic"
+nooverwrite
