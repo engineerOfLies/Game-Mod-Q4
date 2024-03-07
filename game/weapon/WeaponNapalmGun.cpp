@@ -395,12 +395,12 @@ stateResult_t WeaponNapalmGun::State_Fire( const stateParms_t& parms ) {
 		case STAGE_INIT:
 			if ( wsfl.zoom ) {
 				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-				Attack ( true, 1, spread, 0, 1.0f );
+				Attack ( true, 10, spread, 0, 5.0f );
 				PlayAnim ( ANIMCHANNEL_ALL, "idle", parms.blendFrames );
 				//fireHeld = true;
 			} else {
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-				Attack ( false, 1, spread, 0, 1.0f );
+				Attack ( false, 10, spread, 0, 5.0f );
 
 				int animNum = viewModel->GetAnimator()->GetAnim ( "fire" );
 				if ( animNum ) {

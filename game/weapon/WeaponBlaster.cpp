@@ -3,6 +3,7 @@
 
 #include "../Game_local.h"
 #include "../Weapon.h"
+#include "../spawner.h"
 
 #define BLASTER_SPARM_CHARGEGLOW		6
 
@@ -427,14 +428,72 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 
 	
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
+				//
+			
+				const char* key, * value;
+				int			i;
+				float		yaw;
+				idVec3		org;
+				idPlayer* player;
+				idDict		dict;
+
+				player = gameLocal.GetLocalPlayer();
+
+				yaw = player->viewAngles.yaw;
+
+				value = "monster_grunt";
+				dict.Set("classname", value);
+				dict.Set("angle", va("%f", yaw + 180));
+
+				org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+				dict.Set("origin", org.ToString());
+
+				key = "spawn";
+				value = "monster_grunt";
+				dict.Set(key, value);
+
+				// RAVEN BEGIN
+				// kfuller: want to know the name of the entity I spawned
+				idEntity* newEnt = NULL;
+				gameLocal.SpawnEntityDef(dict, &newEnt);
+				//
 				Attack ( true, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
 			} else {
+				//
+
+				const char* key, * value;
+				int			i;
+				float		yaw;
+				idVec3		org;
+				idPlayer* player;
+				idDict		dict;
+
+				player = gameLocal.GetLocalPlayer();
+
+				yaw = player->viewAngles.yaw;
+
+				value = "monster_grunt";
+				dict.Set("classname", value);
+				dict.Set("angle", va("%f", yaw + 180));
+
+				org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+				dict.Set("origin", org.ToString());
+
+				key = "spawn";
+				value = "monster_grunt";
+				dict.Set(key, value);
+
+				// RAVEN BEGIN
+				// kfuller: want to know the name of the entity I spawned
+				idEntity* newEnt = NULL;
+				gameLocal.SpawnEntityDef(dict, &newEnt);
+				//
 				Attack ( false, 10, spread, 0, 0.2f );
 				PlayEffect ( "fx_normalflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
-			}
+			}				
 			fireHeldTime = 0;
 			
 			return SRESULT_STAGE(FIRE_WAIT);
