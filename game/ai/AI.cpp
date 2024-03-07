@@ -947,12 +947,14 @@ void idAI::WakeUp ( void ) {
 	// Wake up any linked entities
 	WakeUpTargets ( );
 
+	// Start of commenting SetEnemy
+	
 	// Default enemy?
 	if ( !combat.fl.ignoreEnemies ) {
 		if ( spawnArgs.GetString ( "enemy", "", &temp ) && *temp ) {	
-			SetEnemy ( gameLocal.FindEntity ( temp ) );
+			//SetEnemy ( gameLocal.FindEntity ( temp ) );
 		} else if ( spawnArgs.GetBool ( "forceEnemy", "0" ) ) {
-			SetEnemy ( FindEnemy ( false, true ) );
+			//SetEnemy ( FindEnemy ( false, true ) );
 		}
 	}
 
@@ -1160,7 +1162,7 @@ void idAI::Think( void ) {
 		// Clear our enemy if necessary
 		if ( enemyEnt ) {
 			if (enemyAct && enemyAct->IsInVehicle()) {
-				SetEnemy(enemyAct->GetVehicleController().GetVehicle());	// always get angry at the enemy's vehicle first, not the enemy himself
+				//SetEnemy(enemyAct->GetVehicleController().GetVehicle());	// always get angry at the enemy's vehicle first, not the enemy himself
 			} else {
 				bool enemyDead = (enemyEnt->fl.takedamage && enemyEnt->health <= 0);
 				if ( enemyDead || enemyEnt->fl.notarget || enemyEnt->IsHidden() || (enemyAct && enemyAct->team == team)) {
@@ -1792,7 +1794,7 @@ void idAI::Activate( idEntity *activator ) {
 	}
 
 	if ( ReactionTo( player ) & ATTACK_ON_ACTIVATE ) {
-		SetEnemy( player );
+		//SetEnemy( player );
 	}
 	
 	// If being activated by a spawner we need to attach to it
@@ -3388,7 +3390,7 @@ void idAI::OnTouch( idEntity *other, trace_t *trace ) {
 		&& !other->fl.notarget 
 		&& ( ReactionTo( other )&ATTACK_ON_SIGHT)
 		&& (!enemy.ent || gameLocal.time - enemy.changeTime > 1000 ) ) {
-		SetEnemy( other );
+		//SetEnemy( other );
 	}
 
 	if ( !enemy.ent && !other->fl.notarget && ( ReactionTo( other ) & ATTACK_ON_ACTIVATE ) ) {
@@ -4261,7 +4263,7 @@ bool idAI::CheckForEnemy ( bool useFov, bool force ) {
 		return CheckForTeammateEnemy ( );
 	}
 
-	SetEnemy( newEnemy );
+	//SetEnemy( newEnemy );
 	return true;
 }
 
@@ -4330,7 +4332,7 @@ bool idAI::CheckForCloserEnemy ( void ) {
 		// Are they closer than the enemy we are fighting?
 		if ( newDist < enemy.range ) {
 			//new enemy is closer than current one, take them!
-			SetEnemy( newEnemy );
+			//SetEnemy( newEnemy );
 			return true;
 		}
 	}
@@ -4347,7 +4349,7 @@ bool idAI::CheckForCloserEnemy ( void ) {
 		return false;
 	}
 
-	SetEnemy( newEnemy );
+	//SetEnemy( newEnemy );
 	return true;
 }
 
@@ -4390,7 +4392,7 @@ bool idAI::CheckForReplaceEnemy ( idEntity* replacement ) {
 	
 	// Not having an enemy will set it immediately
 	if ( !enemy.ent ) {
-		SetEnemy ( replacement );
+		//SetEnemy ( replacement );
 		return true;
 	}
 
@@ -4411,7 +4413,7 @@ bool idAI::CheckForReplaceEnemy ( idEntity* replacement ) {
 	
 	// Replace enemy?
 	if ( replace ) {
-		SetEnemy ( replacement );
+		//SetEnemy ( replacement );
 	}
 	
 	return replace;

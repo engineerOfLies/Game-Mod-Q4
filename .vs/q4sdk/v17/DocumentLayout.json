@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\RVCre\\Quake4SourceSDK\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\Monster_Grunt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\Monster_Grunt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -11,35 +15,63 @@
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponHyperblaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponHyperblaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\XboxGames\\Quake 4\\Content\\Quakemon\\def\\weapons\\blaster.def||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_pathing.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_pathing.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_States.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_States.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Tactical.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_Tactical.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Util.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_Util.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Move.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_Move.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\gamesys\\SysCmds.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SysCmds.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\gamesys\\SaveGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SaveGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Tactical.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_Tactical.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Manager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_Manager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\spawner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\spawner.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_events.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\AI_events.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\gamesys\\SaveGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SaveGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\Projectile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\Projectile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\XboxGames\\Quake 4\\Content\\Quakemon\\def\\weapons\\blaster.def||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponMachinegun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponMachinegun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\Monster_Grunt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\ai\\Monster_Grunt.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponNapalmGun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -53,11 +85,128 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
+              "Title": "AI.cpp",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI.cpp",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI.cpp",
+              "RelativeToolTip": "game\\ai\\AI.cpp",
+              "ViewState": "AQIAABoRAAAAAAAAAAAQwCgRAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-07T17:22:59.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AI_Util.cpp",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Util.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI_Util.cpp",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Util.cpp",
+              "RelativeToolTip": "game\\ai\\AI_Util.cpp",
+              "ViewState": "AQIAAEMCAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-07T16:43:09.916Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AI_Tactical.h",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Tactical.h",
+              "RelativeDocumentMoniker": "game\\ai\\AI_Tactical.h",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Tactical.h",
+              "RelativeToolTip": "game\\ai\\AI_Tactical.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-03-07T16:43:06.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AI_Tactical.cpp",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Tactical.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI_Tactical.cpp",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Tactical.cpp",
+              "RelativeToolTip": "game\\ai\\AI_Tactical.cpp",
+              "ViewState": "AQIAANECAAAAAAAAAAAQwOECAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-07T16:43:00.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AI_States.cpp",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_States.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI_States.cpp",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_States.cpp",
+              "RelativeToolTip": "game\\ai\\AI_States.cpp",
+              "ViewState": "AQIAAEQIAAAAAAAAAAAQwFgIAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-07T16:42:54.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AI_pathing.cpp",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_pathing.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI_pathing.cpp",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_pathing.cpp",
+              "RelativeToolTip": "game\\ai\\AI_pathing.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-07T16:42:51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AI_Move.cpp",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Move.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI_Move.cpp",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Move.cpp",
+              "RelativeToolTip": "game\\ai\\AI_Move.cpp",
+              "ViewState": "AQIAADUBAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-07T16:42:43.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AI_Manager.cpp",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Manager.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI_Manager.cpp",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_Manager.cpp",
+              "RelativeToolTip": "game\\ai\\AI_Manager.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-07T16:42:36.587Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AI_events.cpp",
+              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_events.cpp",
+              "RelativeDocumentMoniker": "game\\ai\\AI_events.cpp",
+              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\AI_events.cpp",
+              "RelativeToolTip": "game\\ai\\AI_events.cpp",
+              "ViewState": "AQIAABoEAAAAAAAAAAApwGAEAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-03-07T16:23:54.881Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "SysCmds.h",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\gamesys\\SysCmds.h",
               "RelativeDocumentMoniker": "game\\gamesys\\SysCmds.h",
@@ -70,33 +219,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 13,
               "Title": "spawner.h",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\spawner.h",
               "RelativeDocumentMoniker": "game\\spawner.h",
               "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\spawner.h",
               "RelativeToolTip": "game\\spawner.h",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAAAsAAAAZAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-03-06T23:47:42.975Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 0,
               "Title": "Monster_Grunt.cpp",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\Monster_Grunt.cpp",
               "RelativeDocumentMoniker": "game\\ai\\Monster_Grunt.cpp",
               "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\ai\\Monster_Grunt.cpp",
               "RelativeToolTip": "game\\ai\\Monster_Grunt.cpp",
-              "ViewState": "AQIAADAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAC8BAAAAAAAAAAAAAAkAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-06T23:31:10.969Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 16,
               "Title": "Projectile.cpp",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\Projectile.cpp",
               "RelativeDocumentMoniker": "game\\Projectile.cpp",
@@ -104,12 +253,11 @@
               "RelativeToolTip": "game\\Projectile.cpp",
               "ViewState": "AQIAAA8AAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-06T23:12:37.091Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-06T23:12:37.091Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "blaster.def",
               "DocumentMoniker": "C:\\XboxGames\\Quake 4\\Content\\Quakemon\\def\\weapons\\blaster.def",
               "RelativeDocumentMoniker": "..\\..\\..\\XboxGames\\Quake 4\\Content\\Quakemon\\def\\weapons\\blaster.def",
@@ -122,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 17,
               "Title": "WeaponMachinegun.cpp",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponMachinegun.cpp",
               "RelativeDocumentMoniker": "game\\weapon\\WeaponMachinegun.cpp",
@@ -130,12 +278,11 @@
               "RelativeToolTip": "game\\weapon\\WeaponMachinegun.cpp",
               "ViewState": "AQIAAM8AAAAAAAAAAAAAAGQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-30T23:03:09.426Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-30T23:03:09.426Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 18,
               "Title": "WeaponNapalmGun.cpp",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponNapalmGun.cpp",
               "RelativeDocumentMoniker": "game\\weapon\\WeaponNapalmGun.cpp",
@@ -143,51 +290,37 @@
               "RelativeToolTip": "game\\weapon\\WeaponNapalmGun.cpp",
               "ViewState": "AQIAAHcBAAAAAAAAAAAAAIkAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-30T22:04:20.665Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-30T22:04:20.665Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "WeaponHyperblaster.cpp",
-              "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponHyperblaster.cpp",
-              "RelativeDocumentMoniker": "game\\weapon\\WeaponHyperblaster.cpp",
-              "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponHyperblaster.cpp",
-              "RelativeToolTip": "game\\weapon\\WeaponHyperblaster.cpp",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-30T22:19:33.111Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "WeaponBlaster.cpp",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponBlaster.cpp",
               "RelativeDocumentMoniker": "game\\weapon\\WeaponBlaster.cpp",
               "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\weapon\\WeaponBlaster.cpp",
               "RelativeToolTip": "game\\weapon\\WeaponBlaster.cpp",
-              "ViewState": "AQIAAMgBAAAAAAAAAAAiwOsBAAAGAAAA",
+              "ViewState": "AQIAAI8BAAAAAAAAAAAAAJkBAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-01-30T18:25:09.093Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SysCmds.cpp",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\gamesys\\SysCmds.cpp",
               "RelativeDocumentMoniker": "game\\gamesys\\SysCmds.cpp",
               "ToolTip": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\gamesys\\SysCmds.cpp",
               "RelativeToolTip": "game\\gamesys\\SysCmds.cpp",
-              "ViewState": "AQIAAE8EAAAAAAAAAAAQwF8EAAAHAAAA",
+              "ViewState": "AQIAAEACAAAAAAAAAAAQwFgCAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-01-30T18:07:46.705Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 15,
               "Title": "SaveGame.cpp",
               "DocumentMoniker": "C:\\Users\\RVCre\\Quake4SourceSDK\\game\\gamesys\\SaveGame.cpp",
               "RelativeDocumentMoniker": "game\\gamesys\\SaveGame.cpp",
@@ -195,8 +328,7 @@
               "RelativeToolTip": "game\\gamesys\\SaveGame.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-01-30T18:07:42.331Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-30T18:07:42.331Z"
             }
           ]
         }
