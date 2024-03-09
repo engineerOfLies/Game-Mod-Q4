@@ -233,7 +233,7 @@ stateResult_t rvWeaponHyperblaster::State_Fire(const stateParms_t& parms) {
 	case STAGE_INIT:
 		SpinUp();
 		nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier(PMOD_FIRERATE));
-		spawnMon("monster_grunt");
+		SwordsDance();
 		if (ClipSize()) {
 			viewModel->SetShaderParm(HYPERBLASTER_SPARM_BATTERY, (float)AmmoInClip() / ClipSize());
 		}

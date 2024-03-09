@@ -9,6 +9,15 @@
 #define BLASTER_SPARM_CHARGEGLOW		6
 
 bool canSpawnMon = true;
+int enemyHealth = 100;
+bool inBattle = false;
+int enemyAttack = 1;
+int attackPower = 1;
+bool enemyProtection = false;
+bool Protection = false;
+const char* capturedMon = "monster_grunt";
+const char* message;
+const char* enemyMessage;
 
 class rvWeaponBlaster : public rvWeapon {
 public:
@@ -22,6 +31,7 @@ public:
 	void				Restore				( idRestoreGame *savefile );
 	void				PreSave		( void );
 	void				PostSave	( void );
+
 
 protected:
 
@@ -408,7 +418,7 @@ void spawnMon(const char* monType)
 	idPlayer* player;
 	idDict		dict;
 
-	canSpawnMon = true;
+	canSpawnMon = false;
 	player = gameLocal.GetLocalPlayer();
 
 	yaw = player->viewAngles.yaw;
@@ -458,15 +468,183 @@ void killMon()
 	}
 }
 
+void UpdateBattleInfo(idUserInterface* _hud) {
+	const char* temp;
+
+	assert(_hud);
+
+	temp = _hud->State().GetString("battleUpdate", "-1");
+	if (temp != message) {
+		_hud->SetStateString("battleUpdate", message);
+		_hud->HandleNamedEvent("UpdateBattleInfo");
+	}
+	}
+
+void UpdateEnemyBattleInfo(idUserInterface* _hud) {
+	const char* temp;
+
+	assert(_hud);
+
+	temp = _hud->State().GetString("enemyBattleUpdate", "-1");
+	if (temp != enemyMessage) {
+		_hud->SetStateString("enemyBattleUpdate", enemyMessage);
+		_hud->HandleNamedEvent("UpdateEnemyBattleInfo");
+	}
+}
+
+
 void startQuakeBattle(const char* enemy)
 {
-	int enemyHealth = 100;
-	int monHealth = 100;
-	
-	spawnMon(enemy);
+	if (!inBattle)
+	{
+		
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		message = "Battle Start";
+		UpdateBattleInfo(player->hud);
+		enemyHealth = 100;
+		inBattle = true;
+		enemyAttack = 1;
+		attackPower = 1;
+		enemyProtection = false;
+		Protection = false;
+	}
+	else
+	{
+		inBattle = false;
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		message = "Captured Mon!";
+		UpdateBattleInfo(player->hud);
+		enemyMessage = "";
+		UpdateEnemyBattleInfo(player->hud);
+		capturedMon = enemy;
+		killMon();
+	}
 
 }
 
+void Tackle()
+{
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	message = "You used tackle!";
+	UpdateBattleInfo(player->hud);
+	if (enemyHealth > 0 && !enemyProtection)
+	{
+		enemyHealth -= (25 * attackPower);
+		enemyTurn();
+	}
+	else if (enemyProtection)
+	{
+		enemyProtection = false;
+		enemyTurn();
+	}
+	else
+	{
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		message = "You won!";
+		UpdateBattleInfo(player->hud);
+		enemyMessage = "";
+		UpdateEnemyBattleInfo(player->hud);
+		inBattle = false;
+		killMon();
+		spawnWildMon();
+		canSpawnMon = true;
+	}
+}
+void Protect()
+{
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	message = "You used protect!";
+	UpdateBattleInfo(player->hud);
+	Protection = true;
+	enemyTurn();
+}
+void SwordsDance()
+{
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	message = "You used swords dance!";
+	UpdateBattleInfo(player->hud);
+	attackPower += 0.25;
+	enemyTurn();
+}
+void Growl()
+{
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	message = "You used growl!";
+	UpdateBattleInfo(player->hud);
+	enemyAttack -= 0.25;
+	enemyTurn();
+}
+
+void enemyTurn()
+{
+	if (inBattle)
+	{
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		int enemyDecision = rand() % 4;
+		if (enemyDecision == 0)
+		{
+			enemyMessage = "They used tackle!";
+			UpdateEnemyBattleInfo(player->hud);
+			if (!Protection)
+			{
+				player->health -= (25 * enemyAttack);
+			}
+			else
+				Protection = false;
+		}
+		if (enemyDecision == 1)
+		{
+			enemyMessage = "They used protect!";
+			UpdateEnemyBattleInfo(player->hud);
+			enemyProtection = true;
+		}
+		if (enemyDecision == 2)
+		{
+			enemyMessage = "They used swords dance!";
+			UpdateEnemyBattleInfo(player->hud);
+			enemyAttack += 0.25;
+		}
+		if (enemyDecision == 3)
+		{
+			enemyMessage = "They used growl!";
+			UpdateEnemyBattleInfo(player->hud); 
+			attackPower -= 0.25;
+		}
+	}
+}
+
+void spawnWildMon()
+{
+	int i = rand() % 10;
+	if (i == 0)
+		spawnMon("monster_gladiator");
+	if (i == 1)
+		spawnMon("monster_grunt");
+	if (i == 2)
+		spawnMon("monster_gunner");
+	if (i == 3)
+		spawnMon("monster_berserker");
+	if (i == 4)
+		spawnMon("monster_bossbuddy");
+	if (i == 5)
+		spawnMon("monster_fatty");
+	if (i == 6)
+		spawnMon("monster_scientist");
+	if (i == 7)
+		spawnMon("monster_sentry");
+	if (i == 8)
+		spawnMon("monster_turret");
+	if (i == 9)
+		spawnMon("monster_harvester");
+}
 /*
 ================
 rvWeaponBlaster::State_Fire
@@ -502,11 +680,11 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 
 	
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
+				Attack ( true, 1, spread, 0, 0.0f );
 				//
 				if (canSpawnMon)
-					//spawnMon("monster_grunt");
+					spawnMon(capturedMon);
 				//
-				Attack ( true, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
 				player->GiveItem("weapon_machinegun");
@@ -516,14 +694,17 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 			} else {
 				//
 				killMon();
+				message = "";
+				UpdateBattleInfo(player->hud);
+				enemyMessage = "";
+				UpdateEnemyBattleInfo(player->hud);
+				inBattle = false;
+				spawnWildMon();
+				canSpawnMon = true;
 				//
-				Attack(false, 10, spread, 0, 0.2f);
+				Attack(false, 10, spread, 0, 0.0f);
 				PlayEffect("fx_normalflash", barrelJointView, false);
 				PlayAnim(ANIMCHANNEL_ALL, "fire", parms.blendFrames);
-				idPlayer* player;
-
-				player = gameLocal.GetLocalPlayer();
-				player->health -= 10;
 				
 	
 			}				

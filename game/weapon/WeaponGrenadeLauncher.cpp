@@ -148,7 +148,7 @@ stateResult_t rvWeaponGrenadeLauncher::State_Fire(const stateParms_t& parms) {
 	switch (parms.stage) {
 	case STAGE_INIT:
 		nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier(PMOD_FIRERATE));
-		spawnMon("monster_grunt");
+		Growl();
 		PlayAnim(ANIMCHANNEL_ALL, GetFireAnim(), 0);
 		return SRESULT_STAGE(STAGE_WAIT);
 
