@@ -233,7 +233,6 @@ stateResult_t rvWeaponMachinegun::State_Fire(const stateParms_t& parms) {
 		if (wsfl.zoom) {
 			nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier(PMOD_FIRERATE));
 			Tackle();
-			fireHeld = true;
 		}
 		else {
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier(PMOD_FIRERATE));

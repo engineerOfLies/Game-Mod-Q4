@@ -3468,7 +3468,7 @@ idPlayer::UpdateHudStats
 */
 void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 	int temp;
-	
+
 	assert ( _hud );
 
 	temp = _hud->State().GetInt ( "player_health", "-1" );

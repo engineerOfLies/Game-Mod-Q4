@@ -3399,14 +3399,6 @@ void idPlayer::UpdateHudStats( idUserInterface *_hud ) {
 		_hud->SetStateFloat	( "player_healthpct", idMath::ClampFloat ( 0.0f, 1.0f, (float)health / (float)inventory.maxHealth ) );
 		_hud->HandleNamedEvent ( "updateHealth" );
 	}
-	enemy_health = 100;
-	temp = _hud->State().GetInt("enemy_health", "-1");
-	if (temp != enemy_health) {
-		_hud->SetStateInt("enemy_healthDelta", temp == -1 ? 0 : (temp - enemy_health));
-		_hud->SetStateInt("enemy_health", enemy_health < -100 ? -100 : enemy_health);
-		_hud->SetStateFloat("enemy_healthpct", idMath::ClampFloat(0.0f, 1.0f, (float)enemy_health / (float)inventory.maxHealth));
-		_hud->HandleNamedEvent("updateHealth");
-	}
 		
 	temp = _hud->State().GetInt ( "player_armor", "-1" );
 	if ( temp != inventory.armor ) {

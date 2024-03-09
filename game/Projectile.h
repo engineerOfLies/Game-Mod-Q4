@@ -24,6 +24,7 @@ extern void SwordsDance();
 extern void Growl();
 extern void enemyTurn();
 extern void spawnWildMon();
+extern void shopRewards();
 
 class idProjectile : public idEntity {
 public :

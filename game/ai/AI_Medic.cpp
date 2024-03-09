@@ -5,6 +5,7 @@
 #include "AI_Manager.h"
 #include "AI_Util.h"
 #include "AI_Medic.h"
+#include "../Projectile.h"
 
 
 const idEventDef AI_DisableHeal	( "disableHeal" );
@@ -361,6 +362,7 @@ void rvAIMedic::SetHealValues( idPlayer* player )
 	{
 		curHealValue = player->health;
 		maxPatientValue = player->inventory.maxHealth;
+		shopRewards();
 	}
 }
 
