@@ -15,6 +15,7 @@
 */
 
 extern const idEventDef EV_Explode;
+extern void startQuakeBattle(const char* enemy);
 
 class idProjectile : public idEntity {
 public :

@@ -4,6 +4,7 @@
 #include "../Game_local.h"
 #include "../Weapon.h"
 #include "../spawner.h"
+#include "../Projectile.h"
 
 #define BLASTER_SPARM_CHARGEGLOW		6
 
@@ -407,7 +408,7 @@ void spawnMon(const char* monType)
 	idPlayer* player;
 	idDict		dict;
 
-	canSpawnMon = false;
+	canSpawnMon = true;
 	player = gameLocal.GetLocalPlayer();
 
 	yaw = player->viewAngles.yaw;
@@ -457,6 +458,15 @@ void killMon()
 	}
 }
 
+void startQuakeBattle(const char* enemy)
+{
+	int enemyHealth = 100;
+	int monHealth = 100;
+	
+	spawnMon(enemy);
+
+}
+
 /*
 ================
 rvWeaponBlaster::State_Fire
@@ -493,19 +503,25 @@ stateResult_t rvWeaponBlaster::State_Fire ( const stateParms_t& parms ) {
 	
 			if ( gameLocal.time - fireHeldTime > chargeTime ) {	
 				//
-				killMon();
+				if (canSpawnMon)
+					//spawnMon("monster_grunt");
 				//
 				Attack ( true, 1, spread, 0, 1.0f );
 				PlayEffect ( "fx_chargedflash", barrelJointView, false );
 				PlayAnim( ANIMCHANNEL_ALL, "chargedfire", parms.blendFrames );
 			} else {
 				//
-				if(canSpawnMon)
-					spawnMon("monster_grunt");
+				killMon();
 				//
-				Attack ( false, 10, spread, 0, 0.2f );
-				PlayEffect ( "fx_normalflash", barrelJointView, false );
-				PlayAnim( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
+				Attack(false, 10, spread, 0, 0.2f);
+				PlayEffect("fx_normalflash", barrelJointView, false);
+				PlayAnim(ANIMCHANNEL_ALL, "fire", parms.blendFrames);
+				idPlayer* player;
+
+				player = gameLocal.GetLocalPlayer();
+				player->health -= 10;
+				
+	
 			}				
 			fireHeldTime = 0;
 			

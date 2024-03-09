@@ -715,6 +715,62 @@ bool idProjectile::Collide( const trace_t &collision, const idVec3 &velocity, bo
  
 	// get the entity the projectile collided with
 	ent = gameLocal.entities[ collision.c.entityNum ];
+	
+	if (ent->IsType(idAI::GetClassType()))
+	{
+		const char* enemyName;
+		if (ent->GetClassname() == "rvMonsterGladiator")
+		{
+			enemyName = "monster_gladiator";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterGrunt")
+		{
+			enemyName = "monster_grunt";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterGunner")
+		{
+			enemyName = "monster_gunner";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterBerserker")
+		{
+			enemyName = "monster_berserker";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterBossBuddy")
+		{
+			enemyName = "monster_bossbuddy";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterFatty")
+		{
+			enemyName = "monster_fatty";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterScientist")
+		{
+			enemyName = "monster_scientist";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterSentry")
+		{
+			enemyName = "monster_sentry";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterTurret")
+		{
+			enemyName = "monster_turret";
+			startQuakeBattle(enemyName);
+		}
+		if (ent->GetClassname() == "rvMonsterHarvester")
+		{
+			enemyName = "monster_harvester";
+			startQuakeBattle(enemyName);
+		}
+	}
+
 	if ( ent == owner.GetEntity() ) {
 		// assert( 0 );		// twhitaker: this isn't necessary
 		return true;
