@@ -25,6 +25,11 @@ extern void Growl();
 extern void enemyTurn();
 extern void spawnWildMon();
 extern void shopRewards();
+extern void protectionBreaker();
+extern void willBreaker();
+extern void attackEnhancer();
+extern void geminiSplit();
+extern void olympicMead();
 
 class idProjectile : public idEntity {
 public :

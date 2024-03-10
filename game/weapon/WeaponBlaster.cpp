@@ -20,6 +20,7 @@ bool Protection = false;
 const char* capturedMon = "";
 const char* message;
 const char* enemyMessage;
+bool brokenProtection = false;
 
 class rvWeaponBlaster : public rvWeapon {
 public:
@@ -502,6 +503,8 @@ void getStarter()
 		capturedMon = "monster_scientist";
 	if (g_skill.GetInteger() == 3)
 		capturedMon = "monster_turret";
+	else
+		capturedMon = "monster_grunt";
 
 	start = false;
 
@@ -540,6 +543,7 @@ void startQuakeBattle(const char* enemy)
 		attackPower = 1;
 		enemyProtection = false;
 		Protection = false;
+		brokenProtection = false;
 	}
 	else
 	{
@@ -571,18 +575,73 @@ void shopRewards()
 	if (wins == 5 && player->health == 100)
 		player->GiveItem("weapon_napalmgun");
 }
-void Tackle()
+
+void protectionBreaker()
 {
 	idPlayer* player;
 	player = gameLocal.GetLocalPlayer();
-	message = "You used tackle!";
+	message = "Protection breaker used!";
 	UpdateBattleInfo(player->hud);
-	if (enemyHealth_amount > 0 && !enemyProtection)
-	{
-		enemyHealth_amount -= (25 + attackPower);
-		if (enemyHealth_amount <= 0)
+	brokenProtection = true;
+	enemyTurn();
+	enemyTurn();
+}
+
+void willBreaker()
+{
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	message = "Will breaker used!";
+	UpdateBattleInfo(player->hud);
+	enemyAttack -= 25;
+	enemyTurn();
+	enemyTurn();
+}
+
+void attackEnhancer()
+{
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	message = "Attack enhancer used!";
+	UpdateBattleInfo(player->hud);
+	attackPower += 25;
+	enemyTurn();
+	enemyTurn();
+}
+
+
+void geminiSplit()
+{
+	idPlayer* player;
+	player = gameLocal.GetLocalPlayer();
+	message = "Gemini split used!";
+	UpdateBattleInfo(player->hud);
+	enemyHealth_amount -= abs((2 * (25 + attackPower)));
+	enemyTurn();
+	enemyTurn();
+}
+
+void olympicMead()
+{
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		message = "Olympic mead used!";
+		UpdateBattleInfo(player->hud);
+		player->health = 200;
+		enemyTurn();
+		enemyTurn();
+}
+void Tackle()
+{
+	if (inBattle) {
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		message = "You used tackle!";
+		UpdateBattleInfo(player->hud);
+		if (enemyHealth_amount > 0 && !enemyProtection)
 		{
-			if (inBattle)
+			enemyHealth_amount -= abs(25 + attackPower);
+			if (enemyHealth_amount <= 0)
 			{
 				message = "You won!";
 				wins += 1;
@@ -594,17 +653,14 @@ void Tackle()
 				spawnWildMon();
 				canSpawnMon = true;
 			}
+			enemyTurn();
 		}
-		enemyTurn();
-	}
-	else if (enemyProtection)
-	{
-		enemyProtection = false;
-		enemyTurn();
-	}
-	else
-	{
-		if (inBattle)
+		else if (enemyProtection)
+		{
+			enemyProtection = false;
+			enemyTurn();
+		}
+		else
 		{
 			idPlayer* player;
 			player = gameLocal.GetLocalPlayer();
@@ -622,30 +678,37 @@ void Tackle()
 }
 void Protect()
 {
-	idPlayer* player;
-	player = gameLocal.GetLocalPlayer();
-	message = "You used protect!";
-	UpdateBattleInfo(player->hud);
-	Protection = true;
-	enemyTurn();
+	if (inBattle) {
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		message = "You used protect!";
+		UpdateBattleInfo(player->hud);
+		Protection = true;
+		enemyTurn();
+	}
 }
 void SwordsDance()
 {
-	idPlayer* player;
-	player = gameLocal.GetLocalPlayer();
-	message = "You used swords dance!";
-	UpdateBattleInfo(player->hud);
-	attackPower += 10;
-	enemyTurn();
+	if (inBattle) {
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		message = "You used swords dance!";
+		UpdateBattleInfo(player->hud);
+		attackPower += 10;
+		enemyTurn();
+	}
 }
 void Growl()
 {
-	idPlayer* player;
-	player = gameLocal.GetLocalPlayer();
-	message = "You used growl!";
-	UpdateBattleInfo(player->hud);
-	enemyAttack -= 10;
-	enemyTurn();
+	if (inBattle)
+	{
+		idPlayer* player;
+		player = gameLocal.GetLocalPlayer();
+		message = "You used growl!";
+		UpdateBattleInfo(player->hud);
+		enemyAttack -= 10;
+		enemyTurn();
+	}
 }
 
 void enemyTurn()
@@ -661,16 +724,24 @@ void enemyTurn()
 			UpdateEnemyBattleInfo(player->hud);
 			if (!Protection)
 			{
-				player->health -= (25 + enemyAttack);
+				player->health -= abs((25 + enemyAttack));
 			}
 			else
 				Protection = false;
 		}
 		if (enemyDecision == 1)
 		{
-			enemyMessage = "They used protect!";
-			UpdateEnemyBattleInfo(player->hud);
-			enemyProtection = true;
+			if (brokenProtection)
+			{
+				enemyMessage = "They couldn't use protect!";
+				UpdateEnemyBattleInfo(player->hud);
+			}
+			else
+			{
+				enemyMessage = "They used protect!";
+				UpdateEnemyBattleInfo(player->hud);
+				enemyProtection = true;
+			}
 		}
 		if (enemyDecision == 2)
 		{
