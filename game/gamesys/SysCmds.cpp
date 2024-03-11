@@ -26,7 +26,7 @@
 // RAVEN END
 
 #ifdef _WIN32
-#include "TypeInfo.h"
+#include "TypeInfo"
 #else
 #include "NoGameTypeInfo.h"
 #endif
@@ -171,7 +171,7 @@ void Cmd_ListSpawnArgs_f( const idCmdArgs &args ) {
 
 	for ( i = 0; i < ent->spawnArgs.GetNumKeyVals(); i++ ) {
 		const idKeyValue *kv = ent->spawnArgs.GetKeyVal( i );
-		gameLocal.Printf( "\"%s\"  "S_COLOR_WHITE"\"%s\"\n", kv->GetKey().c_str(), kv->GetValue().c_str() );
+		gameLocal.Printf( "\"%s\"  " S_COLOR_WHITE "\"%s\"\n", kv->GetKey().c_str(), kv->GetValue().c_str() );
 	}
 }
 
@@ -439,6 +439,7 @@ void GiveStuffToPlayer( idPlayer* player, const char* name, const char* value )
 		return;
 	}
 
+
 	if ( give_all || idStr::Icmp( name, "health" ) == 0 )	{
 		player->health = player->inventory.maxHealth;
 		if ( player->IsInVehicle() ) {
@@ -574,6 +575,58 @@ void Cmd_CenterView_f( const idCmdArgs &args ) {
 	ang = player->viewAngles;
 	ang.pitch = 0.0f;
 	player->SetViewAngles( ang );
+}
+
+// give samus
+// 
+void Cmd_Samus_f(const idCmdArgs& args) {
+
+	idPlayer* player;
+	idVec3 origin;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		//log error message
+
+		return;
+	}
+
+	player->GiveItem("GrenadeLauncher.def");
+	player->GiveItem("WeaponGrenadeLauncher.cpp");
+	player->GiveItem("WeaponGrenadeLauncher");
+	player->GiveItem("Weapon_GrenadeLauncher");
+
+	player->GiveItem("grenadelauncher");
+
+	player->GiveItem("Gauntlet.def");
+	player->GiveItem("WeaponGauntlet.cpp");
+	player->GiveItem("WeaponGauntlet");
+	player->GiveItem("Weapon_Gauntlet");
+
+	player->GiveItem("Gauntlet");
+
+
+}
+
+//locate
+
+void Cmd_Locate_f(const idCmdArgs& args) {
+	
+	idPlayer* player;
+	idVec3 origin;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player ) {
+		//log error message
+
+		return;
+	}
+
+	origin = player->GetEyePosition();
+
+	gameLocal.Printf("location :(%f,%f,%f)",origin.x,origin.y,origin.z);
+
+	
 }
 
 /*
@@ -3232,7 +3285,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "buyMenu",				Cmd_ToggleBuyMenu_f,		CMD_FL_GAME,				"Toggle buy menu (if in a buy zone and the game type supports it)" );
 	cmdSystem->AddCommand( "buy",					Cmd_BuyItem_f,				CMD_FL_GAME,				"Buy an item (if in a buy zone and the game type supports it)" );
 // RITUAL END
-
+	cmdSystem->AddCommand("locate",					Cmd_Locate_f,				CMD_FL_GAME,				"Print player Locations");
+	cmdSystem->AddCommand("samus", Cmd_Samus_f, CMD_FL_GAME, "samus");
 }
 
 /*
