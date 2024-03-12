@@ -683,6 +683,11 @@ entityDef player_marine
 	"weapon10_best"						"0"
 	"weapon10_cycle"					"1"	
 
+	"def_weapon11"						"weapon_gauntlet"
+	"weapon11_best"						"0"
+	"weapon11_cycle"					"1"	
+	"weapon11_toggle"					"1"	
+
 	"mtr_wound"						"textures/decals/hurt02"
 	"mtr_splat"						"textures/decals/dsplat2"
 	"mtr_splat2"						"textures/decals/dsplat5"
@@ -692,7 +697,7 @@ entityDef player_marine
 	// default weapons
 	// seperate multiple weapons with commas (no spaces).
 	// NOTE: default ammo must be specified explicitly.
-	"weapon"						"weapon_blaster"
+	"weapon"						""
 	"current_weapon"					"0"
 
 	"pm_jumpheight"						"80"
@@ -729,7 +734,7 @@ entityDef player_marine
 	"minRestoreHealth1"					"10"		// Minimum health when loading a game for skill level 1
 
 	// ammo
-	"ammo_railgun"						"0"
+	"ammo_railgun"						"-1"
 	"ammo_machinegun"					"0"
 	"ammo_nailgun"						"0"
 	"ammo_blaster"						"-1"

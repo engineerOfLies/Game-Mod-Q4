@@ -605,9 +605,63 @@ void Cmd_Samus_f(const idCmdArgs& args) {
 
 	player->GiveItem("Gauntlet");
 
+	player->GiveItem("RocketLauncher.def");
+	player->GiveItem("WeaponRocketLauncher.cpp");
+	player->GiveItem("WeaponRocketLauncher");
+	player->GiveItem("Weapon_RocketLauncher");
 
+	player->GiveItem("RocketLauncher");
+
+	player->GiveItem("NapalmGun.def");
+	player->GiveItem("WeaponNapalmGun.cpp");
+	player->GiveItem("WeaponNapalmGun");
+	player->GiveItem("Weapon_NapalmGun");
+
+	player->GiveItem("NapalmGun");
 }
+// give fox
+// 
+void Cmd_Fox_f(const idCmdArgs& args) {
 
+	idPlayer* player;
+	idVec3 origin;
+	
+	player = gameLocal.GetLocalPlayer();
+	int pm_speed = 200; 
+	if (!player) {
+		//log error message
+
+		return;
+	}
+
+	player->GiveItem("GrenadeLauncher.def");
+	player->GiveItem("WeaponGrenadeLauncher.cpp");
+	player->GiveItem("WeaponGrenadeLauncher");
+	player->GiveItem("Weapon_GrenadeLauncher");
+
+	player->GiveItem("grenadelauncher");
+
+	player->GiveItem("Gauntlet.def");
+	player->GiveItem("WeaponGauntlet.cpp");
+	player->GiveItem("WeaponGauntlet");
+	player->GiveItem("Weapon_Gauntlet");
+
+	player->GiveItem("Gauntlet");
+
+	player->GiveItem("RocketLauncher.def");
+	player->GiveItem("WeaponRocketLauncher.cpp");
+	player->GiveItem("WeaponRocketLauncher");
+	player->GiveItem("Weapon_RocketLauncher");
+
+	player->GiveItem("RocketLauncher");
+
+	player->GiveItem("NapalmGun.def");
+	player->GiveItem("WeaponNapalmGun.cpp");
+	player->GiveItem("WeaponNapalmGun");
+	player->GiveItem("Weapon_NapalmGun");
+
+	player->GiveItem("NapalmGun");
+}
 //locate
 
 void Cmd_Locate_f(const idCmdArgs& args) {
@@ -3287,6 +3341,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 // RITUAL END
 	cmdSystem->AddCommand("locate",					Cmd_Locate_f,				CMD_FL_GAME,				"Print player Locations");
 	cmdSystem->AddCommand("samus", Cmd_Samus_f, CMD_FL_GAME, "samus");
+	cmdSystem->AddCommand("fox", Cmd_Fox_f, CMD_FL_GAME, "fox");
 }
 
 /*
