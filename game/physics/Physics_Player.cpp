@@ -636,7 +636,7 @@ void idPhysics_Player::AirMove( void ) {
 	idVec3		wishdir;
 	float		wishspeed;
 	float		scale;
-
+	int			dbj = 0;
 // RAVEN BEGIN
 // bdube: crouch time
 	// if the player isnt pressing crouch and heading down then accumulate slide time
@@ -647,7 +647,14 @@ void idPhysics_Player::AirMove( void ) {
 		}
 	}
 // RAVEN END
-
+	if (idPhysics_Player::CheckJump()) {
+		// jumped away
+		if (dbj ==0){
+			idPhysics_Player::AirMove();
+			dbj += 1;
+		}
+		return;
+	}
 	idPhysics_Player::Friction();
 
 	scale = idPhysics_Player::CmdScale( command );
@@ -1278,7 +1285,7 @@ bool idPhysics_Player::CheckJump( void ) {
 		// not holding jump
 		return false;
 	}
-
+	
 	// must wait for jump to be released
 	if ( current.movementFlags & PMF_JUMP_HELD ) {
 		return false;
@@ -1286,9 +1293,9 @@ bool idPhysics_Player::CheckJump( void ) {
 
 	// don't jump if we can't stand up
 	if ( current.movementFlags & PMF_DUCKED ) {
-		return false;
+		return true;
 	}
-
+	
 	groundPlane = false;		// jumping away
 	walking = false;
 	current.movementFlags |= PMF_JUMP_HELD | PMF_JUMPED;

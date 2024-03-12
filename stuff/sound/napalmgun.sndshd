@@ -1,0 +1,75 @@
+sound weapon_napalmgun_fire
+{
+	minDistance	196
+	maxDistance	1181
+	volumeDb	0
+
+	sound/weapons/napalmgun/napalmfire1.wav
+}
+
+sound weapon_napalmgun_fire_mono
+{
+	minDistance	196
+	maxDistance	1181
+	volumeDb	0
+
+	sound/weapons/napalmgun/napalmfiremono.wav
+}
+
+sound weapon_napalmgun_explode
+{
+	minDistance	196
+	maxDistance	1181
+	volumeDb	-2
+
+	sound/weapons/napalmgun/napalmexplo1.wav
+}
+
+sound weapon_napalmgun_napalm_inair
+{
+	minDistance	196
+	maxDistance	600
+	volumeDb	-6
+
+	sound/weapons/napalmgun/napalm_inair.wav
+}
+
+
+sound weapon_napalmgun_napalm_burn
+{
+	minDistance	196
+	maxDistance	640
+	volumeDb	-6
+	sound/weapons/napalmgun/napalm_burn.wav
+	shakeData 0 voutqrxzyfhjexiqewjqweyrijlkjewrwerjjlkjdrahkjkkkkjkaahhhhhhhhhdeeeeeemnweffffcccdddhhggcccbbbbdedgbcccaaaaaa
+}
+
+
+
+sound weapon_napalmgun_subexplode
+{
+	minDistance	196
+	maxDistance	1181
+	volumeDb	4
+
+	sound/weapons/napalmgun/napalmsubexplo2.wav
+}
+
+sound weapon_napalmgun_reload
+{
+	minDistance	196
+	maxDistance	1181
+	volumeDb	-5
+
+	sound/weapons/napalmgun/napalmreload1a.wav
+}
+
+
+sound weapon_napalmgun_bounce
+{
+	minDistance	196
+	maxDistance	1181
+	volumeDb	0
+
+	sound/weapons/napalmgun/napalm_bounce.wav
+}
