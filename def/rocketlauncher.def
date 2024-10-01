@@ -359,7 +359,7 @@ entityDef projectile_rocket
 	
 	"snd_fly"				"player_rocketlauncher_fly"
 
-	"friendly_impact"			"1"
+	"friendly_impact"			"0"
 	
 	"fx_teleport_enter"		"effects/mp/item_teleport.fx"
 	"fx_teleport"			"effects/mp/item_teleport.fx"
