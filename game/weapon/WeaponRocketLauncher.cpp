@@ -102,7 +102,7 @@ void rvWeaponRocketLauncher::Spawn ( void ) {
 	attackDict.GetFloat ( "speed", "0", guideSpeedFast );
 	guideSpeedSlow = guideSpeedFast * f;
 	
-	reloadRate = SEC2MS ( spawnArgs.GetFloat ( "reloadRate", ".8" ) );
+	reloadRate = SEC2MS ( spawnArgs.GetFloat ( "reloadRate", "..2" ) );
 	
 	guideAccelTime = SEC2MS ( spawnArgs.GetFloat ( "lockAccelTime", ".25" ) );
 	
@@ -117,14 +117,14 @@ void rvWeaponRocketLauncher::Spawn ( void ) {
 	animNum = viewModel->GetAnimator()->GetAnim ( "reload" );
 	if ( animNum ) {
 		anim = (idAnim*)viewModel->GetAnimator()->GetAnim ( animNum );
-		rate = (float)anim->Length() / (float)SEC2MS(spawnArgs.GetFloat ( "reloadRate", ".8" ));
+		rate = (float)anim->Length() / (float)SEC2MS(spawnArgs.GetFloat ( "reloadRate", ".2" ));
 		anim->SetPlaybackRate ( rate );
 	}
 
 	animNum = viewModel->GetAnimator()->GetAnim ( "reload_empty" );
 	if ( animNum ) {
 		anim = (idAnim*)viewModel->GetAnimator()->GetAnim ( animNum );
-		rate = (float)anim->Length() / (float)SEC2MS(spawnArgs.GetFloat ( "reloadRate", ".8" ));
+		rate = (float)anim->Length() / (float)SEC2MS(spawnArgs.GetFloat ( "reloadRate", ".2" ));
 		anim->SetPlaybackRate ( rate );
 	}
 
@@ -446,7 +446,7 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
-			Attack ( false, 1, spread, 0, 1.0f );
+			Attack ( false, 5, 5, 0, 1.0f );
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
