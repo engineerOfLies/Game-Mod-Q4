@@ -1,0 +1,11 @@
+# Ignore Visual Studio files
+.vs/
+
+# Ignore compiled binaries
+*.obj
+*.exe
+*.dll
+
+# Ignore build output directories
+bin/
+build/
