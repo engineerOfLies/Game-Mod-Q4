@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponBlaster.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponRocketLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SysCmds.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\gamesys\\SaveGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\gamesys\\SaveGame.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{49BEC5C6-B964-417A-851E-808886B57430}|game.vcxproj|solutionrelative:game\\weapon\\WeaponRocketLauncher.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,14 +52,14 @@
               "RelativeDocumentMoniker": "game\\weapon\\WeaponBlaster.cpp",
               "ToolTip": "C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\weapon\\WeaponBlaster.cpp",
               "RelativeToolTip": "game\\weapon\\WeaponBlaster.cpp",
-              "ViewState": "AgIAAJsBAAAAAAAAAAAAAK8BAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAJ4BAAAAAAAAAAAAALYBAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-12T20:24:01.443Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SysCmds.cpp",
               "DocumentMoniker": "C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\gamesys\\SysCmds.cpp",
               "RelativeDocumentMoniker": "game\\gamesys\\SysCmds.cpp",
@@ -71,7 +71,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "SaveGame.cpp",
               "DocumentMoniker": "C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\gamesys\\SaveGame.cpp",
               "RelativeDocumentMoniker": "game\\gamesys\\SaveGame.cpp",
@@ -83,7 +83,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Class.cpp",
               "DocumentMoniker": "C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\gamesys\\Class.cpp",
               "RelativeDocumentMoniker": "game\\gamesys\\Class.cpp",
@@ -95,7 +95,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Simd.cpp",
               "DocumentMoniker": "C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\idlib\\math\\Simd.cpp",
               "RelativeDocumentMoniker": "idlib\\math\\Simd.cpp",
@@ -107,15 +107,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "WeaponRocketLauncher.cpp",
               "DocumentMoniker": "C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp",
               "RelativeDocumentMoniker": "game\\weapon\\WeaponRocketLauncher.cpp",
               "ToolTip": "C:\\Users\\lilch\\Desktop\\Git (Quake 4)\\Game-Mod-Q4\\game\\weapon\\WeaponRocketLauncher.cpp",
               "RelativeToolTip": "game\\weapon\\WeaponRocketLauncher.cpp",
-              "ViewState": "AgIAAHoBAAAAAAAAAAAowP8BAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAANcBAAAAAAAAAAAowP8BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-09-12T19:59:47.671Z"
+              "WhenOpened": "2025-09-12T19:59:47.671Z",
+              "EditorCaption": ""
             }
           ]
         }
