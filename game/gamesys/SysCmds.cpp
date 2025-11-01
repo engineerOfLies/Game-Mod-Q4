@@ -26,10 +26,12 @@
 // RAVEN END
 
 #ifdef _WIN32
-#include "TypeInfo.h"
+#include "TypeInfo"
 #else
 #include "NoGameTypeInfo.h"
 #endif
+
+class rvWeaponMachinegun;
 
 /*
 ==================
@@ -171,7 +173,7 @@ void Cmd_ListSpawnArgs_f( const idCmdArgs &args ) {
 
 	for ( i = 0; i < ent->spawnArgs.GetNumKeyVals(); i++ ) {
 		const idKeyValue *kv = ent->spawnArgs.GetKeyVal( i );
-		gameLocal.Printf( "\"%s\"  "S_COLOR_WHITE"\"%s\"\n", kv->GetKey().c_str(), kv->GetValue().c_str() );
+		gameLocal.Printf( "\"%s\"  " S_COLOR_WHITE "\"%s\"\n", kv->GetKey().c_str(), kv->GetValue().c_str() );
 	}
 }
 
@@ -576,6 +578,603 @@ void Cmd_CenterView_f( const idCmdArgs &args ) {
 	player->SetViewAngles( ang );
 }
 
+
+
+
+
+
+
+/*
+==================
+
+Custom Mod Commands
+
+==================
+*/
+
+
+
+
+
+
+
+
+
+void KillEntitiesMod(const idCmdArgs& args, const idTypeInfo& superClass) {
+	idEntity* ent;
+	idStrList	ignore;
+	const char* name;
+	int			i;
+
+	if (!gameLocal.GetLocalPlayer() ) {
+		return;
+	}
+
+	for (i = 1; i < args.Argc(); i++) {
+		name = args.Argv(i);
+		ignore.Append(name);
+	}
+
+	for (ent = gameLocal.spawnedEntities.Next(); ent != NULL; ent = ent->spawnNode.Next()) {
+		if (ent->IsType(superClass)) {
+
+			idActor* actor = static_cast<idActor*>(ent);
+
+			if (actor->team != AITEAM_MARINE) {
+				continue;
+			}
+
+			for (i = 0; i < ignore.Num(); i++) {
+				if (ignore[i] == ent->name) {
+					break;
+				}
+			}
+
+			if (i >= ignore.Num()) {
+				ent->PostEventMS(&EV_Remove, 0);
+			}
+		}
+	}
+}
+
+idStr battleMode = "off";
+
+void Cmd_BattleMode_f(const idCmdArgs& args) {
+
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+
+	player->energy = 0.0f;
+
+	player->hud->HandleNamedEvent("showEnergy");
+
+	player->hud->HandleNamedEvent("showItems");
+
+	player->hud->HandleNamedEvent("hideenergy_20");
+	player->hud->HandleNamedEvent("hideenergy_40");
+	player->hud->HandleNamedEvent("hideenergy_60");
+	player->hud->HandleNamedEvent("hideenergy_80");
+	player->hud->HandleNamedEvent("hideenergy_100");
+
+	if (battleMode == "off") {
+		battleMode = "on";
+
+	#ifndef _MPBETA
+			const char* key, * value;
+			int			i;
+			float		yaw;
+			idVec3		org;
+			idPlayer* player;
+			idDict		dict;
+
+			player = gameLocal.GetLocalPlayer();
+			if (!player) {
+				return;
+			}
+
+			yaw = player->viewAngles.yaw;
+
+			for (int j = 0; j < 2; j++) {
+				value = "char_marine";
+
+				dict.Clear();
+				dict.Set("classname", value);
+				dict.Set("angle", va("%f", yaw + 180));
+
+				org = player->GetPhysics()->GetOrigin() + idAngles(0, yaw, 0).ToForward() * 80 + idVec3(0, 0, 1);
+				dict.Set("origin", org.ToString());
+
+				for (i = 2; i < args.Argc() - 1; i += 2) {
+
+					key = args.Argv(i);
+					value = args.Argv(i + 1);
+
+					dict.Set(key, value);
+				}
+
+
+				idEntity* newEnt = NULL;
+				gameLocal.SpawnEntityDef(dict, &newEnt);
+
+				if (newEnt) {
+					gameLocal.Printf("spawned entity '%s'\n", newEnt->name.c_str());
+				}	
+
+				yaw += 30;
+			}
+	#endif 
+	}
+	else if (battleMode == "on") {
+
+		idPlayer* player;
+
+		player = gameLocal.GetLocalPlayer();
+
+		battleMode = "off";
+
+		KillEntitiesMod(args, idAI::GetClassType());
+
+		player->hud->HandleNamedEvent("hideEnergy");
+
+		player->hud->HandleNamedEvent("hideItems");
+	}
+}
+
+void Cmd_MaximumFurry_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 20.0f)) {
+		player->GiveItem("weapon_machinegun");
+		player->SelectWeapon("weapon_machinegun");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_PointBlank_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 30.0f)) {
+		player->GiveItem("weapon_shotgun");
+		player->SelectWeapon("weapon_shotgun");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_FocusedShot_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 20.0f)) {
+		player->GiveItem("weapon_hyperblaster");
+		player->SelectWeapon("weapon_hyperblaster");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_BladeBurst_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 50.0f)) {
+		player->GiveItem("weapon_grenadelauncher");
+		player->SelectWeapon("weapon_grenadelauncher");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_SoulDrain_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 20.0f)) {
+		player->GiveItem("weapon_railgun");
+		player->SelectWeapon("weapon_railgun");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_SteelSkin_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 60.0f)) {
+		player->GiveItem("weapon_nailgun");
+		player->SelectWeapon("weapon_nailgun");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_RayOfJudgement_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 30.0f)) {
+		player->GiveItem("weapon_lightninggun");
+		player->SelectWeapon("weapon_lightninggun");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_SorcerousStorm_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 20.0f)) {
+		player->GiveItem("weapon_napalmgun");
+		player->SelectWeapon("weapon_napalmgun");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_ChiTrap_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->energy >= 100.0f)) {
+		player->GiveItem("weapon_dmg");
+		player->SelectWeapon("weapon_dmg");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+	}
+}
+
+void Cmd_Potion_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->itemCount > 0)) {
+		player->itemCount -= 1;
+
+		if (player->itemCount == 0) {
+			player->hud->HandleNamedEvent("hideitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 1) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 2) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 3) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("showitem3");
+		}
+
+		const float healAmount = 20.0f;
+		player->health += healAmount;
+		if (player->health > player->inventory.maxHealth) {
+			player->health = player->inventory.maxHealth;
+		}
+
+		player->hud->HandleNamedEvent("hideAbilities");
+
+		cvarSystem->SetCVarFloat("timeScale", 1.0f);
+	}
+}
+
+void Cmd_Ether_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->itemCount > 0)) {
+		player->itemCount -= 1;
+
+		if (player->itemCount == 0) {
+			player->hud->HandleNamedEvent("hideitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 1) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 2) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 3) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("showitem3");
+		}
+
+		float currEn = player->energy += 40.0f;
+		if (currEn > player->maxEnergy) {
+			player->energy = player->maxEnergy;
+		}
+		else {
+			player->energy = currEn;
+		}
+
+		if ((player->energy < 19.0f)) {
+			player->hud->HandleNamedEvent("hideenergy_20");
+			player->hud->HandleNamedEvent("hideenergy_40");
+			player->hud->HandleNamedEvent("hideenergy_60");
+			player->hud->HandleNamedEvent("hideenergy_80");
+			player->hud->HandleNamedEvent("hideenergy_100");
+		}
+		else if ((player->energy > 19.0f) && (player->energy < 39.0f)) {
+			player->hud->HandleNamedEvent("showenergy_20");
+			player->hud->HandleNamedEvent("hideenergy_40");
+			player->hud->HandleNamedEvent("hideenergy_60");
+			player->hud->HandleNamedEvent("hideenergy_80");
+			player->hud->HandleNamedEvent("hideenergy_100");
+		}
+		else if ((player->energy > 39.0f) && (player->energy < 59.0f)) {
+			player->hud->HandleNamedEvent("showenergy_20");
+			player->hud->HandleNamedEvent("showenergy_40");
+			player->hud->HandleNamedEvent("hideenergy_60");
+			player->hud->HandleNamedEvent("hideenergy_80");
+			player->hud->HandleNamedEvent("hideenergy_100");
+		}
+		else if ((player->energy > 59.0f) && (player->energy < 79.0f)) {
+			player->hud->HandleNamedEvent("showenergy_20");
+			player->hud->HandleNamedEvent("showenergy_40");
+			player->hud->HandleNamedEvent("showenergy_60");
+			player->hud->HandleNamedEvent("hideenergy_80");
+			player->hud->HandleNamedEvent("hideenergy_100");
+		}
+		else if ((player->energy > 79.0f) && (player->energy < 99.0f)) {
+			player->hud->HandleNamedEvent("showenergy_20");
+			player->hud->HandleNamedEvent("showenergy_40");
+			player->hud->HandleNamedEvent("showenergy_60");
+			player->hud->HandleNamedEvent("showenergy_80");
+			player->hud->HandleNamedEvent("hideenergy_100");
+		}
+		else if ((player->energy > 99.0f) && (player->energy < 101.0f)) {
+			player->hud->HandleNamedEvent("showenergy_20");
+			player->hud->HandleNamedEvent("showenergy_40");
+			player->hud->HandleNamedEvent("showenergy_60");
+			player->hud->HandleNamedEvent("showenergy_80");
+			player->hud->HandleNamedEvent("showenergy_100");
+		}
+		
+		player->hud->HandleNamedEvent("hideAbilities");
+
+		cvarSystem->SetCVarFloat("timeScale", 1.0f);
+	}
+}
+
+void Cmd_Elixir_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->itemCount >= 2)) {
+		player->itemCount -= 2;
+
+		if (player->itemCount == 0) {
+			player->hud->HandleNamedEvent("hideitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 1) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 2) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 3) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("showitem3");
+		}
+
+		player->health = player->inventory.maxHealth;
+		player->energy = player->maxEnergy;
+
+		player->hud->HandleNamedEvent("showenergy_20");
+		player->hud->HandleNamedEvent("showenergy_40");
+		player->hud->HandleNamedEvent("showenergy_60");
+		player->hud->HandleNamedEvent("showenergy_80");
+		player->hud->HandleNamedEvent("showenergy_100");
+
+		player->hud->HandleNamedEvent("hideAbilities");
+
+		cvarSystem->SetCVarFloat("timeScale", 1.0f);
+	}
+}
+
+void Cmd_ArmorCore_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->itemCount >= 2)) {
+		player->itemCount -= 2;
+
+		if (player->itemCount == 0) {
+			player->hud->HandleNamedEvent("hideitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 1) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 2) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 3) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("showitem3");
+		}
+
+		player->inventory.maxarmor = 200.0f;
+		player->inventory.armor = 200.0f;
+
+		player->hud->HandleNamedEvent("hideAbilities");
+
+		cvarSystem->SetCVarFloat("timeScale", 1.0f);
+	}
+}
+
+void Cmd_MegaPotion_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	if ((cvarSystem->GetCVarFloat("timeScale") == 0.2f) && (player->itemCount >= 2)) {
+		player->itemCount -= 2;
+
+		if (player->itemCount == 0) {
+			player->hud->HandleNamedEvent("hideitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 1) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("hideitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 2) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("hideitem3");
+		}
+		else if (player->itemCount == 3) {
+			player->hud->HandleNamedEvent("showitem1");
+			player->hud->HandleNamedEvent("showitem2");
+			player->hud->HandleNamedEvent("showitem3");
+		}
+
+		const float healAmount = 60.0f;
+		player->health += healAmount;
+		if (player->health > player->inventory.maxHealth) {
+			player->health = player->inventory.maxHealth;
+		}
+
+		player->hud->HandleNamedEvent("hideAbilities");
+
+		cvarSystem->SetCVarFloat("timeScale", 1.0f);
+	}
+}
+
+void Cmd_Abilities_f(const idCmdArgs& args) {
+	idPlayer* player;
+
+	player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+
+	if (battleMode == "on") {
+		if (cvarSystem->GetCVarFloat("timeScale") >= 1.0f) {
+			cvarSystem->SetCVarFloat("timeScale", 0.2f); // slows down time on first click
+			if (player && player->hud) {
+				player->hud->HandleNamedEvent("showAbilities");
+			}
+		}
+		else {
+			cvarSystem->SetCVarFloat("timeScale", 1.0f); // puts time back to normal on second click
+			if (player && player->hud) {
+				player->hud->HandleNamedEvent("hideAbilities");
+			}
+		}
+	}
+}
+
+void Cmd_ModHelp_f(const idCmdArgs& args) {
+	gameLocal.Printf("Helpful Tips: \n");
+	gameLocal.Printf("1. Make sure to click L before starting any combat and make sure to click it again after you finished combat \n");
+	gameLocal.Printf("2. Make sure to look at the README.md to see the description of what each ability and item does \n");
+	gameLocal.Printf("\n");
+	gameLocal.Printf("For help with combat type helpCombat \n");
+	gameLocal.Printf("For help with items type helpItem \n");
+	gameLocal.Printf("For help with level up system type helpLevel \n");
+}
+
+void Cmd_ModHelpCombat_f(const idCmdArgs& args) {
+	gameLocal.Printf("The combat system starts once you click L to initiate battle mode \n");
+	gameLocal.Printf("Once clicked you hud will change and you will gain the ability to activate your abilites which are linked to Q \n");
+	gameLocal.Printf("Once you click Q you will see a list of abilites along with their designated keybinds, time will also be slowed down. Each ability has their own energy requirment which can be found in README.md \n");
+	gameLocal.Printf("Once an ability is used your enrgy will decrease/increase accordingly and time will be put back to normal \n");
+	gameLocal.Printf("You can gain energy by fireing your default blaster, using certain abilites, or using certain items \n");
+	gameLocal.Printf("To go back to main help screen type modHelp \n");
+}
+
+void Cmd_ModHelpItem_f(const idCmdArgs& args) {
+	gameLocal.Printf("Once in battle mode your hud will be updated to show the items bar \n");
+	gameLocal.Printf("The items bar can hold up to 3 item points which are gained by killing an enemy \n");
+	gameLocal.Printf("Once you click Q you will see a list of items along with their keybinds, time will aslo be slowed down. Each item has its own item point requirment which can be found in README.md \n");
+	gameLocal.Printf("Once an item is used your item points will decrease accordingly and time will be put back to normal \n");
+	gameLocal.Printf("To go back to main help screen type modHelp \n");
+}
+
+void Cmd_ModHelpLevel_f(const idCmdArgs& args) {
+	gameLocal.Printf("Once you make a new game you will start at level 1 \n");
+	gameLocal.Printf("You gain xp by dealing the final blow to enemies \n");
+	gameLocal.Printf("Once you reach a certain amount xp you will level up, level 5 being the max, and your xp will be reset to 0 \n");
+	gameLocal.Printf("You can see your current level in bottom middle of the screen \n");
+	gameLocal.Printf("To go back to main help screen type modHelp \n");
+}
+ 
 /*
 ==================
 Cmd_God_f
@@ -3232,7 +3831,26 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "buyMenu",				Cmd_ToggleBuyMenu_f,		CMD_FL_GAME,				"Toggle buy menu (if in a buy zone and the game type supports it)" );
 	cmdSystem->AddCommand( "buy",					Cmd_BuyItem_f,				CMD_FL_GAME,				"Buy an item (if in a buy zone and the game type supports it)" );
 // RITUAL END
-
+	cmdSystem->AddCommand("abilities", Cmd_Abilities_f, CMD_FL_GAME, "enables the ability menu and slows game time");
+	cmdSystem->AddCommand("modHelp", Cmd_ModHelp_f, CMD_FL_GAME, "shows both some helpful tips and the list of new commands in the console");
+	cmdSystem->AddCommand("spawnteam", Cmd_BattleMode_f, CMD_FL_GAME, "spawns 2 basic marine allies to help you");
+	cmdSystem->AddCommand("maximumfurry", Cmd_MaximumFurry_f, CMD_FL_GAME, "initiates the maximum furry ability");
+	cmdSystem->AddCommand("pointblank", Cmd_PointBlank_f, CMD_FL_GAME, "initiates the point blank ability");
+	cmdSystem->AddCommand("focusedshot", Cmd_FocusedShot_f, CMD_FL_GAME, "initiates the focused shot ability");
+	cmdSystem->AddCommand("bladeburst", Cmd_BladeBurst_f, CMD_FL_GAME, "initiates the blade burst ability");
+	cmdSystem->AddCommand("souldrain", Cmd_SoulDrain_f, CMD_FL_GAME, "initiates the soul drain ability");
+	cmdSystem->AddCommand("steelskin", Cmd_SteelSkin_f, CMD_FL_GAME, "initiates the steel skin ability");
+	cmdSystem->AddCommand("rayofjudgement", Cmd_RayOfJudgement_f, CMD_FL_GAME, "initiates the ray of judgement ability");
+	cmdSystem->AddCommand("sorcerousstorm", Cmd_SorcerousStorm_f, CMD_FL_GAME, "initiates the sorcerous storm ability");
+	cmdSystem->AddCommand("chitrap", Cmd_ChiTrap_f, CMD_FL_GAME, "initiates the chi trap ability");
+	cmdSystem->AddCommand("potion", Cmd_Potion_f, CMD_FL_GAME, "heals player for 20 hp");
+	cmdSystem->AddCommand("megapotion", Cmd_MegaPotion_f, CMD_FL_GAME, "heals player for 60 hp");
+	cmdSystem->AddCommand("ether", Cmd_Ether_f, CMD_FL_GAME, "increases energy by 40");
+	cmdSystem->AddCommand("elixir", Cmd_Elixir_f, CMD_FL_GAME, "sets health and energy to max");
+	cmdSystem->AddCommand("armorcore", Cmd_ArmorCore_f, CMD_FL_GAME, "increases and sets armor to 200");
+	cmdSystem->AddCommand("helpCombat", Cmd_ModHelpCombat_f, CMD_FL_GAME, "shows both some helpful tips and the list of new commands in the console");
+	cmdSystem->AddCommand("helpItem", Cmd_ModHelpItem_f, CMD_FL_GAME, "shows both some helpful tips and the list of new commands in the console");
+	cmdSystem->AddCommand("helpLevel", Cmd_ModHelpLevel_f, CMD_FL_GAME, "shows both some helpful tips and the list of new commands in the console");
 }
 
 /*

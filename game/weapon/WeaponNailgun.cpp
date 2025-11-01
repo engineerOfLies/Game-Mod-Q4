@@ -642,6 +642,9 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 		STAGE_DONE,
 		STAGE_SPINEMPTY,		
 	};	
+
+	idPlayer* player = gameLocal.GetLocalPlayer();
+
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			if ( !wsfl.attack ) {
@@ -673,6 +676,14 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 				Attack ( false, 1, spread, 0.0f, 1.0f );
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 			}
+
+			if (owner) {
+				const float armorAmount = 100.0f;
+				owner->inventory.armor += armorAmount;
+				if (owner->inventory.armor > owner->inventory.maxarmor) {
+					owner->inventory.armor = owner->inventory.maxarmor;
+				}
+			}
 			
 			// Play the exhaust effects
 			viewModel->PlayEffect ( "fx_exhaust", jointSteamRightView, false );
@@ -680,7 +691,58 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 
 			viewModel->StartSound ( "snd_fire", SND_CHANNEL_WEAPON,	0, false, NULL );
 			viewModel->StartSound ( "snd_fireStereo", SND_CHANNEL_ITEM, 0, false, NULL ); 
-					
+			
+			cvarSystem->SetCVarFloat("timeScale", 1.0f);
+
+			AddToClip(10);
+
+			player->energy -= 60.0f;
+
+			if ((player->energy < 19.0f)) {
+				player->hud->HandleNamedEvent("hideenergy_20");
+				player->hud->HandleNamedEvent("hideenergy_40");
+				player->hud->HandleNamedEvent("hideenergy_60");
+				player->hud->HandleNamedEvent("hideenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 19.0f) && (player->energy < 39.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("hideenergy_40");
+				player->hud->HandleNamedEvent("hideenergy_60");
+				player->hud->HandleNamedEvent("hideenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 39.0f) && (player->energy < 59.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("showenergy_40");
+				player->hud->HandleNamedEvent("hideenergy_60");
+				player->hud->HandleNamedEvent("hideenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 59.0f) && (player->energy < 79.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("showenergy_40");
+				player->hud->HandleNamedEvent("showenergy_60");
+				player->hud->HandleNamedEvent("hideenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 79.0f) && (player->energy < 99.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("showenergy_40");
+				player->hud->HandleNamedEvent("showenergy_60");
+				player->hud->HandleNamedEvent("showenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 99.0f) && (player->energy < 101.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("showenergy_40");
+				player->hud->HandleNamedEvent("showenergy_60");
+				player->hud->HandleNamedEvent("showenergy_80");
+				player->hud->HandleNamedEvent("showenergy_100");
+			}
+
+			owner->PostEventMS(&EV_Player_SelectWeapon, 200, "weapon_blaster");
+
 			return SRESULT_STAGE ( STAGE_FIREWAIT );
 
 		case STAGE_FIREWAIT:

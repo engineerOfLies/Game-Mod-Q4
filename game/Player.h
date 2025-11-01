@@ -27,6 +27,7 @@ extern const idEventDef EV_SpectatorTouch;
 extern const idEventDef EV_Player_SetArmor;
 extern const idEventDef EV_Player_SetExtraProjPassEntity;
 extern const idEventDef EV_Player_DamageEffect;
+extern const idEventDef EV_Player_LevelTrigger;
 
 const float THIRD_PERSON_FOCUS_DISTANCE	= 512.0f;
 const int	LAND_DEFLECT_TIME			= 150;
@@ -413,6 +414,20 @@ public:
 	bool					vsMsgState;
 
 	int						lastPickupTime;
+
+	//Energy System
+	float					energy;
+	float					maxEnergy;
+
+	//XP System
+	int 					currentXP;
+	int						currentLevel;
+	int 					nextLevelXP;
+	float					levelDM;
+
+	//Item
+	int 					itemCount;
+
 //RAVEN BEGIN
 // asalmon: the eneny the player is most likely currently aiming at
 #ifdef _XBOX

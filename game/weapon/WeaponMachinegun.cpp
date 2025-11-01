@@ -4,6 +4,9 @@
 #include "../Game_local.h"
 #include "../Weapon.h"
 
+const int BURST_COUNT = 10;
+const int BURST_DELAY = 100;
+
 class rvWeaponMachinegun : public rvWeapon {
 public:
 
@@ -222,33 +225,98 @@ rvWeaponMachinegun::State_Fire
 stateResult_t rvWeaponMachinegun::State_Fire ( const stateParms_t& parms ) {
 	enum {
 		STAGE_INIT,
+		STAGE_BURST,
 		STAGE_WAIT,
 	};	
+
+	idPlayer* player = gameLocal.GetLocalPlayer();
+
+	static int burst = 0;
+
 	switch ( parms.stage ) {
 		case STAGE_INIT:
-			if ( wsfl.zoom ) {
-				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-				Attack ( true, 1, spreadZoom, 0, 1.0f );
-				fireHeld = true;
-			} else {
-				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-				Attack ( false, 1, spread, 0, 1.0f );
+			burst = 0;
+			fireHeld = true;
+			PlayAnim (ANIMCHANNEL_ALL, "fire", 0);
+			nextAttackTime = gameLocal.time;
+			return SRESULT_STAGE ( STAGE_BURST );
+
+		case STAGE_BURST:
+			if (gameLocal.time < nextAttackTime) {
+				return SRESULT_WAIT;
 			}
-			PlayAnim ( ANIMCHANNEL_ALL, "fire", 0 );	
-			return SRESULT_STAGE ( STAGE_WAIT );
-	
-		case STAGE_WAIT:		
-			if ( !fireHeld && wsfl.attack && gameLocal.time >= nextAttackTime && AmmoInClip() && !wsfl.lowerWeapon ) {
-				SetState ( "Fire", 0 );
+			if (AmmoInClip() > 0) {
+				Attack(false, 1, spread, 0, 1.0f);
+				burst++;
+				nextAttackTime = gameLocal.time + BURST_DELAY;
+
+				cvarSystem->SetCVarFloat("timeScale", 1.0f);
+
+				AddToClip(10);
+
+				player->energy -= 2.0f;
+
+				if ((player->energy < 19.0f)) {
+					player->hud->HandleNamedEvent("hideenergy_20");
+					player->hud->HandleNamedEvent("hideenergy_40");
+					player->hud->HandleNamedEvent("hideenergy_60");
+					player->hud->HandleNamedEvent("hideenergy_80");
+					player->hud->HandleNamedEvent("hideenergy_100");
+				}
+				else if ((player->energy > 19.0f) && (player->energy < 39.0f)) {
+					player->hud->HandleNamedEvent("showenergy_20");
+					player->hud->HandleNamedEvent("hideenergy_40");
+					player->hud->HandleNamedEvent("hideenergy_60");
+					player->hud->HandleNamedEvent("hideenergy_80");
+					player->hud->HandleNamedEvent("hideenergy_100");
+				}
+				else if ((player->energy > 39.0f) && (player->energy < 59.0f)) {
+					player->hud->HandleNamedEvent("showenergy_20");
+					player->hud->HandleNamedEvent("showenergy_40");
+					player->hud->HandleNamedEvent("hideenergy_60");
+					player->hud->HandleNamedEvent("hideenergy_80");
+					player->hud->HandleNamedEvent("hideenergy_100");
+				}
+				else if ((player->energy > 59.0f) && (player->energy < 79.0f)) {
+					player->hud->HandleNamedEvent("showenergy_20");
+					player->hud->HandleNamedEvent("showenergy_40");
+					player->hud->HandleNamedEvent("showenergy_60");
+					player->hud->HandleNamedEvent("hideenergy_80");
+					player->hud->HandleNamedEvent("hideenergy_100");
+				}
+				else if ((player->energy > 79.0f) && (player->energy < 99.0f)) {
+					player->hud->HandleNamedEvent("showenergy_20");
+					player->hud->HandleNamedEvent("showenergy_40");
+					player->hud->HandleNamedEvent("showenergy_60");
+					player->hud->HandleNamedEvent("showenergy_80");
+					player->hud->HandleNamedEvent("hideenergy_100");
+				}
+				else if ((player->energy > 99.0f) && (player->energy < 101.0f)) {
+					player->hud->HandleNamedEvent("showenergy_20");
+					player->hud->HandleNamedEvent("showenergy_40");
+					player->hud->HandleNamedEvent("showenergy_60");
+					player->hud->HandleNamedEvent("showenergy_80");
+					player->hud->HandleNamedEvent("showenergy_100");
+				}
+
+				owner->PostEventMS(&EV_Player_SelectWeapon, 1000, "weapon_blaster");
+			}
+			else {
+				SetState("Reload", 4);
 				return SRESULT_DONE;
 			}
+			if (burst < BURST_COUNT) {
+				return SRESULT_WAIT;
+			}
+			fireHeld = false;
+			return SRESULT_STAGE(STAGE_WAIT);
+	
+		case STAGE_WAIT:		
 			if ( AnimDone ( ANIMCHANNEL_ALL, 0 ) ) {
 				SetState ( "Idle", 0 );
 				return SRESULT_DONE;
 			}		
-			if ( UpdateFlashlight ( ) ) {
-				return SRESULT_DONE;
-			}			
+					
 			return SRESULT_WAIT;
 	}
 	return SRESULT_ERROR;

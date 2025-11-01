@@ -7,6 +7,10 @@
 #include "../Projectile.h"
 #include "../ai/AI_Manager.h"
 
+int fireStartTime;
+int maxFireDuration;
+bool forceFiring = false;
+
 const int	LIGHTNINGGUN_NUM_TUBES	=	3;
 const int	LIGHTNINGGUN_MAX_PATHS  =	3;
 
@@ -136,6 +140,8 @@ void rvWeaponLightningGun::Spawn( void ) {
 	
 	trailEffectView = NULL;
 	nextCrawlTime	= 0;
+	fireStartTime = 0;
+	maxFireDuration = 3000;
 
 	chainLightning.Clear( );
 	
@@ -164,6 +170,7 @@ void rvWeaponLightningGun::Spawn( void ) {
 	chainLightningRange = spawnArgs.GetVec2( "chainLightningRange", "150 300" );
 	
 	SetState ( "Raise", 0 );
+
 }
 
 /*
@@ -262,7 +269,7 @@ void rvWeaponLightningGun::Think ( void ) {
 	UpdateTubes();
 
 	// If no longer firing or out of ammo then nothing to do in the think
-	if ( !wsfl.attack || !IsReady() || !AmmoAvailable() ) {
+	if ( (!wsfl.attack && !forceFiring) || !IsReady() || !AmmoAvailable() ) {
 		if ( trailEffectView ) {
 			trailEffectView->Stop ( );
 			trailEffectView = NULL;
@@ -815,6 +822,9 @@ stateResult_t rvWeaponLightningGun::State_Fire( const stateParms_t& parms ) {
 		STAGE_DONE,
 		STAGE_DONEWAIT
 	};	
+
+	idPlayer* player = gameLocal.GetLocalPlayer();
+
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			StartSound( "snd_fire", SND_CHANNEL_WEAPON, 0, false, NULL );
@@ -831,10 +841,65 @@ stateResult_t rvWeaponLightningGun::State_Fire( const stateParms_t& parms ) {
   			}
 
 			PlayAnim( ANIMCHANNEL_ALL, "shoot_start", parms.blendFrames );
+			fireStartTime = gameLocal.time;
+			forceFiring = true;
+
+			cvarSystem->SetCVarFloat("timeScale", 1.0f);
+
+			AddToClip(1000);
+
+			player->energy -= 30.0f;
+
+			if ((player->energy < 19.0f)) {
+				player->hud->HandleNamedEvent("hideenergy_20");
+				player->hud->HandleNamedEvent("hideenergy_40");
+				player->hud->HandleNamedEvent("hideenergy_60");
+				player->hud->HandleNamedEvent("hideenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 19.0f) && (player->energy < 39.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("hideenergy_40");
+				player->hud->HandleNamedEvent("hideenergy_60");
+				player->hud->HandleNamedEvent("hideenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 39.0f) && (player->energy < 59.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("showenergy_40");
+				player->hud->HandleNamedEvent("hideenergy_60");
+				player->hud->HandleNamedEvent("hideenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 59.0f) && (player->energy < 79.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("showenergy_40");
+				player->hud->HandleNamedEvent("showenergy_60");
+				player->hud->HandleNamedEvent("hideenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 79.0f) && (player->energy < 99.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("showenergy_40");
+				player->hud->HandleNamedEvent("showenergy_60");
+				player->hud->HandleNamedEvent("showenergy_80");
+				player->hud->HandleNamedEvent("hideenergy_100");
+			}
+			else if ((player->energy > 99.0f) && (player->energy < 101.0f)) {
+				player->hud->HandleNamedEvent("showenergy_20");
+				player->hud->HandleNamedEvent("showenergy_40");
+				player->hud->HandleNamedEvent("showenergy_60");
+				player->hud->HandleNamedEvent("showenergy_80");
+				player->hud->HandleNamedEvent("showenergy_100");
+			}
+
+			owner->PostEventMS(&EV_Player_SelectWeapon, 500, "weapon_blaster");
+
 			return SRESULT_STAGE( STAGE_ATTACKLOOP );
 		
 		case STAGE_ATTACKLOOP:
-			if ( !wsfl.attack || wsfl.lowerWeapon || !AmmoAvailable ( ) ) {
+			if ( !AmmoAvailable ( ) || (gameLocal.time - fireStartTime) >= maxFireDuration) {
+				forceFiring = false;
 				return SRESULT_STAGE ( STAGE_DONE );
 			}
 			if ( AnimDone( ANIMCHANNEL_ALL, 0 ) ) {
