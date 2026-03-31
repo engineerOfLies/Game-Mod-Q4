@@ -1,0 +1,8 @@
+textures/earthquake_logo
+{
+
+	noMipmaps
+	clamp
+	map textures/earthquake_logo.tga
+
+}

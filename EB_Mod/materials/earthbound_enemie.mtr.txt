@@ -1,0 +1,152 @@
+textures/earthbound/star
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/starman.tga
+	
+	}
+
+}
+
+textures/earthbound/foppy
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/foppy.tga
+	
+	}
+
+}
+
+textures/earthbound/ghost_of_starman
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/ghost_of_starman.tga
+	
+	}
+
+}
+
+textures/earthbound/mad_taxi
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/mad_taxi.tga
+	
+	}
+
+}
+
+textures/earthbound/territorial_oak
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/territorial_oak.tga
+	
+	}
+
+}
+
+textures/earthbound/smilin_sphere
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/smilin_sphere.tga
+	
+	}
+
+}
+
+textures/earthbound/new_age_retro_hippie
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/new_age_retro_hippie.tga
+	
+	}
+
+}
+
+textures/earthbound/runaway_dog
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/runaway_dog.tga
+	
+	}
+
+}
+
+textures/earthbound/ramblin_evil_mushroom
+{
+	noShadows
+	noSelfShadow
+	noImpact
+	nopicmip
+	clamp
+	deformSprite
+	
+	{
+		blend blend
+		map		textures/earthbound/ramblin_evil_mushroom.tga
+	
+	}
+
+}
